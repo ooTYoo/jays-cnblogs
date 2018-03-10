@@ -7,7 +7,7 @@
 
 　　relocatable文件，即可重定向文件，这个文件是由编译器汇编源文件（.c/.s）而成的。直接生成的重定向文件叫object file，经过封装的重定向文件称为library file。可重定向文件属于ELF文件的分支，关于ELF文件的详细解释可见第六节课[executable文件]()。  
 　　本文主角object file和library file，仅是一个中间的过渡文件，其本身也不能被ARM直接执行，需经过第二步转换，即链接，所以这两个文件都是链接器的输入文件。让我们来简单分析一下这两个文件。在开始分析之前我们先回到上一节课[project文件]()的最后创建的demo工程上，编译这个demo工程可以得到如下.o文件，这些文件全是object文件，每一个源文件都对应一个object文件，本文以task.o为例讲解relocatable文件。  
-```C
+```text
 D:\myProject\bsp\builds\demo\Release\Obj\main.o
 D:\myProject\bsp\builds\demo\Release\Obj\reset.o
 D:\myProject\bsp\builds\demo\Release\Obj\startup.o
@@ -20,7 +20,7 @@ D:\myProject\bsp\builds\demo\Release\Obj\task.o -o
 　　task.o文件大小有11683bytes，而从源文件里看其仅包含4个变量和3个函数，可见更多的数据是记录性数据。  
 
 #### 1.1 获得file header
-```C
+```text
 c:\cygwin64\bin>x86_64-w64-mingw32-readelf.exe -h task.o
 ELF Header:
   Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
@@ -46,7 +46,7 @@ ELF Header:
 　　分析file header可知task.o是REL类型ELF文件，其一共含有85个section header，没有program header。  
 
 #### 1.2 获得section header
-```C
+```text
 c:\cygwin64\bin>x86_64-w64-mingw32-readelf.exe -S task.o
 There are 85 section headers, starting at offset 0x205b:
 
@@ -71,7 +71,7 @@ Key to Flags:
 　　分析section header可知该task.o里的各个常见section（.bss, .noinit, .data, .text, .textrw）的大小，各个段的含义详见第二节课[linker文件]()。  
 
 #### 1.3 获得symbol list
-```C
+```text
 c:\cygwin64\bin>x86_64-w64-mingw32-readelf.exe -s task.o
 
 Symbol table '.symtab' contains 53 entries:

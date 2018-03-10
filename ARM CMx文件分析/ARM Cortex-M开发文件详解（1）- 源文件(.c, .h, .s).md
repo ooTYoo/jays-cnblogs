@@ -9,7 +9,7 @@
 　　第一类文件由C标准委员会提供，该类文件伴随着标准的发布而逐渐壮大。该类文件主要就是一种，即C标准库。  
 **1. C standard Library**  
 　　大家都知道C语言是有标准的，常见的C标准有ANSI C（C89）、C99、C11，而C标准函数库（C Standard library）就是所有符合C标准的头文件的集合，以及常用的函数库实现程序。C标准库由Committee制订发布，通常会被包含在IDE里。列举一些常见文件和函数如下，是不是觉得似曾相识？  
-```C
+```text
 /* 常用文件 */ assert.h，stdio.h，stddef.h，stdint.h，string.h ...
 /* 常用定义 */ bool，NULL，uint8_t，uint16_t，uint32_t...
 /* 常用函数 */ assert()，printf()，memset()，memcpy()...
@@ -22,20 +22,20 @@
 　　编译器函数库是因IDE而异的，此处仅讲一个例子以供参考，需要了解更多需查看各IDE手册。  
 　　以IAR EWARM里的DLib\_Product\_string.h文件为例，该文件中重定义了memcpy的实现:  
 ```C
-  #define _DLIB_STRING_SKIP_INLINE_MEMCPY
-  #pragma inline=forced_no_body
-  __EFF_NENR1NW2R1 __ATTRIBUTES void * memcpy(void * _D, const void * _S, size_t _N)
-  {
-    __aeabi_memcpy(_D, _S, _N);
-    return _D;
-  }
+#define _DLIB_STRING_SKIP_INLINE_MEMCPY
+#pragma inline=forced_no_body
+__EFF_NENR1NW2R1 __ATTRIBUTES void * memcpy(void * _D, const void * _S, size_t _N)
+{
+  __aeabi_memcpy(_D, _S, _N);
+  return _D;
+}
 ```
 
 ### 第三类：Provided by ARM
 　　第三类文件由ARM提供，嵌入式程序的执行靠的是控制器内核（此处指的内核便是ARM内核），ARM公司在设计内核时，提供了一些内核模块的接口，开发者可以通过这些接口访问内核资源，CMSIS header里就是这些内核模块资源的接口。  
 **3. CMSIS header**  
 　　完整的CMSIS header目录应该是下面这个样子，而必须要关注的只有\CMSIS\Include下面的core_cmx.h文件  
-```C
+```text
 \CMSIS
      \Core      
      \DAP            /* ARM debugger实现 */
@@ -86,7 +86,7 @@ typedef struct {
 #define WWDT0_BASE                    (0x5000E000u)
 ```
 **5. startup\_device.s**：芯片中断向量表文件，主要包含中断向量表定义（DCD xx_Handler） ，以及各中断服务程序的弱定义（PUBWEAK）。 Note：该文件因编译器而异。  
-```C
+```text
 ;;基于IAR的startup_device.s文件
         MODULE  ?cstartup
         ;; Forward declaration of sections.
@@ -135,7 +135,7 @@ void WWDT_Refresh(WWDT_Type *base);
 ### 第五类：Created by Developer
 　　第五类文件是开发者自己创建，用于实现开发者自己的嵌入式应用，分为应用系统启动文件，应用系统初始化文件，应用文件。其中应用系统启动和初始化文件属于main函数之前的文件，一般可以通用，大部分开发者并不关心其具体内容，但是了解其过程可以加深对嵌入式系统结构的理解。  
 **8. reset.s**： 应用系统复位启动文件，了解ARM原理的都知道，image前8个字节数据分别是芯片上电的初始SP, PC，其中PC指向的便是本文件里的Reset_Handler，这是芯片执行的第一个函数入口，该函数主要用于完成应用系统初始化工作，包含应用中断向量表重定向、调用芯片系统初始化、ARM系统寄存器rx清零、初始化应用程序各数据段、初始化ARM系统中断、跳转main函数。  
-```C
+```text
 // 一段经典的startup code
         SECTION .noinit : CODE
         THUMB

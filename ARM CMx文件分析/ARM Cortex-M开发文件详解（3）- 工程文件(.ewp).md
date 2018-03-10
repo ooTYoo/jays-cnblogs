@@ -19,7 +19,7 @@
 
 #### 1.2 IDE文件类型
 　　既然IDE有很多组件，那么同时也会存在不同类型的文件以存储这些组件的所需要的信息。IAR里支持的文件扩展类型非常多，痞子衡在这里仅列举你所创建的工程根目录下的与工程同名的扩展文件，相信你一定会觉得眼熟。  
-```C
+```text
 .eww           // Workspace file
 .ewp           // IAR Embedded Workbench project
 .ewd           // Project settings for C-SPY
@@ -39,13 +39,13 @@
 #include "file.h"           // 引用当前工程下的头文件（project路径）
 ```
 　　所以在ewp文件里会包含路径信息，所有路径都应该列在Options->C/C++ Compiler->Preprocessor下有Additional include directories里，这个路径既可以是当前PC的绝对路径，也可以是以ewp文件为基准的相对路径，为了保证工程可以在任意PC任意位置下正常编译，推荐使用如下相对路径方式列出所有路径：  
-```C
+```text
 ewp当前路径：$PROJ_DIR$/
 ewp下级路径：$PROJ_DIR$/xxFolder/
 ewp上级路径：$PROJ_DIR$/../
 ```
 　　说到路径问题，痞子衡在这里顺便给大家介绍一种经典的嵌入式工程文件目录组织方式：  
-```C
+```text
 \projectDir
            \doc                            --放置工程文档
 
@@ -68,7 +68,7 @@ ewp上级路径：$PROJ_DIR$/../
 
 #### 2.2 全局宏定义
 　　经常使用条件编译的朋友肯定知道workspace文件与project文件的关系，一个项目通常只会有一个eww文件，但却可能会有多个ewp文件，这是因为源代码里常常会有条件编译，我们有时候会给项目不同的配置从而编译出不同的结果（速度优先/面积优先，特性控制...），这些配置就是由全局宏定义来实现的，打开Options->C/C++ Compiler->Preprocessor下的Defined symbols，在框内写入你需要定义的全局宏：  
-```C
+```text
 MACRO1            // 等价于源文件里的#define MACRO1 (1)
 MACRO2=2          // 等价于源文件里的#define MACRO2 (2)
 ```
@@ -165,7 +165,7 @@ MACRO2=2          // 等价于源文件里的#define MACRO2 (2)
 ### 三、创建demo工程
 　　为方便后续课程的进行，本节课在最后顺便创建一个demo工程，以下是demo工程的信息：  
 
-```C
+```text
 IDE:        IAR EWARM v8.11.2
 Device:     NXP MKL25Z128VLH4
 project layout:   
@@ -183,7 +183,9 @@ project layout:
     \D\myProject\src\application\main.c
     \D\myProject\src\application\task.c
     \D\myProject\src\application\task.h
+```
 
+```c
 // main.c
 //////////////////////////////////////////////////////////
 #include "task.h"

@@ -24,7 +24,7 @@
 > elf.h路径：\linux\include\uapi\linux\elf.h  
 
 　　打开elf.h文件便可找到三个表的原型定义，鉴于目前的ARM Cortex-M都是32bit，所以此处仅列出32bit下的表的原型：Elf32\_Ehdr、Elf32\_Phdr、Elf32\_Shdr。  
-```C
+```c
 // file header
 #define EI_NIDENT    16
 typedef struct elf32_hdr{
@@ -93,7 +93,7 @@ typedef struct elf32_shdr {
 > Installer：http://cygwin.com/install.html  
 > Package：https://cygwin.com/packages/package_list.html  
 
-```C
+```text
 // 相关工具包
 binutils                - GNU assembler, linker, and similar utilities
 cygwin32-binutils       - Binutils for Cygwin 32bit toolchain
@@ -105,7 +105,7 @@ mingw64-i686-binutils   - Binutils for MinGW-w64 Win32 toolchain
 
 ##### 2.1.3 readelf.exe用法
 　　readelf.exe遵循标准的windows命令行用法，使用--help可以列出所有命令option及其简介，下面仅列出比较常用的option。  
-```C
+```text
 C:\cygwin64\bin>x86_64-w64-mingw32-readelf.exe --help
 Usage: readelf <option(s)> elf-file(s)
  Display information about the contents of ELF format files
@@ -133,7 +133,7 @@ Usage: readelf <option(s)> elf-file(s)
 　　万事俱备了，开始分析elf文件，以第三节课[project文件]()里demo工程为例。编译链接该工程可在D:\myProject\bsp\builds\demo\Release\Exe路径下得到demo.elf文件。该文件大小32612 bytes，显然这么精简的一个小工程image size不可能这么大，说明elf文件里的记录信息数据占比非常大。  
 
 ##### 2.2.1 获得file header
-```C
+```text
 C:\cygwin64\bin>x86_64-w64-mingw32-readelf.exe -h demo.elf
 ELF Header:
   Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
@@ -157,7 +157,7 @@ ELF Header:
   Section header string table index: 1
 ```
 　　第一步首先分析file header，前面介绍里说过file header是放在文件最前面的。通过readelf -h命令可以获得file header解析后的信息。让我们来对照一下，使用HexEditor直接打开demo.elf可得到如下数据，仅取前52bytes（0x34）数据，因为Elf32_Ehdr大小就是52bytes：  
-```C
+```text
 offset(h)
 00000000: 7F 45 4C 46 01 01 01 00 00 00 00 00 00 00 00 00
 00000010: 02 00 28 00 01 00 00 00 41 00 00 00 FC 7B 00 00
@@ -167,7 +167,7 @@ offset(h)
 　　可以看到前16byte是e\_ident[16]，与解析后的Magic是一致的；再来验证prgram header偏移e_phoff=0x00007BFC，数量e\_phnum=0x0001，大小e\_phentsize=0x0020，也是与解析后的信息匹配的；余下可自行对照。  
 
 ##### 2.2.2 获得program header
-```C
+```text
 C:\cygwin64\bin>x86_64-w64-mingw32-readelf.exe -l demo.elf
 
 Elf file type is EXEC (Executable file)
@@ -183,14 +183,14 @@ Program Headers:
    00     A0 rw P1 ro
 ```
 　　再来分析program header，通过readelf -l命令可以获得program header解析后的信息。从上面可以得知header起始位置在demo.elf的31740 byte处（与file header里的e\_phoff信息是对应的），header信息提示program data从offset 0x34开始，大小共0x4c4 bytes，Reset\_Handler入口是0x41。继续在HexEditor查看31740处开始的32byte数据，因为Elf32\_Phdr大小就是32bytes：  
-```C
+```text
 offset(h)
 00007BF0: -- -- -- -- -- -- -- -- -- -- -- -- 01 00 00 00
 00007C00: 34 00 00 00 00 00 00 00 00 00 00 00 C4 04 00 00
 00007C10: C4 04 00 00 05 00 00 00 00 01 00 00 -- -- -- --
 ```
 　　可以看到p\_offset=0x00000034，p\_memsz=0x000004c4, 与上面解析后的信息是一致的；余下可自行对照。 这里的信息就比较重要了，因为这指示了整个image binary数据所在（知道了这个信息，我们便可以直接写脚本根据elf文件生成image binary），继续在HexEditor里看下去（仅截取部分显示）：  
-```C
+```text
 offset(h)
 00000030: -- -- -- -- 00 20 00 10 41 00 00 00 03 04 00 00
 00000040: 3F 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00
@@ -202,7 +202,7 @@ offset(h)
 　　ARM系统的image前16个指针都是系统中断向量，我们可以看到SP=0x10002000, PC=0x00000041，这与上面解析的Reset_Handler入口是0x41是匹配的。  
 
 ##### 2.2.3 获得section header
-```C
+```text
 c:\cygwin64\bin>x86_64-w64-mingw32-readelf.exe -S demo.elf
 There are 21 section headers, starting at offset 0x7c1c:
 
@@ -238,7 +238,7 @@ Key to Flags:
 　　再来分析section header，通过readelf -S命令可以获得section header解析后的信息。可以看到有很多个section，其中最重要的4个section是A0(readonly vector)， P1(readonly code,data)， P2(readwrite data, heap)， P3(STACK)。具体分析，各位朋友自己试试看。  
 
 ##### 2.2.4 获得symbol list
-```C
+```text
 c:cygwin64\bin>x86_64-w64-mingw32-readelf.exe -s demo.elf
 
 Symbol table '.symtab' contains 198 entries:
@@ -324,7 +324,7 @@ Symbol table '.symtab' contains 198 entries:
 ### 番外一、几个elf转换image工具
 　　在今天的番外篇里，痞子衡给大家顺便介绍几款标准的elf文件转换成image文件的工具。  
 #### 工具1：GNU工具objcopy
-```C
+```text
 位置：C:\cygwin64\bin>x86_64-w64-mingw32-objcopy.exe
 用法：
       objcopy.exe -O binary -S demo.elf demo.bin
@@ -334,7 +334,7 @@ Symbol table '.symtab' contains 198 entries:
 ```
 
 #### 工具2：IAR工具ielftool.exe
-```C
+```text
 位置：\IAR Systems\Embedded Workbench xxx\arm\bin\ielftool.exe
 用法：
       ielftool.exe --bin  demo.elf demo.bin

@@ -131,7 +131,7 @@
 > 开源的JTAG BSDL库网站（http://bsdl.info/），涵盖主流厂商的主流芯片的BSDL文件  
 
 　　痞子衡随便找一款芯片的BSDL文件（Freescale K60_1M（K24_144QFP））简单分析下：  
-```C
+```nohighlight
 entity k60_1m is
      generic (PHYSICAL_PIN_MAP : string := "K24_144qfp");
 -- 此处描述芯片所有引脚属性

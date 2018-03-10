@@ -28,7 +28,7 @@ normal_task:
 //   21 
 ```
 　　task.s文件最后还会给出文件里的object在各section中的总size情况。  
-```C
+```text
 // 20 bytes in section .bss
 //  4 bytes in section .data
 //  4 bytes in section .noinit
@@ -108,7 +108,7 @@ normal_task:
 
 ### 四、使用ielfdumparm.exe生成dump文件
 　　dump文件默认是不生成的，但是IAR里提供了工具可以帮我们生成dump文件，这个工具叫ielfdumparm.exe。
-```C
+```text
 位置：\IAR Systems\Embedded Workbench xxx\arm\bin\ielfdumparm.exe
 用法：ielfdumparm.exe --source --code demo.elf -o demo.dump
 ```  
