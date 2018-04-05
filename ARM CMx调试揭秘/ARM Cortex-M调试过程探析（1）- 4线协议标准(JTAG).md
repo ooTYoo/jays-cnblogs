@@ -30,7 +30,7 @@
 
 <table><tbody>
     <tr>
-        <td><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/jtag-registers-cn.jpg" style="zoom:30%" /></td>
+        <td><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/jtag-registers-cn.jpg" style="zoom:35%" /></td>
         <td><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/schematic_diagram_jtag_enab-cn.gif" style="zoom:45%" /></td>
     </tr>
 </table> 
