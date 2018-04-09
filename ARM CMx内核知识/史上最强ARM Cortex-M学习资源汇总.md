@@ -1,15 +1,21 @@
 ----
 　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**ARM Cortex-M学习资源**。  
 
-### 概念科普类
-
 <table><tbody>
     <tr>
+        <th style="width: 120px;">类别</th>
         <th style="width: 320px;">资源</th>
         <th style="width: 80px;">版本</th>
         <th style="width: 600px;">短评</th>
     </tr>
     <tr>
+        <td rowspan="1">官方汇总</td>
+        <td><a href="https://community.arm.com/processors/b/blog/posts/cortex-m-resources">cortex-m-resources</a></td>
+        <td>/</td>
+        <td>ARM公司专家Joseph Yiu收集整理的所有对开发者有用的官方Cortex-M资料链接（也包含极少数外部资源链接）</td>
+    </tr>
+    <tr>
+        <td rowspan="3">概念科普</td>
         <td><a href="https://www.arm.com/products/processors/cortex-m">Cortex-M ARM官方主页</a></td>
         <td>/</td>
         <td>最权威的Cortex-M资源来源，最新的Cortex-M技术应该从这里去找</td>
@@ -26,17 +32,8 @@
 		    2017 March</td>
         <td>ARM公司专家Joseph Yiu写的白皮书，可以说一篇文章让你看懂Cortex-M0/M0+/M1/M3/M4/M7/M23/M33差异</td>
     </tr>
-</table>
-
-### 内核手册类
-
-<table><tbody>
     <tr>
-        <th style="width: 320px;">资源</th>
-        <th style="width: 80px;">版本</th>
-        <th style="width: 600px;">短评</th>
-    </tr>
-    <tr>
+        <td rowspan="4">内核手册</td>
         <td><a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.subset.architecture.reference/index.html">ARMv6/v7/v8-M Architecture Reference Manual</a></td>
         <td>/</td>
         <td>ARM Cortex-M内核架构参考手册，还有比这个更权威的资料么？</td>
@@ -56,17 +53,8 @@
         <td>/</td>
         <td>EMBEST英蓓特科技整理的一本ARM汇编手册</td>
     </tr>
-</table>
-
-### 教程书籍类
-
-<table><tbody>
     <tr>
-        <th style="width: 320px;">资源</th>
-        <th style="width: 80px;">版本</th>
-        <th style="width: 600px;">短评</th>
-    </tr>
-    <tr>
+        <td rowspan="1">教程书籍</td>
         <td>《ARM Cortex-M3权威指南》<br>
 		    《ARM Cortex-M0权威指南》<br>
 			《ARM Cortex-M3与Cortex-M4权威指南》</td>
@@ -75,17 +63,8 @@
 			第三版</td>
         <td>ARM公司专家Joseph Yiu（姚文祥）的力作，中文翻译是NXP的宋岩</td>
     </tr>
-</table>
-
-### 软件资源类
-
-<table><tbody>
     <tr>
-        <th style="width: 320px;">资源</th>
-        <th style="width: 80px;">版本</th>
-        <th style="width: 600px;">短评</th>
-    </tr>
-    <tr>
+        <td rowspan="3">软件资源</td>
         <td><a href="https://github.com/ARM-software">Arm Software github主页</a></td>
 		<td>/</td>
         <td>汇集所有ARM官方开源软件项目，比如最著名的CMSIS</td>
@@ -103,32 +82,14 @@
 		    2018.02.22</td>
         <td>ARM官方Cortex软件标准包，学习Cortex离不开的基础软件包</td>
     </tr>
-</table>
-
-### 开发工具类
-
-<table><tbody>
     <tr>
-        <th style="width: 320px;">资源</th>
-        <th style="width: 80px;">版本</th>
-        <th style="width: 600px;">短评</th>
-    </tr>
-    <tr>
+        <td rowspan="1">开发工具</td>
         <td><a href="https://en.wikipedia.org/wiki/List_of_ARM_Cortex-M_development_tools">List of ARM Cortex-M development tools</a></td>
         <td>/</td>
         <td>又见Wikipedia，是的，专业的网站永远干专业的事</td>
     </tr>
-</table>
-
-### 开发论坛类
-
-<table><tbody>
     <tr>
-        <th style="width: 320px;">资源</th>
-        <th style="width: 80px;">版本</th>
-        <th style="width: 600px;">短评</th>
-    </tr>
-    <tr>
+        <td rowspan="4">开发论坛</td>
         <td><a href="http://www.openedv.com/">开源电子网OpenEdv</a></td>
         <td>/</td>
         <td>国内STM32开发板教父-正点原子主持的论坛，其STM32系列帖子有50W+</td>
@@ -148,17 +109,8 @@
         <td>/</td>
         <td>阿莫（莫进明）主持的论坛，号称国内最早最火的电子论坛，以交流Atmel AVR系列单片机起家，现已拓展到嵌入式全平台，其STM32系列帖子有70W+。坛子里有很多牛人：马潮、cowboy、傻孩子...</td>
     </tr>
-</table>
-
-### 博客专家类
-
-<table><tbody>
     <tr>
-        <th style="width: 320px;">资源</th>
-        <th style="width: 80px;">版本</th>
-        <th style="width: 600px;">短评</th>
-    </tr>
-    <tr>
+        <td rowspan="1">博客专家</td>
         <td><a href="http://blog.chinaaet.com/jihceng0622">jicheng0622的博客</a></td>
         <td>/</td>
         <td>中文Kinetis最强博客，博主是原Freescale现NXP的现场应用工程师</td>
