@@ -24,7 +24,7 @@
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/gittest%20-%20file%20status.PNG" style="zoom:85%" />  
 
-### 正文十二篇
+### 正文十二篇（持续更新中...）
 　　知道了2个Git重要概念，我们便可以开始Git的命令学习，痞子衡课程使用的Git版本是2.16.2，共十二节课，Enjoy it！  
 
 > [第一本Git命令教程（1）- 准备(init/config/gitignore)](http://www.cnblogs.com/henjay724/p/8525512.html)
