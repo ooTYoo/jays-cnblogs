@@ -21,48 +21,12 @@
 　
 ### 2. Cortex-M处理器的性能对比
 
-　　ARM公司提供了Cortex-M系列处理器的官方性能对比数据，包括Dhrystone和CoreMark标准，详见下图：
+　　ARM公司提供了Cortex-M系列处理器的官方性能对比柱状图：  
 
-![cortex-m7](http://odox9r8vg.bkt.clouddn.com/image/csdn_blog/Cortex-M-performance-graph2.jpg)
+![性能指标柱状图](http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Cortex-M-performance-graph3.PNG)
 
-　　关于各处理器具体指标数值如下：
-
-<table><tbody>
-    <tr>
-        <th rowspan="2">CoreType</th>
-        <th>Dhrystone</th>
-        <th>CoreMark</th>
-    </tr>
-    <tr>
-        <td><font color="DarkGray" size=2>(DMIPS/MHz)</td>
-        <td><font color="DarkGray" size=2>(CoreMark/MHz)</td>
-    </tr>
-    <tr>
-        <td>Cortex-M0</td>
-        <td>0.84</td>
-        <td>2.33</td>
-    </tr>
-    <tr>
-        <td>Cortex-M0+</td>
-        <td>0.94</td>
-        <td>2.42</td>
-    </tr>
-    <tr>
-        <td>Cortex-M3</td>
-        <td>1.25</td>
-        <td>3.32</td>
-    </tr>
-    <tr>
-        <td>Cortex-M4</td>
-        <td>1.25</td>
-        <td>3.40</td>
-    </tr>
-    <tr>
-        <td>Cortex-M7</td>
-        <td><font color="Green" size=4>2.14</td>
-        <td><font color="Green" size=4>5.04</td>
-    </tr>
-</table> 
+　　关于各处理器具体指标数值如下：  
+![性能指标具体值](http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Cortex-M-performance-table.PNG)
 
 **参考资料**：
 

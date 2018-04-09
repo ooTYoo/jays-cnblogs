@@ -1,5 +1,5 @@
 ----
-　　ARM Cortex-M处理器家族发展至今(2016)，已有5代产品，分别是CM0/CM0+、CM1、CM3、CM4、CM7，关于其发展历史可参考我的另外两篇博客：[ARM内核体系架构编年史(精简版)](http://www.cnblogs.com/henjay724/p/8408775.html)、[扒一扒ARM Cortex-M各版本的第一款MCU](http://www.cnblogs.com/henjay724/p/8408825.html)。
+　　ARM Cortex-M处理器家族发展至今(2016)，已有5代产品，分别是CM0/CM0+、CM1、CM3、CM4、CM7。
 
 ### 1.Cortex-M兼容特性
 
