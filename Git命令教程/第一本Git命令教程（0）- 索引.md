@@ -33,8 +33,11 @@
 > [第一本Git命令教程（4）- 转移(add/rm/mv)](http://www.cnblogs.com/henjay724/p/8541981.html)  
 > [第一本Git命令教程（5）- 提交(commit/format-patch/am)](http://www.cnblogs.com/henjay724/p/8543292.html)  
 > [第一本Git命令教程（6）- 日志(log/reflog/gitk)](http://www.cnblogs.com/henjay724/p/8593034.html)  
+> [第一本Git命令教程（7.1）- 清理之缓存(stash)](http://www.cnblogs.com/henjay724/p/8861484.html)  
 
-> [第一本Git命令教程（7）- 清理(revert/reset/stash/clean)](http://www.cnblogs.com/henjay724/p/8525497.html)  
+> [第一本Git命令教程（7.2）- 清理之清除(clean)](http://www.cnblogs.com/henjay724/p/8525497.html)  
+> [第一本Git命令教程（7.3）- 清理之复位(reset)](http://www.cnblogs.com/henjay724/p/8525497.html)  
+> [第一本Git命令教程（7.4）- 清理之撤销(revert)](http://www.cnblogs.com/henjay724/p/8525497.html)  
 > [第一本Git命令教程（8）- 分支(branch/checkout)](http://www.cnblogs.com/henjay724/p/8525497.html)  
 > [第一本Git命令教程（9）- 更新(pull/fetch)](http://www.cnblogs.com/henjay724/p/8525497.html)  
 > [第一本Git命令教程（10）- 整合(cherry-pick/merge/rebase)](http://www.cnblogs.com/henjay724/p/8525497.html)  

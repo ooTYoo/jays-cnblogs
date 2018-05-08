@@ -1,7 +1,7 @@
 ----
 　　今天是Git系列课程第二课，上一课我们已经学会在本地创建一个空仓库，痞子衡今天要讲的是如何将本地仓库与远程建立联系。  
 
-#### 1.将本地仓库挂上远程git remote
+### 1.将本地仓库挂上远程git remote
 　　本地建好了仓库，我们希望能够挂到远程服务器上，方便与其他人共享。目前最流行的远程Git服务器当然是github，此时你需要在github上注册账户并在线创建一个仓库，此处我们输入仓库名为gittest  
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/gittest%20-%20create.PNG" style="zoom:70%" />  
 　　点击"Create repository"之后便弹出如下画面，最重要的是我们可以得到一个远程仓库的地址：git@github.com:JayHeng/gittest.git。  
@@ -74,7 +74,7 @@
 
 　　好了，大功告成，此时我们已经成功将本地与远程建立了联系，本地分支叫master，对应的远程分支是origin。  
 
-#### 2.克隆远程仓库到本地git clone
+### 2.克隆远程仓库到本地git clone
 　　Git是可以远程协作的，这意味着任何人建立的共享远程仓库都可以被复制到任何机器上，只需要知道远程仓库地址即可。  
 > // 将远程repo克隆到本地
 > jay@pc MINGW64 /d/my_project
