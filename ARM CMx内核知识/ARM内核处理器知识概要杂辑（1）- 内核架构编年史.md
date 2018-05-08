@@ -1,5 +1,7 @@
 ----
-　　众所周知，ARM公司是一家微处理器行业的知名企业，ARM公司本身并不靠自有的设计来制造或出售CPU，而是将处理器架构授权给有兴趣的厂家。这些厂家基本涵盖了全球领先的知名半导体企业、软件和OEM厂商：TI, NXP, ST, Infineon, ADI, Cypress；Atollic，IAR system，FreeRTOS，SEGGER等。
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**ARM内核架构历史**。  
+
+　　众所周知，ARM公司是一家微处理器行业的知名企业，ARM公司本身并不靠自有的设计来制造或出售CPU，而是将处理器架构授权给有兴趣的厂家。这些厂家基本涵盖了全球领先的知名半导体企业、软件和OEM厂商：TI, NXP, ST, Infineon, ADI, Cypress；Atollic，IAR system，FreeRTOS，SEGGER等。  
 
 ### 1.ARM内核体系架构历史
 
