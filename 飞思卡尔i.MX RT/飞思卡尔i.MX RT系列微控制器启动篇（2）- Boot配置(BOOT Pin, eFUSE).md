@@ -25,7 +25,7 @@
 
 ##### 1.2.1 Serial Downloader模式
 　　Serial Downloader模式顾名思义即串行下载模式，在这种模式下，BootROM通过指定的USB或者UART口来接收来自Host（恩智浦提供了上位机工具sdphost.exe或者mfgtool）的Application数据，并将数据存储在SRAM中执行，这种模式其实就是从SRAM启动，但是如果用这种模式去Boot Application缺点很明显，每次上电都需要将Application重新下载进SRAM，无法做到脱机自动Boot，所以显然这种模式的主要目的并不是从SRAM启动Application，那它到底有什么用？  
-　　其实Serial Downloader模式主要是用来从SRAM中启动Flashloader，恩智浦官方提供了Flashloader程序，Flashloader程序可以用来将你的Application下载进i.MXRT支持的所有外部非易失性存储器中，为后续从外部存储器启动做准备。除此以外Serial Downloader模式还可以用来烧写Fuse。  
+　　其实Serial Downloader模式主要是用来从SRAM中启动Flashloader，恩智浦官方提供了Flashloader程序，Flashloader程序可以用来将你的Application下载进i.MXRT支持的所有外部非易失性存储器中，为后续从外部存储器启动做准备。除此以外Serial Downloader模式还可以用来查看Fuse值。  
 　　关于Serial Downloader模式以及Flashloader具体如何应用，痞子衡会在下一篇文章里进一步介绍。  
 
 ##### 1.2.2 Boot From Fuses模式

@@ -15,8 +15,8 @@
 > [飞思卡尔i.MX RT系列微控制器介绍篇（4）- RT105x选型](https://www.cnblogs.com/henjay724/p/9073887.html)  
 > [飞思卡尔i.MX RT系列微控制器启动篇（1）- Boot简介](http://www.cnblogs.com/henjay724/p/9031655.html)  
 > [飞思卡尔i.MX RT系列微控制器启动篇（2）- Boot配置(BOOT Pin/eFUSE)](http://www.cnblogs.com/henjay724/p/9034563.html)  
+> [飞思卡尔i.MX RT系列微控制器启动篇（3）- Serial Downloader模式(sdphost/mfgtool)](https://www.cnblogs.com/henjay724/p/9096222.html)  
 
-> [飞思卡尔i.MX RT系列微控制器启动篇（3）- Serial Downloader模式(sdphost, mfgtool)]()  
 > [飞思卡尔i.MX RT系列微控制器启动篇（4）- Flashloader初体验(blhost, elftosb, mfgtool)]()  
 > [飞思卡尔i.MX RT系列微控制器启动篇（5）- 再聊eFUSE]()  
 > [飞思卡尔i.MX RT系列微控制器启动篇（6）- 从Raw NAND启动]()  
