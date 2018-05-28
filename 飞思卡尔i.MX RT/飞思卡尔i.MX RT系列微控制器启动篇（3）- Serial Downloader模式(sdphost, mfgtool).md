@@ -60,61 +60,75 @@
 
 #### 2.2 sdphost用法
 　　sdphost.exe是命令行工具，使用sdphost既可以通过UART口也可以通过USB口与BootROM进行通信与命令交互。  
-　　在命令行下打开sdphost.exe，输入-?命令可以看到sdphost使用帮助，下面痞子衡把核心的7条命令整理如下：  
+　　在命令行下打开sdphost.exe，输入-?命令可以看到sdphost使用帮助，一共7条命令：  
 
-<table><tbody>
-    <tr>
-        <th style="width: 100px;">工具</th>
-        <th style="width: 250px;">接口格式</th>
-        <th style="width: 450px;">命令格式</th>
-        <th style="width: 300px;">命令解释</th>
-    </tr>
-    <tr>
-        <td rowspan="7">sdphost</td>
-        <td rowspan="7">[-p|--port < name>[,< speed>]]<br>
-		                [-u|--usb [[[< vid>,]< pid>]]]</td>
-        <td> -- read-register < addr> [< format> [< count> [< file>]]]</td>
-        <td>读指定AIPS外设寄存器值</td>
-    </tr>
-    <tr>
-        <td> -- write-register < addr> < format> < data></td>
-        <td>写值进指定AIPS外设寄存器</td>
-    </tr>
-    <tr>
-        <td> -- write-file < addr> < file> [< count>]</td>
-        <td>写image文件数据进指定SRAM地址</td>
-    </tr>
-    <tr>
-        <td> -- error-status</td>
-        <td>返回上条命令的执行状态</td>
-    </tr>
-    <tr>
-        <td> -- dcd-write < addr> < file></td>
-        <td>写DCD table进指定SRAM地址</td>
-    </tr>
-    <tr>
-        <td> -- skip-dcd-header</td>
-        <td>忽略image文件中的DCD table</td>
-    </tr>
-    <tr>
-        <td> -- jump-address < addr></td>
-        <td>跳转执行含IVT头的image</td>
-    </tr>
-</table>
+```text
+PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\sdphost\win> .\sdphost.exe -?
+usage: C:\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\sdphost\win\sdphost.exe
+                       [-?|--help]
+                       [-p|--port <name>[,<speed>]]
+                       [-u|--usb [[[<vid>,]<pid>]]]
+                       [-t|--timeout <ms>]
+                       -- command <args...>
+
+Options:
+  -?/--help                    Show this help
+  -p/--port <name>[,<speed>]   Connect to target over UART. Specify COM port
+                               and optionally baud rate
+                                 (default=COM1,115200)
+                                 If -b, then port is BusPal port
+  -u/--usb [[[<vid>,]<pid>] | [<path>]]
+                               Connect to target over USB HID device denoted by
+                               vid/pid (default=0x15a2,0x0083) or device path
+  -t/--timeout <ms>            Set packet timeout in milliseconds
+                                 (default=5000)
+Commands:
+  // 读指定AIPS外设寄存器值
+  read-register <addr> [<format> [<count> [<file>]]]
+                               Read one or more registers at address.
+                               Format must be 8, 16, or 32;
+                                 default format is 32.
+                               Count is number of bytes to read;
+                                 default count is sizeof format
+                                 (i.e. one register).
+                               Output file is binary;
+                                 default is hex display on stdout.
+  // 写值进指定AIPS外设寄存器
+  write-register <addr> <format> <data>
+                               Write one register at address.
+                               Format must be 8, 16, or 32.
+                               Data is data value to write.
+  // 写image文件数据进指定SRAM地址
+  write-file <addr> <file> [<count>]
+                               Write file at address.
+                               Count is size of data to write in bytes;
+                                 size of file will be used by default.
+  // 返回上条命令的执行状态
+  error-status                 Read error status of last command.
+  // 写DCD table进指定SRAM地址
+  dcd-write <addr> <file>      Send DCD table from file.
+                                 <addr> must point to a valid
+                                   temporary storage area.
+  // 忽略image文件中的DCD table
+  skip-dcd-header              Ignore DCD table in image.
+  // 跳转执行含IVT头的image
+  jump-address <addr>          Jump to entry point of image
+                                   with IVT at specified address.
+```
 
 　　当使用串口转USB模块连接i.MXRT的LPUART1或者使用USB Cable连接上USB_OTG1口后可以看到PC设备管理器会识别出相关设备：  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_sdp_device_manager.PNG" style="zoom:100%" />
 
 　　让我们尝试一下使用sdphost与BootROM通信，先试一下USB通信:  
-> PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT10501050_1.1\Tools\sdphost\win> <font style="font-weight:bold;" color="Blue">.\sdphost.exe -u 0x1fc9,0x0130 -- error-status</font>
+> PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\sdphost\win> <font style="font-weight:bold;" color="Blue">.\sdphost.exe -u 0x1fc9,0x0130 -- error-status</font>
 > ```text
 > Status (HAB mode) = 1450735702 (0x56787856) HAB disabled.
 > Reponse Status = 858993459 (0x33333333) HAB failure.
 > ```
 
 　　再接着试一下UART通信，似乎通信失败了。需要注意的是，当使用USB通信过一次之后，BootROM已经激活USB外设，不会再去检测UART外设，如果想使用UART通信，需要将板子reset一次，使BootROM重回外设检测状态。  
-> PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT10501050_1.1\Tools\sdphost\win> <font style="font-weight:bold;" color="Blue">.\sdphost.exe -p COM19 -- error-status</font>
+> PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\sdphost\win> <font style="font-weight:bold;" color="Blue">.\sdphost.exe -p COM19 -- error-status</font>
 > ```text
 > getStatusResponse.readPacket error 5.
 > Status (HAB mode) = 10004 (0x2714) No response from device.
@@ -164,7 +178,7 @@ S31520002000705A2120914B01207B240020952E0120FF
 ```
 
 　　让我们开始将flashloader.bin下载进SRAM的0x20002000地址处：  
-> PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT10501050_1.1\Tools\sdphost\win> <font style="font-weight:bold;" color="Blue">.\sdphost.exe -u 0x1fc9,0x0130 -- write-file 0x20002000 ..\\..\\..\Flashloader\flashloader.bin</font>
+> PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\sdphost\win> <font style="font-weight:bold;" color="Blue">.\sdphost.exe -u 0x1fc9,0x0130 -- write-file 0x20002000 ..\\..\\..\Flashloader\flashloader.bin</font>
 > ```text
 > Preparing to send 81847 (0x13fb7) bytes to the target.
 > (1/1)1%Status (HAB mode) = 1450735702 (0x56787856) HAB disabled.
@@ -232,7 +246,7 @@ typedef struct boot_data{
 ```
 
 　　既然ivt_flashloader.bin文件里的前2KB有很多冗余数据，那不妨我们只把有效数据（IVT和boot data，0x400 - 0x42d处共44个byte）提取出来放到ivt_bootdata.bin文件里，让我们将ivt_bootdata.bin下载进SRAM的0x20000400地址处：  
-> PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT10501050_1.1\Tools\sdphost\win> <font style="font-weight:bold;" color="Blue">.\sdphost.exe -u 0x1fc9,0x0130 -- write-file 0x20000400 ..\\..\\..\Flashloader\ivt_bootdata.bin</font>
+> PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\sdphost\win> <font style="font-weight:bold;" color="Blue">.\sdphost.exe -u 0x1fc9,0x0130 -- write-file 0x20000400 ..\\..\\..\Flashloader\ivt_bootdata.bin</font>
 > ```text
 > Preparing to send 44 (0x2c) bytes to the target.
 > (1/1)100% Completed!
@@ -241,7 +255,7 @@ typedef struct boot_data{
 > ```
 
 　　到这里IVT和image均已经下载进SRAM了，可以跳转去执行Flashloader程序了，使用jump-address命令：  
-> PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT10501050_1.1\Tools\sdphost\win> <font style="font-weight:bold;" color="Blue">.\sdphost.exe -u 0x1fc9,0x0130 -- jump-address 0x20000400</font>
+> PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\sdphost\win> <font style="font-weight:bold;" color="Blue">.\sdphost.exe -u 0x1fc9,0x0130 -- jump-address 0x20000400</font>
 > ```text
 > Status (HAB mode) = 1450735702 (0x56787856) HAB disabled.
 > ```
@@ -251,7 +265,7 @@ typedef struct boot_data{
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_sdp_flashloader_usb.PNG" style="zoom:100%" />
 
 　　如果你试着用blhost与Flashloader通信得到如下结果，恭喜你，Flashloader已被成功启动了。  
-> PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT10501050_1.1\Tools\sdphost\win> <font style="font-weight:bold;" color="Blue">.\blhost.exe -u 0x15a2,0x0073 -- get-property 1</font>
+> PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\blhost\win> <font style="font-weight:bold;" color="Blue">.\blhost.exe -u 0x15a2,0x0073 -- get-property 1</font>
 > ```text
 > Inject command 'get-property'
 > Response status = 0 (0x0) Success.
