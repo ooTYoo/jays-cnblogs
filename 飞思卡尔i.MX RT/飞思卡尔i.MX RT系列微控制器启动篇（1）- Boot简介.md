@@ -11,7 +11,7 @@
 　　从上述system address map表中我们可以知道，ARM 4GB空间的前512MB(0x00000000 - 0x1FFFFFFF)规划为非易失性存储器空间。看到这，你是不是明白了为啥各大厂商生产的Cortex-M芯片内部FLASH地址总是从0x0开始，因为仅含FLASH的芯片上电启动默认都是从0x0地址开始获取Application的初始PC和SP开始Boot。  
 
 #### 1.2 BootROM是什么
-　　大家是不是也会经常在芯片参考手册里看到BootROM的字眼，BootROM是什么？<font color="Blue">BootROM其实是芯片在出厂前固化在ROM里的一段Bootloader程序。这个Bootloader程序可以帮助你完成FLASH里的Application的更新，而不需要使用额外的外部编程/调试器（比如JLink）</font>，Bootloader一般提供UART/SPI/I2C/USB接口与上位机进行通信，与Bootloader配套使用的还有一个上位机软件，当芯片从BootROM启动后，通过这个上位机软件与BootROM建立连接，然后可以将你的Application代码（bin/s19/hex格式）下载进芯片FLASH。  
+　　大家是不是也会经常在芯片参考手册里看到BootROM的字眼，BootROM是什么？<font color="Blue">BootROM其实是芯片在出厂前固化在ROM里的一段Bootloader程序。这个Bootloader程序可以帮助你完成FLASH里的Application的更新，而不需要使用额外的外部编程/调试器（比如JLink），除了Application更新之外，当然BootROM也可以完成Application的启动</font>，Bootloader一般提供UART/SPI/I2C/USB接口与上位机进行通信，与Bootloader配套使用的还有一个上位机软件，当芯片从BootROM启动后，通过这个上位机软件与BootROM建立连接，然后可以将你的Application代码（bin/s19/hex格式）下载进芯片FLASH。  
 　　BootROM并不是每一款MCU都有的。以飞思卡尔Kinetis系列MCU为例，早期的Kinetis产品比如MKL25并不含ROM，第一款支持ROM的Kinetis芯片是2014年推出的MKL03，而恩智浦的LPC系列以及意法半导体的STM32系列MCU一般都是含ROM的。不同厂商芯片的ROM起始地址可能不一样（Kinetis ROM一般从0x1c000000开始，LPC ROM一般从0x03000000开始，STM32 ROM结束地址是0x1FFFFFFF）。  
 
 #### 1.3 Boot Mode选择

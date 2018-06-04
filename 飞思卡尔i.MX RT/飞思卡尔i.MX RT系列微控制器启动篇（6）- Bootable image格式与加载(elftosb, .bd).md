@@ -182,7 +182,7 @@ elftosb.exe -f imx -V -c config_coremark_a000.bd -o ivt_coremark_a000.bin corema
 > * 第一个阶段即加载前，此时Bootable image完全存储在外部Flash中，SRAM中没有任何image数据；
 > * 第二阶段即初始加载，BootROM首先会从外部Flash读取Bootable image前4KB数据进SRAM临时缓存区（OCRAM：0x20208000 - 0x20208FFF），我们知道这4KB数据里包含了IVT和BD，BootROM从IVT和BD里获取到Bootable image的目标地址（BOOT_DATA_T.start）以及总长度（BOOT_DATA_T.size），此时便可以开始做进一步加载；
 > * 第三阶段即内部转移，由于BootROM已经从外部Flash读取了4KB进SRAM临时缓存区，为了避免重复读取，BootROM会把这4KB数据首先复制到Bootable image的目标地址（ITCM）；
-> * 第四步加载完成，BootROM会接着将剩下的Bootable image（BOOT_DATA_T.size - 4KB）从外部Flash中全部读取出来存到目标区域完成全部加载。  
+> * 第四阶段即加载完成，BootROM会接着将剩下的Bootable image（BOOT_DATA_T.size - 4KB）从外部Flash中全部读取出来存到目标区域（ITCM）完成全部加载。  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_image_sequence.PNG" style="zoom:100%" />
 
