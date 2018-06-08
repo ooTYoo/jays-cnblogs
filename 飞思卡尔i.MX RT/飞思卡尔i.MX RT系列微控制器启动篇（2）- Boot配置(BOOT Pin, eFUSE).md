@@ -9,7 +9,7 @@
 　　BOOT_MODE[1:0] pin是决定i.MXRT Boot行为的最顶层配置，但是与上一篇文章里介绍的Kinetis/LPC/STM32 Boot Mode配置不同的是，i.MXRT上电永远是从ROM里开始启动，此处的BOOT_MODE[1:0]决定的仅是BootROM程序的不同行为模式（执行代码分支），而Kinetis/LPC/STM32 Boot Mode侧重的是决定CPU从ROM还是FLASH里启动。  
 #### 1.1 BOOT_MODE[1:0] Pinout
 　　下表是BOOT_MODE相关pinout信息，可在参考手册的External Signals and Pin Multiplexing章节中找到。  
-　　i.MXRT105x pinout：  
+　　i.MXRT105x / i.MXRT106x pinout：  
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxIndex.PNG" style="zoom:100%" />
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1050.PNG" style="zoom:100%" />
 
@@ -45,10 +45,10 @@
 
 ### 二、Boot Device类型选择
 　　前面痞子衡讲了，无论是Boot From Fuses模式还是Internal Boot模式，最终目的都是为了选择合适的Boot Device加载启动，那么Boot Device到底如何确定？主要取决于BOOT_CFG[x:0] pin以及Fuse里的BOOT_CFG1位。  
-　　BOOT_CFG[x:0] pin（在RT105x上是12bit，在RT102x上是10bit）跟Boot Device选择相关的是BOOT_CFG[7:4]这4个bit，对应Fuse里是偏移0x450处32bit配置数据里的bit4-7(也叫BOOT_CFG1[7:4])，本小节主要介绍的是BOOT_CFG1[7:4]。  
+　　BOOT_CFG[x:0] pin（在RT105x/RT106x上是12bit，在RT102x上是10bit）跟Boot Device选择相关的是BOOT_CFG[7:4]这4个bit，对应Fuse里是偏移0x450处32bit配置数据里的bit4-7(也叫BOOT_CFG1[7:4])，本小节主要介绍的是BOOT_CFG1[7:4]。  
 #### 2.1 BOOT_CFG[x:0] Pinout
 　　下表是BOOT_CFG相关pinout信息，可在参考手册的External Signals and Pin Multiplexing章节中找到。  
-　　i.MXRT105x pinout：  
+　　i.MXRT105x / i.MXRT106x pinout：  
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxIndex.PNG" style="zoom:100%" />
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1050_1.PNG" style="zoom:100%" />
 
@@ -58,9 +58,9 @@
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1020_3.PNG" style="zoom:100%" />
 
 #### 2.2 BOOT_CFG1[7:4]六种Device
-　　BOOT_CFG1[7:4]用于选择具体Boot Device，无论是RT105x还是RT102x，它们支持的外部存储器种类是一样的，但是这里的具体配置值两个芯片上稍稍有些区别（主要是SD和SEMC NAND不一样）。  
+　　BOOT_CFG1[7:4]用于选择具体Boot Device，无论是RT105x/RT106x还是RT102x，它们支持的外部存储器种类是一样的，但是这里的具体配置值两个芯片上稍稍有些区别（主要是SD和SEMC NAND不一样）。  
 　　下表是BOOT_CFG1[7:4]具体配置值信息，可在参考手册的Fusemap章节中找到。
-　　i.MXRT105x device selection：  
+　　i.MXRT105x / i.MXRT106x device selection：  
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_BOOTCFG1_1050.PNG" style="zoom:100%" />
 
 　　i.MXRT102x device selection：  

@@ -10,7 +10,7 @@
 ### 二、Bootable image链接空间
 　　一个image的链接空间分两种，一种是只读段（readonly code,data）的链接空间，另一种是读写段（readwrite data, STACK）的链接空间，这两种链接空间要求的存储介质特性不一样，痞子衡逐一讲解：  
 　　前面讲了i.MXRT同时支持外接NOR和NAND FLASH，其中NAND FLASH无法XIP，那么存储在NAND FLASH中的image只读段必须要链接在SRAM里。i.MXRT内部有三种SRAM，分别是ITCM, DTCM, OCRAM，是不是这三种SRAM都可以被随意链接呢？答案并不是！因为在Boot期间，BootROM也需要占用SRAM，用于存放BootROM的读写段，所以被BootROM占用的SRAM无法用于链接image的只读段，如果强行链接，会导致BootROM在拷贝image只读段时破坏自身读写段，从而发生不可预料的行为。下图是RT1050 BootROM的memory map，从图中可以得知BootROM占用的是0x20200000开始的OCRAM，并且看起来是整块OCRAM都被占用了，所以不推荐使用OCRAM去链接image只读段。  
-　　黑科技：如果有朋友表示不服，RT1050/RT1020的OCRAM是512KB/256KB，BootROM读写段不可能有这么大，是的，痞子衡告诉你，其实<font color="Blue">BootROM数据段只要32KB（0x20200000 - 0x20207FFF），另外还需要4KB用加载initial non-XIP image（0x20208000 - 0x20208FFF），所以对于存储在non-XIP FLASH的image你可以从0x20209000之后的空间里链接image只读段，而对于存储在XIP FLASH的image你可以从0x20208000之后的空间里链接image只读段</font>，这个秘密一般人痞子衡是不会告诉他的。  
+　　黑科技：如果有朋友表示不服，RT1060/RT1050/RT1020的OCRAM是1MB/512KB/256KB，BootROM读写段不可能有这么大，是的，痞子衡告诉你，其实<font color="Blue">BootROM数据段只要32KB（0x20200000 - 0x20207FFF），另外还需要4KB用加载initial non-XIP image（0x20208000 - 0x20208FFF），所以对于存储在non-XIP FLASH的image你可以从0x20209000之后的空间里链接image只读段，而对于存储在XIP FLASH的image你可以从0x20208000之后的空间里链接image只读段</font>，这个秘密一般人痞子衡是不会告诉他的。  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_image_bootrom_mem_map.PNG" style="zoom:100%" />
 

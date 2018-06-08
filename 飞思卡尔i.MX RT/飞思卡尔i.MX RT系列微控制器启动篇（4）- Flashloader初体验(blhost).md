@@ -3,11 +3,11 @@
 
 　　在上一篇文章 [飞思卡尔i.MX RT系列微控制器启动篇（3）- Serial Downloader模式(sdphost, mfgtool)](http://www.cnblogs.com/henjay724/p/9034563.html) 里痞子衡为大家介绍了i.MXRT Boot的Serial Downloader模式，这种模式主要是用来引导启动Flashloader，那么Flashloader到底具有哪些功能？这是本篇文章痞子衡要为大家解惑的主题。  
 
-　　痞子衡在前面提过Flashloader程序主要是用来将你的Application下载进i.MXRT支持的所有外部非易失性存储器中，为后续从外部存储器启动做准备。BootROM只有启动Application功能，没有下载更新Application功能，而Flashloader最核心的就是下载更新Application功能，所以Flashloader是BootROM的完美补充。你可能会疑问，为什么不把Flashloader的下载更新Application的功能也放进BootROM里？痞子衡个人觉得应该是芯片成本问题，ROM的空间是96KB，如果把Flashloader功能也放进BootROM里，势必要扩大ROM空间，从而导致芯片成本上升，做成二级Flashloader既不占ROM空间，也方便Flashloader程序自身的维护升级（目前RT1050的Flashloader版本是1.1，你看，这不显然升级过嘛）。  
+　　痞子衡在前面提过Flashloader程序主要是用来将你的Application下载进i.MXRT支持的所有外部非易失性存储器中，为后续从外部存储器启动做准备。BootROM只有启动Application功能，没有下载更新Application功能，而Flashloader最核心的就是下载更新Application功能，所以Flashloader是BootROM的完美补充。你可能会疑问，为什么不把Flashloader的下载更新Application的功能也放进BootROM里？痞子衡个人觉得应该是芯片成本问题，ROM的空间是96KB（RT102x/RT105x）/128KB（RT106x），如果把Flashloader功能也放进BootROM里，势必要扩大ROM空间，从而导致芯片成本上升，做成二级Flashloader既不占ROM空间，也方便Flashloader程序自身的维护升级（目前RT1050的Flashloader版本是1.1，你看，这不显然升级过嘛）。  
 
 ### 一、进入Flashloader程序
 #### 1.1 官方程序包
-　　恩智浦提供了 [Flashloader程序包](https://www.nxp.com/products/processors-and-microcontrollers/applications-processors/i.mx-applications-processors/i.mx-rt-series/i.mx-rt1050-crossover-processor-with-arm-cortex-m7-core:i.MX-RT1050?tab=Design_Tools_Tab)，你首先需要下载这个Flashloader包，Flashloader所有相关资源全在包里面。注：每个i.MXRT子系列均有一个以子系列名字命名的Flashloader包，即Flashloader程序并不是通用的，此处以RT1050系列为例：  
+　　恩智浦提供了 [Flashloader程序包](https://www.nxp.com/products/processors-and-microcontrollers/applications-processors/i.mx-applications-processors/i.mx-rt-series/i.mx-rt1050-crossover-processor-with-arm-cortex-m7-core:i.MX-RT1050?tab=Design_Tools_Tab)，你首先需要下载这个Flashloader包，Flashloader所有相关资源全在包里面。注：每个i.MXRT子系列均有一个以子系列名字命名的Flashloader包，即Flashloader程序并不是通用的（偷偷告诉你，其实RT105x与RT106x是通用的），此处以RT1050系列为例：  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_FlashloaderDownloadPage.PNG" style="zoom:100%" />
 
