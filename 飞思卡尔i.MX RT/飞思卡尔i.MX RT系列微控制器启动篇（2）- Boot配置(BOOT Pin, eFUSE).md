@@ -30,7 +30,7 @@
 
 ##### 1.2.2 Boot From Fuses模式
 　　Boot From Fuses模式从名字来看其实会让人误解，这个模式并不是从Fuse里加载Application启动的意思，而是根据Fuse里的一些Boot配置值来决定从哪个外部存储器Boot。Fuse是i.MXRT里一块特殊的存储区域，用于存放全部芯片配置信息，其中有一部分配置信息和Boot相关。  
-　　在参考手册Fusemap这一章节，可以看到完整的Fuse Map表，其中偏移0x460处的32bit配置数据的bit7是BT_FUSE_SEL，这个bit至关重要，决定了Boot From Fuses模式的主要行为，具体表现如下：  
+　　在参考手册Fusemap这一章节，可以看到完整的Fuse Map表，其中偏移0x460处的32bit配置数据的bit4是BT_FUSE_SEL，这个bit至关重要，决定了Boot From Fuses模式的主要行为，具体表现如下：  
 > * BT_FUSE_SEL=0：表明所有外部存储器中均没有Application，此时Boot From Fuses模式等同于Serial Downloader模式。
 > * BT_FUSE_SEL=1：表明有外部存储器中存在有效Application，此时BootROM会根据Fuse中其他Boot配置信息进一步选择指定的外部存储器（Boot Device）去Boot。
 
@@ -38,8 +38,8 @@
 
 ##### 1.2.3 Internal Boot模式
 　　Internal Boot模式其实跟Boot From Fuses模式（BT_FUSE_SEL=1时）很类似，只是这个模式下BT_FUSE_SEL的意义有点不同，具体表现如下：  
-> * BT_FUSE_SEL=0：BootROM完全根据Fuse中Boot配置信息选择指定的Boot Device去Boot。
-> * BT_FUSE_SEL=1：BootROM根据BOOT_CFG[x:0] pins和Fuse中Boot配置综合决定Boot Device，其中BOOT_CFG[x:0] pins的配置会覆盖Fuse中意义相同的Boot配置信息。
+> * BT_FUSE_SEL=0：BootROM根据BOOT_CFG[x:0] pins和Fuse中Boot配置综合决定Boot Device，其中BOOT_CFG[x:0] pins的配置会覆盖Fuse中意义相同的Boot配置信息。
+> * BT_FUSE_SEL=1：BootROM完全根据Fuse中Boot配置信息选择指定的Boot Device去Boot。
 
 　　我们可以通过更改BOOT_CFG[x:0] pins输入状态来切换Boot配置，这部分Boot配置在Fuse里也同样存在，但是使用BOOT_CFG[x:0]来更改Boot配置显然比烧写Fuse更方便快捷（也可以认为BOOT_CFG[x:0]主要用于产品开发过程中，待产品开发结束后，应直接用Fuse来锁定Boot配置）。关于BOOT_CFG[x:0] pin具体提供哪些Boot配置，文章后面痞子衡会继续讲。  
 

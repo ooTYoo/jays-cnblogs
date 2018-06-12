@@ -230,11 +230,11 @@ Command:
 
 ### 三、下载更新Application示例
 　　因为BootROM支持启动的外部存储器很多，所以Flashloader支持下载更新的外部存储器也与BootROM一一对应。在上一节blhost的命令帮助里，我们可以看到Memory ID里已经给各种外部储存器分配了ID号，在使用blhost命令时使用不同的ID号即可操作相应外部存储器。  
-　　其实Flashloader已经把外部存储器的下载更新Application操作封装得很简单也很统一，我们其实只需要3步操作即可完成Application的下载。以Raw NAND为例（即SEMC NAND Memory，Memory ID=0x100）：  
+　　其实Flashloader已经把外部存储器的下载更新Application操作封装得很简单也很统一，我们其实只需要3步操作即可完成Application的下载。以Block Size为128KB的Raw NAND为例（即SEMC NAND Memory，Memory ID=0x100）：  
 
 ```text
 // 在SRAM里临时存储Raw NAND配置数据
-blhost -u -- fill-memory 0x2000 0x4 0xD0030101 // ONFI 1.0, non-EDO, Timing mode 0, 8bit IO, CSX0
+blhost -u -- fill-memory 0x2000 0x4 0xD0010101 // ONFI 1.0, non-EDO, Timing mode 0, 8bit IO, CSX0, HW ECC Check, inital HW ECC is enabled
 blhost -u -- fill-memory 0x2004 0x4 0x00010101 // image copy = 1, search stride = 1, search count = 1
 blhost -u -- fill-memory 0x2008 0x4 0x00020001 // block index = 2, block count = 1
 
@@ -242,8 +242,8 @@ blhost -u -- fill-memory 0x2008 0x4 0x00020001 // block index = 2, block count =
 blhost -u -- configure-memory 0x100 0x2000
 
 // 擦除Raw NAND并将image下载进Raw NAND
-blhost -u -- flash-erase-region 0x100000 0x80000 0x100    // Erase 1 block starting from block 2
-blhost -u -- write-memory 0x100000 image.bin 0x100        // Program image.bin to block 2
+blhost -u -- flash-erase-region 0x40000 0x20000 0x100    // Erase 1 block starting from block 2
+blhost -u -- write-memory 0x40000 ivt_image.bin 0x100    // Program ivt_image.bin to block 2
 ```
 
 　　其中image.bin是包含IVT的Application镜像数据，关于上述命令的具体意义痞子衡会在后续Raw NAND启动的文章里详尽解释，这里只是给大家一个初步体验。  
