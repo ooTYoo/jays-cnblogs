@@ -102,6 +102,8 @@ O.K.
     </tr>
 </table>
 
+> <font color="Red">Note: 如果硬件板上UART_RX引脚没有接上拉电阻，可能会导致USB-HID设备枚举成功率降低，因为UART_RX悬空输入会有干扰数据使得Flashloader误以为UART是active peripheral，所以安全起见，请保证UART_RX引脚连接上拉电阻。</font>
+
 ### 二、blhost/elftosb/mfgtool的使用
 　　Flashloader配套上位机工具有3个，elftosb.exe用于生成sb格式文件（这个工具后续会详细介绍），mfgtool是GUI软件（上一篇文章已经介绍过，其主要配合sb文件使用），blhost.exe是痞子衡在这里要着重介绍的软件。  
 　　blhost.exe是命令行工具，使用blhost既可以通过UART口也可以通过USB口与Flashloader进行通信与命令交互。  

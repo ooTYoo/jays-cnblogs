@@ -183,6 +183,14 @@ blhost -u -- write-memory 0x40000 ivt_image.bin 0x100    // Program ivt_image.bi
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_1060_fusemap.PNG" style="zoom:100%" />
 
+### 七、几个注意事项
+> 1. i.MXRT105x A0版本与A1版本的BootROM有很大区别，本文内容仅适用于A1版本。
+> 2. 实测发现i.MXRT105x需要使能EDO模式方可访问NAND（默认是AXI方式），而i.MXRT106x则不需要使能EDO模式。
+> 3. 配置数据（Flashloader的12bytes/BootROM的eFUSE）里关于ECC的2处配置（ECC status、ECC Type）需根据实际连接的NAND芯片而定，不可随意设置。
+>   3.1 对于没有硬件ECC的NAND芯片，可有两种设置组合：一、ECC Type=HW，ECC status=Enabled（即不用ECC check）；二、ECC Type=SW，ECC status=x（即使用SW ECC check）。
+>   3.2 对于含有硬件ECC且默认是使能的NAND芯片，仅有一种设置组合：一、ECC Type=HW，ECC status=Enabled（即使用HW ECC check）。
+>   3.3 对于含有硬件ECC且默认没使能的NAND芯片，可有两种设置组合：一、ECC Type=SW，ECC status=x（即使用SW ECC check）；二、ECC Type=HW，ECC status=Disabled（即使用HW ECC check，BootROM会自动使用set-feature命令开启硬件ECC，目前仅支持Micron的NAND芯片）
+
 　　上述所有步骤全部完成之后，复位芯片你就应该能看到你放在Raw NAND里的Application已经正常地启动了。  
 
 　　至此，飞思卡尔i.MX RT系列MCU的Raw NAND启动痞子衡便介绍完毕了，掌声在哪里~~~ 

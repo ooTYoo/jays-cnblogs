@@ -27,7 +27,7 @@
 
 #### 1.4 从内部SRAM启动
 　　SRAM存在于任何一款MCU中，它除了可以保存Application数据变量外，当然也可以存放Application代码以供CPU执行。但是SRAM是易失性存储器，存放的数据断电会丢失，所以从SRAM启动跟从FLASH/ROM启动性质不一样。
-　　<font color="Blue">从FLASH/ROM启动属于一级启动，不依赖除了Boot Mode选择之外的条件；而从SRAM启动属于二级启动，其需要外部引导一下才能完成</font>。外部引导的方式有两种：一是借助于外部调试器，直接将Application下载进SRAM并将PC指向Application开始执行，其实这就是所谓的在SRAM调试；二是借助于FLASH/ROM中的Bootloader程序，Bootloader会将存放在FLASH（或其他非易失性存储器，或者从上位机直接接收）中的Application先加载到SRAM里然后Jump过去执行。  
+　　<font color="Blue">从FLASH/ROM启动属于一级启动，不依赖除了Boot Mode选择之外的条件；而从SRAM启动属于二级启动，其需要借助裸芯片本身之外的外力引导一下才能完成</font>。外力引导的方式有两种：一是借助于外部调试器，直接将Application下载进SRAM并将PC指向Application开始执行，其实这就是所谓的在SRAM调试；二是借助于事先存储在FLASH/ROM中的Bootloader程序，Bootloader会将存放在FLASH（或其他非易失性存储器，或者从上位机直接接收）中的Application先加载到SRAM里然后Jump过去执行。  
 
 #### 1.5 从外部存储器启动
 　　有些MCU并没有内部FLASH，所以会支持外接存储器，常见的外部存储器有QSPI NOR/NAND, SD/eMMC, SDRAM, Parallel NOR/NAND, SPI/I2C EEPROM等，MCU内部集成相应的存储器接口控制器，通过接口控制器可以轻松访问这些外部存储器。<font color="Blue">一个没有内部FLASH的MCU肯定会有ROM（BootROM），因为必须要借助BootROM才能Boot存储在外部存储器的Application，所以从外部存储器启动也属于二级启动</font>。  
