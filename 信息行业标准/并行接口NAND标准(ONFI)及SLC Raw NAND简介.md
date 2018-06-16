@@ -10,7 +10,8 @@
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/onfi_specs1.PNG" style="zoom:100%" />
 
-### 二、Raw NAND分类
+### 二、SLC Raw NAND原理
+#### 2.1 Raw NAND分类
 　　从软件驱动开发角度而言，Raw NAND可以从以下几个方面进一步细分：  
 
 > 单元层数(bit/cell)：SLC（1bit/cell） / MLC（2bit/cell） / TLC（3bit/cell） / QLC（4bit/cell）
@@ -20,7 +21,7 @@
 
 　　本文的主要研究对象是兼容ONFI 1.0标准的SLC Raw NAND Flash。  
 
-### 三、Raw NAND内存模型
+#### 2.2 Raw NAND内存模型
 　　ONFI规定了Raw NAND内存单元从大到小最多分为如下5层：Device、LUN(Die)、Plane、Block、Page（如下图所示），其中Page和Block是必有的，因为<font color="Blue">Page是读写的最小单元，Block是擦除的最小单元</font>。而LUN和Plane则不是必有的（如没有，可认为LUN=1, Plane=1），一般在大容量Raw NAND（至少8Gb以上）上才会出现。  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/onfi_mem_model.PNG" style="zoom:100%" />
@@ -33,7 +34,7 @@
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/onfi_mem_addressing.PNG" style="zoom:100%" />
 
-### 四、Raw NAND信号与封装
+#### 2.3 Raw NAND信号与封装
 　　ONFI规定了Raw NAND信号线与封装，如下是典型的x8 Raw NAND内部结构图，除了内存单元外，还有两大组成，分别是IO控制单元和逻辑控制单元，信号线主要挂在IO控制与逻辑单元，x8 Raw NAND主要有15根信号线（其中必须的是13根，WP#和R/B#可以不用），关于各信号线具体作用，请查阅相关文档。  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/onfi_block_diagram1.PNG" style="zoom:100%" />
@@ -42,7 +43,7 @@
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/onfi_tsop48.PNG" style="zoom:100%" />
 
-#### 1.5 Raw NAND接口命令
+#### 2.4 Raw NAND接口命令
 　　ONFI 1.0规定了Raw NAND接口命令，如下表所示，其中一部分是必须要支持的（M），还有一部分是可选支持的（O）。必须支持的命令里最常用的是Read(Read Page)、Page Program、Block Erase这三条，涵盖读写擦最基本的三种操作。  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/onfi_cmd_set.PNG" style="zoom:100%" />
@@ -57,7 +58,7 @@
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/onfi_parameter_page000.PNG" style="zoom:100%" />
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/onfi_parameter_page001.PNG" style="zoom:100%" />
 
-#### 1.6 Raw NAND数据速率
+#### 2.5 Raw NAND数据速率
 　　前面讲了，数据存取速率这个技术指标是各厂商竞争力的体现，对于这个指标，其实ONFI标准定义了一部分，我们知道Raw NAND数据存取操作是以Page为单位的，Page操作时间决定了数据存取速率，Page操作时间由3部分组成：  
 
 > Page操作时间（t<sub>ReadPage</sub>） = Page命令操作时间（t<sub>Cmd</sub>） + Page命令执行等待时间（t<sub>Busy</sub>） + Page数据操作时间（t<sub>Data</sub>）
@@ -116,7 +117,7 @@
 
 　　从feature里我们可以知道t<sub>ReadPage</sub>最小为25us（此数值应是在x16 bits，timing mode 5下得出的最快速度），那么可以反算出t<sub>Busy</sub> = 25us - 20ns \* （1024 + 7） = 4.38us，知道了t<sub>Busy</sub>让我们计算一下x8 bits下的t<sub>ReadPage</sub> = 20ns \* （2048 + 7） + 4.38us = 45.48us，再计算x8 bits下的读取数据率 2048Bytes / 45.48us = 360.246Mbps，这个数据率对于普通嵌入式应用来说其实是够快的。  
 
-#### 1.6 Raw NAND坏块与ECC
+#### 2.6 Raw NAND坏块与ECC
 　　Raw NAND开发绕不开坏块（Bad Block）问题，这是NAND Flash区别于NOR Flash的一个重要特点。NAND技术上允许坏块的存在，这降低了NAND生产工艺要求，因此NAND单位容量价格比NOR低。  
 　　既然物理上的坏块无法避免，那有什么方法可以改善/解决坏块问题呢？方法当然是有的，这个方法就是ECC（Error Correcting Code），ECC的具体实现原理详见痞子衡的另一篇文章 [汉明码校验(Hamming Code SEC-DED)](https://www.cnblogs.com/henjay724/p/8456821.html)，在这里你只需要知道ECC是一种错误检测与纠正算法，它通过对一定量的数据块（一般是256/512bytes）进行计算得到ECC码（一般8bytes），在Page Program时将原始Page数据与ECC码一同存入NAND Flash，在Read Page时同时获取Page数据与ECC码再进行一次计算，如果该Page数据没有ECC错误或者bit错误能够被ECC码纠正，那么Page读写操作就能够正常进行，如果bit错误个数太多不能够被纠正，那么该Page所在的块就应该被认定为一个坏块。  
 　　ECC能力主要根据纠正单数据块中错误bit个数来区分的，最基本的ECC只能够纠正1bit错误，强一点的ECC可以纠正4或者8个甚至更多的错误bit。  
@@ -133,7 +134,7 @@
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/onfi_mt29f4g08_ecc_detail0.PNG" style="zoom:100%" />
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/onfi_mt29f4g08_ecc_detail1.PNG" style="zoom:100%" />
 
-#### 1.7 Raw NAND个性化功能
+#### 2.7 Raw NAND个性化功能
 　　Raw NAND还有一些个性化的功能，这个是因厂商而异的，ONFI规定了两个可选的命令Get/Set Feature，个性化功能可以通过Get/Set Feature命令来扩展。下表是ONFI 1.0规定的Feature address范围，其中0x01是Timing Mode，0x80-0xFF用于各厂商实现自己的特色功能。  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/onfi_feature_address.PNG" style="zoom:100%" />
@@ -150,7 +151,7 @@
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/onfi_mt29f4g08_feature_address_90h_array_mode.PNG" style="zoom:100%" />
 
-### 二、Raw NAND产品
+### 三、SLC Raw NAND产品
 　　Raw NAND厂商产品有两种，一种是裸Raw NAND芯片，另一种是含Raw NAND的存储方案（比如SSD硬盘），对于嵌入式开发而言，我们更关心的是裸Raw NAND芯片产品，下面痞子衡收集了可以售卖SLC Raw NAND芯片的厂商及产品系列：  
 
 <table><tbody>
@@ -188,6 +189,12 @@
         <td>S34ML, S34MS, S34SL</td>
 		<td><a href="http://www.cypress.com/">http://www.cypress.com/</a><br>
 		    <a href="http://www.cypress.com/search/psg/85771#/?_facetShow=fs_pdensity_gbit_,ss_pinterface,fs_poperating_voltage_v_,ss_ppackage,ss_ptemperature_range_min_c_to_max_c_,ss_ppart_family,fs_pmin_operating_voltage_v_,fs_pmax_operating_voltage_v_,fs_pmin_operating_temp_c_,fs_pmax_operating_temp_c_,ss_pautomotive_qualified,fs_part_price">slc-nand-part-catalog</a></td>
+    </tr>
+    <tr>
+        <td>ISSI</td>
+        <td>IS34ML, IS34MW</td>
+		<td><a href="www.issi.com">www.issi.com</a><br>
+		    <a href="http://www.issi.com/US/product-flash.shtml#jump8">slc-nand-part-catalog</a></td>
     </tr>
     <tr>
         <td>Toshiba</td>

@@ -38,7 +38,7 @@ Micron MT29F16G08ABACAWP:C      （x8 bits, 4KB Page/512KB Block/16Gb Device, 4b
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_image_layout1.PNG" style="zoom:100%" />
 
-　　有了前面的背景知识，NAND的加载启动过程便是上电之后，BootROM先从NAND起始地址处获取FCB0数据，再根据FCB0里的信息获取DBBT0数据以及Firmware 0起始地址，底下便进入跟NOR Flash一样的加载过程，只不过在加载Firmware 0的过程中需要根据DBBT0坏块表信息自动跳过坏块。如果在读取Firmware 0时，发现部分Firmware数据所在的block是一个坏块，但是这个block没有被记录在DBBT0中，这说明该坏块是新产生的，存在该坏块中的Firmware数据被破坏了，Firmware 0便失效了，该新坏块信息会被记录在DBBT0中，BootROM便会尝试按同样的流程去加载Firmware 1、2...7，直到找到有效的Firmware，这就是为什么在NAND中存储多份Firmware的意义。  
+　　有了前面的背景知识，NAND的加载启动过程便是上电之后，BootROM先从NAND起始地址处获取FCB0数据，再根据FCB0里的信息获取DBBT0数据以及Firmware 0起始地址，底下便进入跟NOR Flash一样的加载过程，只不过在加载Firmware 0的过程中需要根据DBBT0坏块表信息自动跳过坏块。如果在读取Firmware 0时，发现部分Firmware数据所在的block是一个坏块，但是这个block没有被记录在DBBT0中，这说明该坏块是新产生的（该新坏块信息会在下一次下载Application时记录在新DBBT中），存在该坏块中的Firmware数据被破坏了，Firmware 0便失效了，BootROM便会尝试按同样的流程去加载Firmware 1、2...7，直到找到有效的Firmware，这就是为什么在NAND中存储多份Firmware的意义。  
 
 ### 四、下载Application进Raw NAND
 　　理解了Raw NAND加载启动过程，我们便可以开始使用Flashloader下载Application进Raw NAND芯片中：  
