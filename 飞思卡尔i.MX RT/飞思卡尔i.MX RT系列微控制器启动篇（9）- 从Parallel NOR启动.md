@@ -4,7 +4,7 @@
 　　上一篇讲i.MXRT从Raw NAND启动的文章 [飞思卡尔i.MX RT系列微控制器启动篇（8）- 从Raw NAND启动](https://www.cnblogs.com/henjay724/p/9173425.html) 一经放出，深入广大网友喜爱，短时间内阅读量飙升，这让痞子衡深入鼓舞，所以趁热打铁继续把从Parallel NOR启动也顺便一起讲了，为什么说是顺便呢？因为Parallel NOR与Raw NAND都是并行接口，属于同一门派，且这两种外存设备在i.MXRT内部是通过同一IP（SEMC）实现底层接口通信的，所以了解了Raw NAND启动，再来看Parallel NOR启动会觉得简单很多。话不多说，开讲。  
 
 ### 一、支持的Parallel NOR
-　　依旧开门见山，<font color="Blue">i.MXRT支持加载启动的主要是兼容CFI标准且内置EPSCD命令集的ADM SLC Parallel NOR，至于数据线宽度，x8,x16都支持；关于时钟模式，i.MXRT105x/i.MXRT102x仅支持Asynchronous，i.MXRT106x既支持Asynchronous也支持Synchronous。</font>关于Parallel NOR基本知识请先看一下痞子衡的另一篇文章 [并行接口NOR标准(CFI)及SLC Parallel NOR简介](https://www.cnblogs.com/henjay724/p/9152535.html)。    
+　　依旧开门见山，<font color="Blue">i.MXRT支持加载启动的主要是兼容CFI标准且内置EPSCD命令集（这个命令集是目前的主流，最新的NOR产品都是使用这个命令集）的ADM SLC Parallel NOR，至于数据线宽度，x8,x16都支持；关于时钟模式，i.MXRT105x/i.MXRT102x仅支持Asynchronous，i.MXRT106x既支持Asynchronous也支持Synchronous。</font>关于Parallel NOR基本知识请先看一下痞子衡的另一篇文章 [并行接口NOR标准(CFI)及SLC Parallel NOR简介](https://www.cnblogs.com/henjay724/p/9152535.html)。    
 　　Parallel NOR厂商非常多，对应Parallel NOR芯片型号也很多，如果你在选型时不确定到底该为i.MXRT选择哪一款Parallel NOR时，可选用下面三款芯片，痞子衡均实测过：  
 
 ```text
@@ -172,9 +172,6 @@ blhost -p COMx -- write-memory 0x90000000 ivt_image.bin
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_1050a1_1020_fusemap.PNG" style="zoom:100%" />
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_1060_fusemap.PNG" style="zoom:100%" />
-
-### 七、几个注意事项
-> 1. 市面上Parallel NOR从内置命令集角度分为两大类，一类是以Micron MT28EW系列为代表的EPSCD命令集，另一类是以Micron MT28GU为代表的SFMCD命令集，BootROM本身对于这两类NOR芯片都是支持的，但Flashloader目前只支持内置EPSCD命令集的NOR芯片。
 
 　　至此，飞思卡尔i.MX RT系列MCU的Parallel NOR启动痞子衡便介绍完毕了，掌声在哪里~~~ 
 

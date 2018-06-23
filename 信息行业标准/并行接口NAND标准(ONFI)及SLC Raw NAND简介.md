@@ -5,7 +5,7 @@
 　　Raw NAND是相对于Serial NAND而言的，Serial NAND即串行接口的NAND Flash，而Raw NAND是并行接口的NAND FLASH，早期并行接口通信数据率是明显高于串行通信数据率的，但随着串行通信速度越来越快，并行接口速度优势显得不那么重要了，反而因信号线太多导致设计成本较高（PCB走线复杂）显得有点不合潮流。但其实这么说对Raw NAND是不公平的，现在的Serial NOR/NAND信号线其实也不少，比如高速的串行HyperFlash信号线数量已经直逼x8 bit的Raw NAND FLASH，所以Raw NAND市场还是坚挺的，你会发现各大存储厂商都还在不断推出Raw NAND FLASH产品。  
 
 ### 一、ONFI标准由来
-　　说到Raw NAND发展史，其实早期的Raw NAND没有统一标准，各厂商都是自由设计，因此尺寸不统一、存储结构差异大、接口命令不通用等问题导致客户使用起来很难受。为了改变这一现状，2006年几个主流的Raw NAND厂商（Hynix、Intel、Micron、Phison、Sony、ST）联合起来商量制订一个Raw NAND标准，这个标准叫Open NAND Flash Interface，简称ONFI，2006年12月ONFI 1.0标准正式推出，此标准一经推出大受欢迎（好像不欢迎也不行，那些大厂说了算啊），此后<font color="Blue">几乎所有的Raw NAND厂商都按照ONFI标准设计生产Raw NAND，从此Raw NAND世界清静了，不管哪家生产的Raw NAND对嵌入式设计者来说几乎都是一样的，至少在驱动代码层面是一样的，那么各厂商竞争优势在哪呢？主要在三个方面：数据存取速率、ECC能力、ONFI之外的个性化功能。</font>  
+　　说到Raw NAND发展史，其实早期的Raw NAND没有统一标准，虽然早在1989年Toshiba便发表了NAND Flash结构，但具体到Raw NAND芯片，各厂商都是自由设计，因此尺寸不统一、存储结构差异大、接口命令不通用等问题导致客户使用起来很难受。为了改变这一现状，2006年几个主流的Raw NAND厂商（Hynix、Intel、Micron、Phison、Sony、ST）联合起来商量制订一个Raw NAND标准，这个标准叫Open NAND Flash Interface，简称ONFI，2006年12月ONFI 1.0标准正式推出，此标准一经推出大受欢迎（好像不欢迎也不行，那些大厂说了算啊），此后<font color="Blue">几乎所有的Raw NAND厂商都按照ONFI标准设计生产Raw NAND，从此Raw NAND世界清静了，不管哪家生产的Raw NAND对嵌入式设计者来说几乎都是一样的，至少在驱动代码层面是一样的，那么各厂商竞争优势在哪呢？主要在三个方面：数据存取速率、ECC能力、ONFI之外的个性化功能。</font>  
 　　你可以从 [ONFI官网](http://www.onfi.org/) 下载ONFI标准手册，从2006年推出1.0标准至今，ONFI标准已经发展到4.1，这也说明了Raw NAND技术在不断更新升级。  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/onfi_specs1.PNG" style="zoom:100%" />

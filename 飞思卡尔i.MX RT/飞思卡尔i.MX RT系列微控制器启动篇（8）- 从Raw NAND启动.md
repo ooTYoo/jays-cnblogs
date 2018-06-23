@@ -5,13 +5,17 @@
 
 ### 一、支持的Raw NAND
 　　开门见山，<font color="Blue">i.MXRT支持加载启动的主要是兼容ONFI 1.0标准的Asynchronous SLC Raw NAND，至于数据线宽度，x8,x16都支持(一般x8应用比较多)。</font>关于Raw NAND基本知识请先看一下痞子衡的另一篇文章 [并行接口NAND标准(ONFI)及SLC Raw NAND简介](https://www.cnblogs.com/henjay724/p/9152535.html)，本文后续的很多内容均是基于充分了解Raw NAND的前提下开展的。  
-　　Raw NAND厂商非常多，对应Raw NAND芯片型号也很多，如果你在选型时不确定到底该为i.MXRT选择哪一款Raw NAND时，可选用下面四款芯片，痞子衡均实测过：  
+
+> Note: ONFI是最流行的NAND标准，ONFI 1.0仅针对Async SDR模式NAND，从ONFI 2.0开始引入Sync模式NAND的支持。关于NAND还有一个JEDEC标准JESD230，该标准是JEDEC与ONFI组织合作制定的，主要针对的是高速模式NAND（Sync DDR, Toggle DDR），当然也支持Async SDR NAND。
+
+　　Raw NAND厂商非常多，对应Raw NAND芯片型号也很多，如果你在选型时不确定到底该为i.MXRT选择哪一款Raw NAND时，可选用下面五款芯片，痞子衡均实测过：  
 
 ```text
 Macronix MX30LF4GE8AB-TI        （x8 bits, 2KB Page/128KB Block/4Gb Device,  0bit ECC, 3.3V）
 Micron MT29F4G08ABBDAWP         （x8 bits, 2KB Page/128KB Block/4Gb Device,  4bit ECC, 1.8V）
 Micron MT29F4G08ABAFAWP:D       （x8 bits, 2KB Page/128KB Block/4Gb Device,  4bit ECC, 3.3V）
 Micron MT29F16G08ABACAWP:C      （x8 bits, 4KB Page/512KB Block/16Gb Device, 4bit ECC, 3.3V）
+Winbond W29N01GVSIAA            （x8 bits, 2KB Page/128KB Block/1Gb Device,  1bit ECC, 3.3V）
 ```
 
 ### 二、Raw NAND硬件连接
