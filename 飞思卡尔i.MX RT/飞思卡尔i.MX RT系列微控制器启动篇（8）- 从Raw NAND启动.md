@@ -6,7 +6,8 @@
 ### 一、支持的Raw NAND
 　　开门见山，<font color="Blue">i.MXRT支持加载启动的主要是兼容ONFI 1.0标准的Asynchronous SLC Raw NAND，至于数据线宽度，x8,x16都支持(一般x8应用比较多)。</font>关于Raw NAND基本知识请先看一下痞子衡的另一篇文章 [并行接口NAND标准(ONFI)及SLC Raw NAND简介](https://www.cnblogs.com/henjay724/p/9152535.html)，本文后续的很多内容均是基于充分了解Raw NAND的前提下开展的。  
 
-> Note: ONFI是最流行的NAND标准，ONFI 1.0仅针对Async SDR模式NAND，从ONFI 2.0开始引入Sync模式NAND的支持。关于NAND还有一个JEDEC标准JESD230，该标准是JEDEC与ONFI组织合作制定的，主要针对的是高速模式NAND（Sync DDR, Toggle DDR），当然也支持Async SDR NAND。
+> Note1: ONFI是最流行的NAND标准，ONFI 1.0仅针对50MB/s低速Async SDR模式NAND，从ONFI 2.x开始逐步引入133MB/s、166MB/s、200MB/s高速Sync模式NAND的支持，从ONFI 3.x开始又引入400MB/s、533MT/s（NV-DDR2）更高速NAND的支持，从ONFI 4.x开始更是加入了667MT/s、800MT/s、1066MT/s、1200MT/s（NV-DDR3）超高速NAND的支持。
+> Note2: 关于NAND还有一个JEDEC标准JESD230，该标准是JEDEC与ONFI组织合作制定的，主要是定义了Async SDR、Sync DDR, Toggle DDR模式NAND的互操作性。JESD230标准版本可与ONFI 3.1及其之后的版本相对应。
 
 　　Raw NAND厂商非常多，对应Raw NAND芯片型号也很多，如果你在选型时不确定到底该为i.MXRT选择哪一款Raw NAND时，可选用下面五款芯片，痞子衡均实测过：  
 
