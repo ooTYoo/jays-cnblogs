@@ -17,9 +17,10 @@
 > 单元层数(bit/cell)：SLC（1bit/cell） / MLC（2bit/cell） / TLC（3bit/cell） / QLC（4bit/cell）
 > 数据线宽度：x8 / x16
 > 信号线模式：Asynchronous / Synchronous
+> 数据采集模式：SDR / DDR
 > 接口命令标准：非标 / ONFI
 
-　　本文的主要研究对象是兼容ONFI 1.0标准的SLC Raw NAND Flash。  
+　　本文的主要研究对象是兼容ONFI 1.0标准的Asynchronous SDR SLC NAND Flash。  
 
 #### 2.2 Raw NAND内存模型
 　　ONFI规定了Raw NAND内存单元从大到小最多分为如下5层：Device、LUN(Die)、Plane、Block、Page（如下图所示），其中Page和Block是必有的，因为<font color="Blue">Page是读写的最小单元，Block是擦除的最小单元</font>。而LUN和Plane则不是必有的（如没有，可认为LUN=1, Plane=1），一般在大容量Raw NAND（至少8Gb以上）上才会出现。  
