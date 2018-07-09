@@ -21,10 +21,11 @@
 > [飞思卡尔i.MX RT系列微控制器启动篇（6）- Bootable image格式与加载(elftosb/.bd/.bin)](https://www.cnblogs.com/henjay724/p/9125869.html)  
 > [飞思卡尔i.MX RT系列微控制器启动篇（8）- 从Raw NAND启动](https://www.cnblogs.com/henjay724/p/9173425.html)  
 > [飞思卡尔i.MX RT系列微控制器启动篇（9）- 从Parallel NOR启动](https://www.cnblogs.com/henjay724/p/9188252.html)  
+> [飞思卡尔i.MX RT系列微控制器启动篇（13）- 从Serial(1-bit SPI) EEPROM/NOR恢复启动](https://www.cnblogs.com/henjay724/p/9286385.html)  
 
 > [飞思卡尔i.MX RT系列微控制器启动篇（7）- 签名加密安全启动需知(HAB)]()  
 > [飞思卡尔i.MX RT系列微控制器启动篇（10）- 从Serial NAND启动]()  
 > [飞思卡尔i.MX RT系列微控制器启动篇（11）- 从Serial NOR启动]()  
 > [飞思卡尔i.MX RT系列微控制器启动篇（12）- 从SD/eMMC启动]()  
-> [飞思卡尔i.MX RT系列微控制器启动篇（13）- 从SPI EEPROM/NOR启动]()  
+
 

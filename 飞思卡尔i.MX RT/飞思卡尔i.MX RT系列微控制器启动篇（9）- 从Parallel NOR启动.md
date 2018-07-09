@@ -120,7 +120,7 @@ typedef struct __semc_nor_config
 
 ```text
 // 在SRAM里临时存储Parallel NOR配置数据
-blhost -p COMx -- fill-memory 0x2000 0x4 0xD0000600 (Configure to CSX0, ADV high active, 16bits IO, safe AC timing mode)
+blhost -p COMx -- fill-memory 0x2000 0x4 0xD0000600 // CSX0, ADV high active, 16bits IO, safe AC timing mode
 
 // 使用Parallel NOR配置数据去配置Parallel NOR接口
 blhost -p COMx -- configure-memory 0x8 0x2000
@@ -172,6 +172,8 @@ blhost -p COMx -- write-memory 0x90000000 ivt_image.bin
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_1050a1_1020_fusemap.PNG" style="zoom:100%" />
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_1060_fusemap.PNG" style="zoom:100%" />
+
+　　上述所有步骤全部完成之后，复位芯片你就应该能看到你放在Parallel NOR里的Application已经正常地启动了。  
 
 　　至此，飞思卡尔i.MX RT系列MCU的Parallel NOR启动痞子衡便介绍完毕了，掌声在哪里~~~ 
 
