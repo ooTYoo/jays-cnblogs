@@ -103,6 +103,10 @@ blhost -p COMx -- flash-erase-region 0x0 0x20000 0x110
 blhost -p COMx -- write-memory 0x0 ivt_image.bin 0x110
 ```
 
+　　Bootable image下载成功之后，我们可以试着用read-memory从Serial EEPROM/NOR芯片里读回IVT,BootData,Application确认一下，Bootable image起始地址在0x0，那么IVT,BootData应该在0x400，Application应该在0x2000：  
+
+<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_readback_img.PNG" style="zoom:100%" />
+
 　　至此，Application的下载工作便结束了。  
 
 ### 五、进入Serial EEPROM/NOR备份启动模式
