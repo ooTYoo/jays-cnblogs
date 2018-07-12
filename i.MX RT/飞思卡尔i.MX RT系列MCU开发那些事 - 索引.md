@@ -7,13 +7,13 @@
 
 　　本系列文章会逐一介绍i.MX RT系列微控制器开发相关知识。  
 
-### 正文n篇（持续更新中...）
-
+### 介绍篇（持续更新中...）
 > [飞思卡尔i.MX RT系列MCU特性介绍（1）- 概览](http://www.cnblogs.com/henjay724/p/8556171.html)  
 > [飞思卡尔i.MX RT系列MCU特性介绍（2）- RT1052DVL6性能实测](http://www.cnblogs.com/henjay724/p/8727199.html)  
 > [飞思卡尔i.MX RT系列MCU特性介绍（3）- 命名规则](https://www.cnblogs.com/henjay724/p/9073569.html)  
 > [飞思卡尔i.MX RT系列MCU特性介绍（4）- RT105x选型](https://www.cnblogs.com/henjay724/p/9073887.html)  
 
+### 启动篇（持续更新中...）
 > [飞思卡尔i.MX RT系列MCU启动那些事（1）- Boot简介](http://www.cnblogs.com/henjay724/p/9031655.html)  
 > [飞思卡尔i.MX RT系列MCU启动那些事（2）- Boot配置(BOOT Pin/eFUSE)](http://www.cnblogs.com/henjay724/p/9034563.html)  
 > [飞思卡尔i.MX RT系列MCU启动那些事（3）- Serial Downloader模式(sdphost/mfgtool)](https://www.cnblogs.com/henjay724/p/9096222.html)  
