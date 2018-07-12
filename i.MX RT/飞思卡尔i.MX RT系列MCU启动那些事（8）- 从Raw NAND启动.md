@@ -37,7 +37,7 @@ Winbond W29N01GVSIAA            （x8 bits, 2KB Page/128KB Block/1Gb Device,  1b
 ### 三、Raw NAND加载启动过程
 　　确保Raw NAND硬件相关设计无误之后，底下便是下载更新Bootable Image进Raw NAND以供BootROM加载启动了，在下载Bootable image之前有必要先了解Raw NAND的加载启动过程：  
 
-　　痞子衡在启动系列文章的第六篇 [飞思卡尔i.MX RT系列微控制器启动篇（6）- Bootable image格式与加载(elftosb/.bd)](https://www.cnblogs.com/henjay724/p/9125869.html) 里的最后已经介绍过non-XIP image加载启动过程，但实际上那个过程对于存储在外部NAND Flash中Bootable image而言还是介绍得不够全面，欠缺FCB/DBBT的处理流程，你肯定会疑问FCB/DBBT是什么？这得从NAND与NOR差异说起，我们知道NOR Flash中所有空间都必须是可用的（即不允许有坏块），这意味着NOR Flash中的Bootable image数据是可以按指定地址连续存放的（即所谓的线性存储），并且Application可以原地XIP执行；但是NAND Flash中常常是有坏块的（出厂坏块，使用中产生坏块），这就导致NAND可用空间地址不可预知并且有可能不连续，因此存储在NAND中的Bootable image数据极有可能并不是连续存放的，并且Bootable image实际存储的起始地址也不一定就是指定的起始地址（即所谓的非线性存储）。  
+　　痞子衡在启动系列文章的第六篇 [Bootable image格式与加载(elftosb/.bd)](https://www.cnblogs.com/henjay724/p/9125869.html) 里的最后已经介绍过non-XIP image加载启动过程，但实际上那个过程对于存储在外部NAND Flash中Bootable image而言还是介绍得不够全面，欠缺FCB/DBBT的处理流程，你肯定会疑问FCB/DBBT是什么？这得从NAND与NOR差异说起，我们知道NOR Flash中所有空间都必须是可用的（即不允许有坏块），这意味着NOR Flash中的Bootable image数据是可以按指定地址连续存放的（即所谓的线性存储），并且Application可以原地XIP执行；但是NAND Flash中常常是有坏块的（出厂坏块，使用中产生坏块），这就导致NAND可用空间地址不可预知并且有可能不连续，因此存储在NAND中的Bootable image数据极有可能并不是连续存放的，并且Bootable image实际存储的起始地址也不一定就是指定的起始地址（即所谓的非线性存储）。  
 　　举例来说，如果NAND的block大小为128KB，Firmware（即Bootable Image）大小为260KB，我们指定从NAND地址0x40000处（即block index = 2）开始存储Firmware，但是很不幸的是index为2、4的block均是坏块，那么实际上Firmware被分散存储在了index为3、5、6三个block中，为了将来能正确地从NAND中读回Firmware，我们需要额外记录至少两个信息，一是指定的Firmware起始存储地址0x40000，二是NAND中坏块信息block index 2、4。FCB/DBBT就是用来记录这些额外的信息。  
 　　FCB大小为1KB，其主要记录了Firmware信息（地址，长度，份数），以及DBBT地址信息。DBBT大小为1056bytes，其记录了NAND芯片中所有的坏块个数以及位置，DBBT即所谓的坏块表。FCB/DBBT最大可有两份，实际应用中一般只用一份即可，后面介绍均以一份FCB/DBBT为例讲解，<font color="Blue">FCB0永远从NAND地址0x0处（即index为0的block中的第1个Page）开始存放，DBBT0一般放在index为n的block里（其实n是可设的，这在后面使用Flashloader时会讲到，为求简单我们常常设n=1），Firmware 0一般放在index为n+1的block里（Firmware只允许从index为n+1的block及其之后开始存放，Firmware最大可以有8份）。</font>关于FCB/DBBT结构原型，后续会进一步介绍。  
 
@@ -48,7 +48,7 @@ Winbond W29N01GVSIAA            （x8 bits, 2KB Page/128KB Block/1Gb Device,  1b
 ### 四、下载Application进Raw NAND
 　　理解了Raw NAND加载启动过程，我们便可以开始使用Flashloader下载Application进Raw NAND芯片中：  
 
-　　痞子衡在启动系列文章的第四篇 [飞思卡尔i.MX RT系列微控制器启动篇（4）- Flashloader初体验(blhost)](https://www.cnblogs.com/henjay724/p/9098577.html) 和第六篇 [飞思卡尔i.MX RT系列微控制器启动篇（6）- Bootable image格式与加载(elftosb/.bd)](https://www.cnblogs.com/henjay724/p/9125869.html) 里分别介绍了Flashloader的基本使用以及如何将你的Application制作成Bootable image，后续内容假定你已经制作好一个Bootable image并且使用blhost工具与Flashloader建立了基本通信，正要开始将Bootable image下载进Raw NAND。  
+　　痞子衡在启动系列文章的第四篇 [Flashloader初体验(blhost)](https://www.cnblogs.com/henjay724/p/9098577.html) 和第六篇 [Bootable image格式与加载(elftosb/.bd)](https://www.cnblogs.com/henjay724/p/9125869.html) 里分别介绍了Flashloader的基本使用以及如何将你的Application制作成Bootable image，后续内容假定你已经制作好一个Bootable image并且使用blhost工具与Flashloader建立了基本通信，正要开始将Bootable image下载进Raw NAND。  
 　　前面讲过Raw NAND中除了要有Bootable image（Firmware）之外，还需要有FCB/DBBT，并且FCB/DBBT在Raw NAND中存储的位置是比Bootable image靠前的，因此你遇到的第一个问题便是如何下载FCB/DBBT进Raw NAND？  
 　　首先来看FCB和DBBT的原型，如下semc_nand_fcb_t是FCB原型，semc_nand_dbbt_t是DBBT原型：
 　　FCB/DBBT结构体开头都是12bytes的semc_bcb_header_t，这个bcb header由Tag、Version、CRC Checksum（CRC32-MPEG2）组成，用于验证FCB/DBBT的完整性。  
@@ -168,7 +168,7 @@ blhost -u -- write-memory 0x40000 ivt_image.bin 0x100    // Program ivt_image.bi
 ### 五、进入Raw NAND启动模式
 　　Application已经被成功下载进Raw NAND芯片之后，此时我们便可以开始设置芯片从Raw NAND启动：  
 
-　　在进入Boot Device选择之前，你首先需要确定BOOT_MODE[1:0]=2'b10，即芯片处于Internal Boot模式，并且确认BT_FUSE_SEL（eFUSE偏移0x460处的32bit配置数据的bit4）为1'b0，这里看不懂的朋友请温习痞子衡前面的文章 [飞思卡尔i.MX RT系列微控制器启动篇（2）- Boot配置(BOOT Pin/eFUSE)](http://www.cnblogs.com/henjay724/p/9034563.html)。  
+　　在进入Boot Device选择之前，你首先需要确定BOOT_MODE[1:0]=2'b10，即芯片处于Internal Boot模式，并且确认BT_FUSE_SEL（eFUSE偏移0x460处的32bit配置数据的bit4）为1'b0，这里看不懂的朋友请温习痞子衡前面的文章 [Boot配置(BOOT Pin/eFUSE)](http://www.cnblogs.com/henjay724/p/9034563.html)。  
 　　设置好正确Boot模式后，再来选择Boot Device，Boot Device由BOOT_CFG1[7:4]这四个pin的输入状态决定，下图是RT105x/RT106x硬件板的参考设计，拨码开关SW6应拨向SW_DIP-8的7,8,11，即设置BOOT_CFG[7:4]=4'b001x（4'b001x适用于i.MXRT105x/i.MXRT106x，对于i.MXRT102x此值应为4'b01xx），此时便进入了从SEMC NAND启动模式。  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_bootpin_sel.PNG" style="zoom:100%" />

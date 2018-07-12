@@ -1,7 +1,7 @@
 ----
 　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RT系列MCU的Boot配置**。  
 
-　　在上一篇文章 [飞思卡尔i.MX RT系列微控制器启动篇（1）- Boot简介](http://www.cnblogs.com/henjay724/p/9031655.html) 里痞子衡为大家介绍了Boot基本原理以及i.MXRT Boot方式简介。今天痞子衡就来重点聊一聊i.MXRT Boot方式具体由哪些配置决定的。  
+　　在上一篇文章 [Boot简介](http://www.cnblogs.com/henjay724/p/9031655.html) 里痞子衡为大家介绍了Boot基本原理以及i.MXRT Boot方式简介。今天痞子衡就来重点聊一聊i.MXRT Boot方式具体由哪些配置决定的。  
 
 　　无论是什么芯片里的BootROM，其最核心的功能无非两个：一、从存放Application的存储器中加载执行；二、通过支持的通信接口接收来自Host的Application数据完成更新，所以Boot配置也主要围绕这两个核心功能。  
 

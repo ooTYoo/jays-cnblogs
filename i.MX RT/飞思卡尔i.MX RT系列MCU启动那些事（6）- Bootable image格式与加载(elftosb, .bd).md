@@ -1,7 +1,7 @@
 ----
 　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RT系列MCU的Bootable image格式与加载过程**。  
 
-　　在i.MXRT启动系列第三篇文章 [飞思卡尔i.MX RT系列微控制器启动篇（3）- Serial Downloader模式(sdphost, mfgtool)](http://www.cnblogs.com/henjay724/p/9034563.html) 里痞子衡在介绍使用sdphost引导启动Flashloader时使用过一个名叫ivt_flashloader.bin的image文件，其实这个image文件就是Bootable image的一种，虽然痞子衡简单分析过ivt_flashloader的组成，但介绍得并不详尽，今天痞子衡会为大家系统地讲解i.MXRT Bootable image。  
+　　在i.MXRT启动系列第三篇文章 [Serial Downloader模式(sdphost, mfgtool)](http://www.cnblogs.com/henjay724/p/9034563.html) 里痞子衡在介绍使用sdphost引导启动Flashloader时使用过一个名叫ivt_flashloader.bin的image文件，其实这个image文件就是Bootable image的一种，虽然痞子衡简单分析过ivt_flashloader的组成，但介绍得并不详尽，今天痞子衡会为大家系统地讲解i.MXRT Bootable image。  
 
 ### 一、什么是Bootable image？
 　　如果你是一个有经验的嵌入式开发者，肯定对image格式有所了解，我们通常开发的Application都是针对含内部FLASH的MCU而言的，比如Kinetis、LPC、STM32等MCU，其内部集成了一块Parallel NOR FLASH，且FLASH地址是映射在ARM 4GB system address内的（一般从0x0地址开始），FLASH里存储的直接就是我们编译链接后生成的原始Application binary(.bin)，没有任何多余的数据组成。或许你会说还有.hex, .srec等其他image格式，是的，但这些带地址信息的image格式是为编程器或下载器服务的，这些image格式经过编程器或者下载器解析后真正下载进MCU内部FLASH的数据还是原始Application binary。这类MCU上电后CPU能直接从内部FLASH获取Application代码并原地执行（XIP），所以对这类MCU而言，Bootable image就是存储在内部FLASH的Application binary(.bin)。  

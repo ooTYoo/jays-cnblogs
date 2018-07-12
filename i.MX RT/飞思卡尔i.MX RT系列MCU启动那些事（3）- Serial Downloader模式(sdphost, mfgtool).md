@@ -1,7 +1,7 @@
 ----
 　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RT系列MCU的Serial Downloader模式**。  
 
-　　在上一篇文章 [飞思卡尔i.MX RT系列微控制器启动篇（2）- Boot配置(BOOT Pin, eFUSE)](http://www.cnblogs.com/henjay724/p/9034563.html) 里痞子衡为大家介绍了i.MXRT Boot的行为配置，其中第一节里讲了Boot有三种行为模式：Serial Downloader、Boot From Fuses、Internal Boot，后两种是核心的加载启动行为模式，而Serial Downloder看起来是个次要的模式，那么Serial Downloader模式到底有什么用？今天痞子衡就来详细聊一聊Serial Downloader模式。  
+　　在上一篇文章 [Boot配置(BOOT Pin, eFUSE)](http://www.cnblogs.com/henjay724/p/9034563.html) 里痞子衡为大家介绍了i.MXRT Boot的行为配置，其中第一节里讲了Boot有三种行为模式：Serial Downloader、Boot From Fuses、Internal Boot，后两种是核心的加载启动行为模式，而Serial Downloder看起来是个次要的模式，那么Serial Downloader模式到底有什么用？今天痞子衡就来详细聊一聊Serial Downloader模式。  
 
 　　痞子衡在前面已经讲过Serial Downloader模式是一种串行下载模式，在这种模式下，BootROM通过指定的USB或者UART口来接收来自Host（恩智浦提供了上位机工具sdphost.exe或者mfgtool）的Flashloader数据，并将数据存储在SRAM中执行，Flashloader程序可以用来将你的Application下载进i.MXRT支持的所有外部非易失性存储器中，为后续从外部存储器启动做准备。  
 

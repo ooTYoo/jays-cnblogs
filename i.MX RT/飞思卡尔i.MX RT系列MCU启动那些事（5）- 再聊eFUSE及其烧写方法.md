@@ -1,7 +1,7 @@
 ----
 　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RT系列MCU的eFUSE**。  
 
-　　在i.MXRT启动系列第二篇文章 [飞思卡尔i.MX RT系列微控制器启动篇（2）- Boot配置(BOOT Pin, eFUSE)](http://www.cnblogs.com/henjay724/p/9034563.html) 里痞子衡提到了eFUSE，部分Boot配置都存储在eFUSE memory里，但是对eFUSE的介绍仅仅浅尝辄止，没有深入，今天痞子衡就为大家再进一步介绍eFUSE。  
+　　在i.MXRT启动系列第二篇文章 [Boot配置(BOOT Pin, eFUSE)](http://www.cnblogs.com/henjay724/p/9034563.html) 里痞子衡提到了eFUSE，部分Boot配置都存储在eFUSE memory里，但是对eFUSE的介绍仅仅浅尝辄止，没有深入，今天痞子衡就为大家再进一步介绍eFUSE。  
 
 　　eFUSE是i.MXRT里一块特殊的存储区域，用于存放全部芯片配置信息，其中有一部分配置信息和Boot相关。这块特殊存储区域并不在ARM的4G system address空间里，需要用特殊的方式去访问（读/写），如何访问eFUSE是本篇文章的重点。  
 

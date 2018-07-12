@@ -35,7 +35,7 @@ Spansion S25FL129P              （NOR Flash, Multiple I/O, 80MHz,      256B Pag
 ### 三、Serial EEPROM/NOR加载启动过程
 　　确保Serial EEPROM/NOR硬件相关设计无误之后，底下便是下载更新Bootable Image进Serial EEPROM/NOR以供BootROM加载启动了，在下载Bootable image之前有必要先了解Serial EEPROM/NOR的加载启动过程：  
 
-　　痞子衡在启动系列文章的第六篇 [飞思卡尔i.MX RT系列微控制器启动篇（6）- Bootable image格式与加载(elftosb/.bd)](https://www.cnblogs.com/henjay724/p/9125869.html) 里的最后已经介绍过non-XIP image加载启动过程，这个过程其实已经充分地描述了Serial EEPROM/NOR的加载启动过程。  
+　　痞子衡在启动系列文章的第六篇 [Bootable image格式与加载(elftosb/.bd)](https://www.cnblogs.com/henjay724/p/9125869.html) 里的最后已经介绍过non-XIP image加载启动过程，这个过程其实已经充分地描述了Serial EEPROM/NOR的加载启动过程。  
 　　有了non-XIP image加载启动的背景知识，Serial EEPROM/NOR的加载启动过程便是上电之后，在主动选择的Primary Boot Device启动失败之后，BootROM会从Serial EEPROM/NOR起始地址处加载initial image数据（4KB），再根据initial image里的IVT,Boot Data获取Application起始地址以及总长度，然后再将Application全部拷贝到相应SRAM里去启动，其过程如下图所示：  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_image_layout.PNG" style="zoom:100%" />
@@ -43,7 +43,7 @@ Spansion S25FL129P              （NOR Flash, Multiple I/O, 80MHz,      256B Pag
 ### 四、下载Application进Serial EEPROM/NOR
 　　理解了Serial EEPROM/NOR加载启动过程，我们便可以开始使用Flashloader下载Application进Serial EEPROM/NOR芯片中：  
 
-　　痞子衡在启动系列文章的第四篇 [飞思卡尔i.MX RT系列微控制器启动篇（4）- Flashloader初体验(blhost)](https://www.cnblogs.com/henjay724/p/9098577.html) 和第六篇 [飞思卡尔i.MX RT系列微控制器启动篇（6）- Bootable image格式与加载(elftosb/.bd)](https://www.cnblogs.com/henjay724/p/9125869.html) 里分别介绍了Flashloader的基本使用以及如何将你的Application制作成Bootable image，后续内容假定你已经制作好一个Bootable image并且使用blhost工具与Flashloader建立了基本通信，正要开始将Bootable image下载进Serial EEPROM/NOR。  
+　　痞子衡在启动系列文章的第四篇 [Flashloader初体验(blhost)](https://www.cnblogs.com/henjay724/p/9098577.html) 和第六篇 [Bootable image格式与加载(elftosb/.bd)](https://www.cnblogs.com/henjay724/p/9125869.html) 里分别介绍了Flashloader的基本使用以及如何将你的Application制作成Bootable image，后续内容假定你已经制作好一个Bootable image并且使用blhost工具与Flashloader建立了基本通信，正要开始将Bootable image下载进Serial EEPROM/NOR。  
 
 　　Serial EEPROM/NOR也支持configuration block，只不过configuration block对于BootROM恢复启动而言不是必需的，configuration block结构原型是下面的spi_nor_eeprom_config_t，在本文里暂不使能configuration block。  
 
@@ -112,7 +112,7 @@ blhost -p COMx -- write-memory 0x0 ivt_image.bin 0x110
 ### 五、进入Serial EEPROM/NOR备份启动模式
 　　Application已经被成功下载进Serial EEPROM/NOR芯片之后，此时我们便可以开始设置芯片从Serial EEPROM/NOR启动：  
 
-　　在进入Boot Device选择之前，你首先需要设置BOOT_MODE[1:0]=2'b10，即芯片处于Internal Boot模式，并且确认BT_FUSE_SEL（eFUSE偏移0x460处的32bit配置数据的bit4）为1'b0，或者也可以设置BOOT_MODE[1:0]=2'b00，即芯片处于Boot From Fuses模式，并且将BT_FUSE_SEL（eFUSE偏移0x460处的32bit配置数据的bit4）烧写为1'b1，这里看不懂的朋友请温习痞子衡前面的文章 [飞思卡尔i.MX RT系列微控制器启动篇（2）- Boot配置(BOOT Pin/eFUSE)](http://www.cnblogs.com/henjay724/p/9034563.html)。  
+　　在进入Boot Device选择之前，你首先需要设置BOOT_MODE[1:0]=2'b10，即芯片处于Internal Boot模式，并且确认BT_FUSE_SEL（eFUSE偏移0x460处的32bit配置数据的bit4）为1'b0，或者也可以设置BOOT_MODE[1:0]=2'b00，即芯片处于Boot From Fuses模式，并且将BT_FUSE_SEL（eFUSE偏移0x460处的32bit配置数据的bit4）烧写为1'b1，这里看不懂的朋友请温习痞子衡前面的文章 [Boot配置(BOOT Pin/eFUSE)](http://www.cnblogs.com/henjay724/p/9034563.html)。  
 　　设置好正确Boot模式后，再来选择Boot Device，Serial EEPROM/NOR属于Recovery Boot Device，并不是可以主动选择启动的Boot device，所以并没有BOOT_CFG pin或者eFUSE来配置选择直接从Serial EEPROM/NOR启动，如果想验证从Seril EEPROM/NOR启动是否能成功，你需要确保当前BOOT_CFG/eFUSE决定的Primary Boot Device中没有Bootable image。  
 
 ### 六、配置eFUSE启动Serial EEPROM/NOR
