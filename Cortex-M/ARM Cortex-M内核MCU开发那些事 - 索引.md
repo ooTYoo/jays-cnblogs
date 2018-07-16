@@ -17,14 +17,19 @@
 > [ARM Cortex-M内核那些事（4）- 性能指标](http://www.cnblogs.com/henjay724/p/8408915.html)  
 > [ARM Cortex-M内核那些事（5）- 指令集](http://www.cnblogs.com/henjay724/p/8763171.html)  
 
-> [ARM Cortex-M内核那些事（6）- 系统总线(AHB/APB/AXI)]()  
-> [ARM Cortex-M内核那些事（7）- 内存保护(MPU)]()  
-> [ARM Cortex-M内核那些事（8）- 浮点计算(FPU)]()  
-> [ARM Cortex-M内核那些事（9）- 数字信号处理(DSP)]()  
-> [ARM Cortex-M内核那些事（10）- 安全区域(TrustZone)]()  
+> [ARM Cortex-M内核那些事（6）- 内核寄存器]()  
+> [ARM Cortex-M内核那些事（7）- 系统总线(AHB/APB/AXI)]()  
+> [ARM Cortex-M内核那些事（8）- 内存保护(MPU)]()  
+> [ARM Cortex-M内核那些事（9）- 浮点计算(FPU)]()  
+> [ARM Cortex-M内核那些事（10）- 数字信号处理(DSP)]()  
+> [ARM Cortex-M内核那些事（11）- 安全区域(TrustZone)]()  
 
 ### 中断篇（持续更新中...）
-> [ARM Cortex-M中断那些事（0）- 索引]()  
+> [ARM Cortex-M中断那些事（1）- 工作机制]()  
+> [ARM Cortex-M中断那些事（2）- 管理模块(SCB/NVIC)]()  
+> [ARM Cortex-M中断那些事（3）- 向量表]()  
+> [ARM Cortex-M中断那些事（4）- 优先级设置]()  
+> [ARM Cortex-M中断那些事（5）- 异常处理]()  
 
 ### 功耗篇（持续更新中...）
 > [ARM Cortex-M低功耗那些事（0）- 索引]()  
@@ -35,9 +40,9 @@
 > [ARM Cortex-M调试那些事（2）- 2线协议标准(SWD)]()  
 > [ARM Cortex-M调试那些事（3）- CoreSight架构]()  
 > [ARM Cortex-M调试那些事（4）- DAPLink调试器]()  
-> [ARM Cortex-M调试那些事（5）- Jlink仿真器]()  
+> [ARM Cortex-M调试那些事（5）- J-Link仿真器]()  
 > [ARM Cortex-M调试那些事（6）- IAR内嵌调试C-SPY]()  
-> [ARM Cortex-M调试那些事（7）- flashloader]()  
+> [ARM Cortex-M调试那些事（7）- Flashloader]()  
 > [ARM Cortex-M调试那些事（8）- 常用技巧]()  
 
 ### 文件篇（全九篇已完结）

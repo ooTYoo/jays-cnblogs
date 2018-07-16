@@ -1,0 +1,27 @@
+----
+　　大家好，我是痞子衡，是正经搞技术的痞子。本系列痞子衡给大家介绍的是**飞思卡尔Kinetis系列微控制器相关知识**。  
+
+　　飞思卡尔半导体（现恩智浦半导体）于2010年开始推出的Kinetis系列昭示着ARM Cortex-M MCU阵营又多了一个顶级厂商，其第一款芯片Kinetis K60，搭载Cortex-M4内核（也是业界第一款Cortex-M4内核产品），主频最高可达150MHz，性能可达1.25DMIPS/MHz。  
+　　Kinetis芯片家族发展至今（2017）已拓展至7大家族系列：K/L/E/V/EA/M/W，其中K/L系列主打通用市场，其余5个系列专攻细分领域。  
+
+<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_k_l_v_e_ea_series.png" style="zoom:100%" />
+
+　　本系列文章会逐一介绍Kinetis系列微控制器开发相关知识。  
+
+### 调试篇（持续更新中...）
+> [飞思卡尔Kinetis系列MCU板载调试器OpenSDA了解一下]()  
+
+### 启动篇（持续更新中...）
+> [飞思卡尔Kinetis系列MCU启动那些事（1）- KBOOT架构](https://www.cnblogs.com/henjay724/p/9316150.html)  
+
+> [飞思卡尔Kinetis系列MCU启动那些事（2）- KBOOT配置(FOPT/BOOT Pin/BCA)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（3）- KBOOT通信外设(uart/spi/i2c/can/usb-hid)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（4）- KBOOT初级工具(blhost/bus_pal/KinetisFlashTool)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（5）- 从片内Flash启动]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（6）- KBOOT高级工具(elftosb/QCBGenerator/embedded_host)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（7）- 从片外QSPI NOR Flash启动]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（8）- KBOOT可选特性(IntegrityCheck)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（9）- KBOOT可选特性(ReliableUpdate)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（10）- KBOOT可选特性(ROM API)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（11）- KBOOT可选特性(Security)]()  
+
