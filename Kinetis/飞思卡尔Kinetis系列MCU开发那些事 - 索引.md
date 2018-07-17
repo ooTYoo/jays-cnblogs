@@ -13,15 +13,16 @@
 
 ### 启动篇（持续更新中...）
 > [飞思卡尔Kinetis系列MCU启动那些事（1）- KBOOT架构](https://www.cnblogs.com/henjay724/p/9316150.html)  
+> [飞思卡尔Kinetis系列MCU启动那些事（2）- KBOOT形态(ROM/Bootloader/Flashloader)](https://www.cnblogs.com/henjay724/p/9322963.html)  
 
-> [飞思卡尔Kinetis系列MCU启动那些事（2）- KBOOT配置(FOPT/BOOT Pin/BCA)]()  
-> [飞思卡尔Kinetis系列MCU启动那些事（3）- KBOOT通信外设(uart/spi/i2c/can/usb-hid)]()  
-> [飞思卡尔Kinetis系列MCU启动那些事（4）- KBOOT初级工具(blhost/bus_pal/KinetisFlashTool)]()  
-> [飞思卡尔Kinetis系列MCU启动那些事（5）- 从片内Flash启动]()  
-> [飞思卡尔Kinetis系列MCU启动那些事（6）- KBOOT高级工具(elftosb/QCBGenerator/embedded_host)]()  
-> [飞思卡尔Kinetis系列MCU启动那些事（7）- 从片外QSPI NOR Flash启动]()  
-> [飞思卡尔Kinetis系列MCU启动那些事（8）- KBOOT可选特性(IntegrityCheck)]()  
-> [飞思卡尔Kinetis系列MCU启动那些事（9）- KBOOT可选特性(ReliableUpdate)]()  
-> [飞思卡尔Kinetis系列MCU启动那些事（10）- KBOOT可选特性(ROM API)]()  
-> [飞思卡尔Kinetis系列MCU启动那些事（11）- KBOOT可选特性(Security)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（3）- KBOOT配置(FOPT/BOOT Pin/BCA)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（4）- KBOOT通信外设(uart/spi/i2c/can/usb-hid)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（5）- KBOOT初级工具(blhost/bus_pal/KinetisFlashTool)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（6）- 从片内Flash启动]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（7）- KBOOT高级工具(elftosb/QCBGenerator/embedded_host)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（8）- 从片外QSPI NOR Flash启动]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（9）- KBOOT可选特性(IntegrityCheck)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（10）- KBOOT可选特性(ReliableUpdate)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（11）- KBOOT可选特性(ROM API)]()  
+> [飞思卡尔Kinetis系列MCU启动那些事（12）- KBOOT可选特性(Security)]()  
 

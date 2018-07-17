@@ -6,7 +6,7 @@
 
 ### 一、KBOOT由来
 　　飞思卡尔Kinetis系列MCU是从2010年开始推出的，早期的Kinetis产品比如MK60, MKL25并没有配套标准Bootloader功能，不过可以从飞思卡尔官网上找到很多风格迥异的Bootloader参考设计，比如AN2295（UART型）、AN4655（I2C型）、AN4379（USB-MSD型）等，这些Bootloader参考方案都是不同的飞思卡尔应用工程师设计的，因此所用的通信协议以及上位机工具都不相同，虽然这些AN一定程度上能解决客户使用Bootloader的需求，但是在Bootloader后续维护升级以及拓展性方面有一定缺陷。  
-　　飞思卡尔在2012年也逐渐意识到了这一点，于是在2012年底组建了一支专门开发Kinetis Bootloader的软件团队，即KBOOT Team，这个Team成立的目的就是要开发出一个Unified Kinetis Bootloader（简称KBOOT），这个bootloader必须拥有良好的架构，易于扩展和维护，功能全面且经过完善的验证。  
+　　飞思卡尔也逐渐意识到了这一点，为了完善软件生态建设与服务质量，于是在2013年初组建了一支专门开发Kinetis Bootloader的软件团队，即KBOOT Team，这个Team成立的目的就是要开发出一个Unified Kinetis Bootloader（简称KBOOT），这个bootloader必须拥有良好的架构，易于扩展和维护，功能全面且经过完善的验证。  
 　　KBOOT项目发展至今（2017）已近5年，目前被广泛应用于主流Kinetis芯片上，是Kinetis芯片集成Bootloader的首选，其官方主页是 [www.nxp.com/kboot](www.nxp.com/kboot)  
 
 ### 二、KBOOT架构
@@ -53,53 +53,70 @@ const peripheral_descriptor_t g_peripherals[] = {
 typedef struct PeripheralDescriptor
 {
     //! @brief Bit mask identifying the peripheral type.
-    //!
     //! See #_peripheral_types for a list of valid bits.
+    // 外设的类型名，KBOOT用于识别当前外设的类型
     uint32_t typeMask;
 
     //! @brief The instance number of the peripheral.
+    // 外设的编号，KBOOT可以支持同一外设的多个实例
     uint32_t instance;
 
     //! @brief Configure pinmux setting for the peripheral.
+    // 外设的I/O初始化
     void (*pinmuxConfig)(uint32_t instance, pinmux_type_t pinmux);
 
     //! @brief Control interface for the peripheral.
+    // 外设的行为控制
     const peripheral_control_interface_t *controlInterface;
 
     //! @brief Byte-level interface for the peripheral.
-    //!
     //! May be NULL since not all periperhals support this interface.
+    // 外设的byte级别传输控制
     const peripheral_byte_inteface_t *byteInterface;
 
     //! @brief Packet level interface for the peripheral.
+    // 外设的packet级别传输控制
     const peripheral_packet_interface_t *packetInterface;
 } peripheral_descriptor_t;
 
 //! @brief Peripheral control interface.
 typedef struct _peripheral_control_interface
 {
+    // 检测是否外设是否被激活
     bool (*pollForActivity)(const peripheral_descriptor_t *self);
+    // 外设IP底层初始化
     status_t (*init)(const peripheral_descriptor_t *self, serial_byte_receive_func_t function);
+    // 外设IP底层恢复
     void (*shutdown)(const peripheral_descriptor_t *self);
+    // 特殊外设pump控制（比如USB-MSC, DFU等）
     void (*pump)(const peripheral_descriptor_t *self);
 } peripheral_control_interface_t;
 
 //! @brief Peripheral abstract byte interface.
 typedef struct _peripheral_byte_inteface
 {
+    // byte传输初始化，一般为NULL
     status_t (*init)(const peripheral_descriptor_t *self);
+    // byte发送
     status_t (*write)(const peripheral_descriptor_t *self, const uint8_t *buffer, uint32_t byteCount);
 } peripheral_byte_inteface_t;
 
 //! @brief Peripheral Packet Interface.
 typedef struct _peripheral_packet_interface
 {
+    // packet传输初始化
     status_t (*init)(const peripheral_descriptor_t *self);
+    // 接收一包packet
     status_t (*readPacket)(const peripheral_descriptor_t *self, uint8_t **packet, uint32_t *packetLength, packet_type_t packetType);
+    // 发送一包packet
     status_t (*writePacket)(const peripheral_descriptor_t *self, const uint8_t *packet, uint32_t byteCount, packet_type_t packetType);
+    // 立即终止当前packet
     void (*abortDataPhase)(const peripheral_descriptor_t *self);
+    // 完成当前packet
     status_t (*finalize)(const peripheral_descriptor_t *self);
+    // 获取最大packet包长
     uint32_t (*getMaxPacketSize)(const peripheral_descriptor_t *self);
+    // byte接收callback
     void (*byteReceivedCallback)(uint8_t byte);
 } peripheral_packet_interface_t;
 ```
@@ -131,42 +148,55 @@ memory_map_entry_t g_memoryMap[] = {
 //! @brief Structure of a memory map entry.
 typedef struct _memory_map_entry
 {
+    // 存储空间起始地址
     uint32_t startAddress;
+    // 存储空间结束地址
     uint32_t endAddress;
+    // 存储空间属性（Flash/RAM，是否能XIP）
     uint32_t memoryProperty;
+    // 存储空间操作接口
     const memory_region_interface_t *memoryInterface;
 } memory_map_entry_t;
 
 typedef struct _memory_region_interface
 {
+    // 存储空间（IP控制器）初始化
     status_t (*init)(void);
+    // 从存储空间指定范围内读取数据
     status_t (*read)(uint32_t address, uint32_t length, uint8_t *buffer);
+    // 将数据写入存储空间指定范围内
     status_t (*write)(uint32_t address, uint32_t length, const uint8_t *buffer);
+    // 将pattern填充入存储空间指定范围内
     status_t (*fill)(uint32_t address, uint32_t length, uint32_t pattern);
+    // 对于支持page/section编程的存储器做一次page/section数据写入
     status_t (*flush)(void);
+    // 将存储空间指定范围内容擦除
     status_t (*erase)(uint32_t address, uint32_t length);
 } memory_region_interface_t;
 ```
 
 #### 2.3 Command & Data Processor
-　　KBOOT核心功能便是与Host之间的命令交互，KBOOT主要工作于Slave模式，实时监听来自Host的命令并做出响应，所以KBOOT必须配套一个专用上位机工具使用。  
+　　KBOOT核心功能便是与Host之间的命令交互，KBOOT主要工作于Slave模式，实时监听来自Host的命令并做出响应，KBOOT仅能识别事先规定好的命令格式，因此KBOOT必须配套一个专用上位机工具使用。你可能会疑问，为什么这个组件又叫Data Processor？因为有些命令是含有Data phase的（比如read memory, write memory），对于这些命令时除了基本的命令交互响应之后，还必须有数据传输交互响应。  
 　　KBOOT中使用如下名叫g_commandInterface和g_commandHandlerTable[]的结构变量来实现核心命令交互，KBOOT中一共实现了19条命令：  
 ```C
 // See bl_command.h for documentation on this interface.
-command_interface_t g_commandInterface = { bootloader_command_init,
-                                           bootloader_command_pump,
-                                           (command_handler_entry_t *)&g_commandHandlerTable,
-										   &g_commandData };
+command_interface_t g_commandInterface = 
+{
+    bootloader_command_init,
+    bootloader_command_pump,
+    (command_handler_entry_t *)&g_commandHandlerTable,
+    &g_commandData
+};
 
 //! @brief Command handler table.
 const command_handler_entry_t g_commandHandlerTable[] = {
-// cmd handler              // data handler or NULL
+    // cmd handler              // data handler or NULL
     { handle_flash_erase_all, NULL },              // kCommandTag_FlashEraseAll = 0x01
     { handle_flash_erase_region, NULL },           // kCommandTag_FlashEraseRegion = 0x02
     { handle_read_memory, handle_data_producer },  // kCommandTag_ReadMemory = 0x03
     { handle_write_memory, handle_data_consumer }, // kCommandTag_WriteMemory = 0x04
     { handle_fill_memory, NULL },                  // kCommandTag_FillMemory = 0x05
-    { handle_flash_security_disable, NULL }, // kCommandTag_FlashSecurityDisable = 0x06
+    { handle_flash_security_disable, NULL },       // kCommandTag_FlashSecurityDisable = 0x06
     { handle_get_property, NULL },                    // kCommandTag_GetProperty = 0x07
     { handle_receive_sb_file, handle_data_consumer }, // kCommandTag_ReceiveSbFile = 0x08
     { handle_execute, NULL },                         // kCommandTag_Execute = 0x09
@@ -188,25 +218,35 @@ const command_handler_entry_t g_commandHandlerTable[] = {
 //! @brief Interface to command processor operations.
 typedef struct CommandInterface
 {
+    // command处理控制单元初始化
     status_t (*init)(void);
+    // command处理控制单元pump
     status_t (*pump)(void);
+    // command服务函数查找表
     const command_handler_entry_t *handlerTable;
+    // command处理控制单元状态数据
     command_processor_data_t *stateData;
 } command_interface_t;
 
 //! @brief Format of command handler entry.
 typedef struct CommandHandlerEntry
 {
+    // command服务函数
     void (*handleCommand)(uint8_t *packet, uint32_t packetLength);
+    // command的data级处理函数（只有少部分command有此函数）
     status_t (*handleData)(bool *hasMoreData);
 } command_handler_entry_t;
 
 //! @brief Command processor data format.
 typedef struct CommandProcessorData
 {
-    int32_t state;         //!< Current state machine state
-    uint8_t *packet;       //!< Pointer to packet in process
-    uint32_t packetLength; //!< Length of packet in process
+    // command处理控制状态机当前状态（command/data两种状态）
+    int32_t state;
+    // 指向当前处理的packet地址
+    uint8_t *packet;
+    // 当前处理的packet长度
+    uint32_t packetLength;
+    // command的data级处理控制状态数据
     struct DataPhase
     {
         uint8_t *data;               //!< Data for data phase
@@ -217,6 +257,7 @@ typedef struct CommandProcessorData
         uint8_t commandTag;          //!< Tag of command running data phase
         uint8_t option;              //!< option for special command
     } dataPhase;
+    // 指向command服务函数查找表地址
     const command_handler_entry_t *handlerEntry; //! Pointer to handler table entry for packet in process
 } command_processor_data_t;
 ```
