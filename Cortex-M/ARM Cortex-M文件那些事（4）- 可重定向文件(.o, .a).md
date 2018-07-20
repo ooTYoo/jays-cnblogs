@@ -1,12 +1,12 @@
 ----
 　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家讲的是**嵌入式开发里的relocatable文件(object, library)**。  
 
-　　前三节课里，痞子衡都是在给大家介绍嵌入式开发中的input文件。从今天这节课开始，痞子衡就陆续为大家讲output文件。上一节课[project文件]()里讲说到project文件是一个承前启后的文件，今天痞子衡就为大家讲project生成的第一类output文件：relocatable文件。  
+　　前三节课里，痞子衡都是在给大家介绍嵌入式开发中的input文件。从今天这节课开始，痞子衡就陆续为大家讲output文件。上一节课[工程文件(.ewp)](http://www.cnblogs.com/henjay724/p/8232585.html)里讲说到project文件是一个承前启后的文件，今天痞子衡就为大家讲project生成的第一类output文件：relocatable文件。  
 
-　　文件关系：[source文件]() + [project文件]() -> **relocatable文件**  
+　　文件关系：[源文件(.c/.h/.s)](http://www.cnblogs.com/henjay724/p/8183257.html) + [工程文件(.ewp)](http://www.cnblogs.com/henjay724/p/8232585.html) -> **可重定向文件(.o/.a)**  
 
-　　relocatable文件，即可重定向文件，这个文件是由编译器汇编源文件（.c/.s）而成的。直接生成的重定向文件叫object file，经过封装的重定向文件称为library file。可重定向文件属于ELF文件的分支，关于ELF文件的详细解释可见第六节课[executable文件]()。  
-　　本文主角object file和library file，仅是一个中间的过渡文件，其本身也不能被ARM直接执行，需经过第二步转换，即链接，所以这两个文件都是链接器的输入文件。让我们来简单分析一下这两个文件。在开始分析之前我们先回到上一节课[project文件]()的最后创建的demo工程上，编译这个demo工程可以得到如下.o文件，这些文件全是object文件，每一个源文件都对应一个object文件，本文以task.o为例讲解relocatable文件。  
+　　relocatable文件，即可重定向文件，这个文件是由编译器汇编源文件（.c/.s）而成的。直接生成的重定向文件叫object file，经过封装的重定向文件称为library file。可重定向文件属于ELF文件的分支，关于ELF文件的详细解释可见第六节课[可执行文件(.out/.elf)](http://www.cnblogs.com/henjay724/p/8276677.html)。  
+　　本文主角object file和library file，仅是一个中间的过渡文件，其本身也不能被ARM直接执行，需经过第二步转换，即链接，所以这两个文件都是链接器的输入文件。让我们来简单分析一下这两个文件。在开始分析之前我们先回到上一节课[工程文件(.ewp)](http://www.cnblogs.com/henjay724/p/8232585.html)的最后创建的demo工程上，编译这个demo工程可以得到如下.o文件，这些文件全是object文件，每一个源文件都对应一个object文件，本文以task.o为例讲解relocatable文件。  
 ```text
 D:\myProject\bsp\builds\demo\Release\Obj\main.o
 D:\myProject\bsp\builds\demo\Release\Obj\reset.o
@@ -68,7 +68,7 @@ Key to Flags:
   C (compressed), x (unknown), o (OS specific), E (exclude),
   y (purecode), p (processor specific)
 ```
-　　分析section header可知该task.o里的各个常见section（.bss, .noinit, .data, .text, .textrw）的大小，各个段的含义详见第二节课[linker文件]()。  
+　　分析section header可知该task.o里的各个常见section（.bss, .noinit, .data, .text, .textrw）的大小，各个段的含义详见第二节课[链接文件(.icf)](http://www.cnblogs.com/henjay724/p/8191908.html)。  
 
 #### 1.3 获得symbol list
 ```text
@@ -88,7 +88,7 @@ Symbol table '.symtab' contains 53 entries:
     51: 00000001    14 FUNC    GLOBAL DEFAULT   12 normal_task
     52: 00000001    16 FUNC    GLOBAL DEFAULT   13 ram_task
 ```
-　　分析symbol list可知我们在task.c里定义的函数和全局变量的信息，其中Value表明的是各symbol对象（函数/全局变量）在存储器中的分配地址，由于object文件并没有经过链接，所以此处地址信息是无效的（待分配的）。翻看到第六节课[executable文件]()里2.2.4一节，便可看到这些symbol对象Value的值开始变得真实有效了。这就解释了为什么object文件是relocatable的。  
+　　分析symbol list可知我们在task.c里定义的函数和全局变量的信息，其中Value表明的是各symbol对象（函数/全局变量）在存储器中的分配地址，由于object文件并没有经过链接，所以此处地址信息是无效的（待分配的）。翻看到第六节课[可执行文件(.out/.elf)](http://www.cnblogs.com/henjay724/p/8276677.html)里2.2.4一节，便可看到这些symbol对象Value的值开始变得真实有效了。这就解释了为什么object文件是relocatable的。  
 
 ### 二、关于library文件
 　　本质上library文件跟object文件是一样的，都是未经链接器链接的文件。library文件的应用场景是，在一些特殊场合，你不想把你的C源代码开放给别人阅读和自由修改，但是你又需要分享你的代码给别人使用，怎么解决这个问题？library文件就是解决这个问题的，可以借助编译器的选项（IAR下是Options->General Options->Output->Output file里选择Library（默认是executable）），那么添加进整个工程的所有源文件会被汇编封装成一个.a文件（即library文件），这时候你只需要将该.a文件以及配套API头文件分享给别人即可。别人只需要添加你的.a文件以及配套.h文件进他自己的工程，便可直接调用你的API。  

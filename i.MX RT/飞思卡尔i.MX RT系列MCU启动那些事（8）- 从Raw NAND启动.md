@@ -128,7 +128,7 @@ typedef struct _semc_nand_dbbt
 } semc_nand_dbbt_t;
 ```
 
-　　知道了FCB/DBBT结构，那么怎么生成FCB/DBBT数据并且下载进Raw NAND什么地址处呢？当然我们可以手工创建FCB/DBBT并将其下载到Raw NAND中，但其实<font color="Blue">Flashloader工具会帮我们自动做好大部分工作（生成FCB/DBBT，将FCB/DBBT下载到Raw NAND中），而我们只需要提供简化的12byte配置数据即可。</font>如果你还有印象的话，痞子衡在启动系列文章的第四篇 [飞思卡尔i.MX RT系列微控制器启动篇（4）- Flashloader初体验(blhost)](https://www.cnblogs.com/henjay724/p/9098577.html) 的最后介绍过下载更新Application示例（该示例适用NAND芯片MX30LF4GE8AB-TI）：  
+　　知道了FCB/DBBT结构，那么怎么生成FCB/DBBT数据并且下载进Raw NAND什么地址处呢？当然我们可以手工创建FCB/DBBT并将其下载到Raw NAND中，但其实<font color="Blue">Flashloader工具会帮我们自动做好大部分工作（生成FCB/DBBT，将FCB/DBBT下载到Raw NAND中），而我们只需要提供简化的12byte配置数据即可。</font>如果你还有印象的话，痞子衡在启动系列文章的第四篇 [Flashloader初体验(blhost)](https://www.cnblogs.com/henjay724/p/9098577.html) 的最后介绍过下载更新Application示例（该示例适用NAND芯片MX30LF4GE8AB-TI）：  
 
 ```text
 // 在SRAM里临时存储Raw NAND配置数据

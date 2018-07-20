@@ -3,9 +3,9 @@
 
 　　第四节课里，痞子衡给大家介绍了第一种output文件-relocatable文件，本文继续给大家讲project生成的第二种output文件-map文件，map文件记录了很多重要的信息，这对于后续调试有很大帮助。  
 
-　　文件关系：[linker文件]() + [project文件]() + [relocatable文件]() -> **map文件**  
+　　文件关系：[链接文件(.icf)](http://www.cnblogs.com/henjay724/p/8191908.html) + [工程文件(.ewp)](http://www.cnblogs.com/henjay724/p/8232585.html) + [可重定向文件(.o/.a)](http://www.cnblogs.com/henjay724/p/8276595.html) -> **映射文件(.map)**  
 
-　　痞子衡在第四节课[relocatable文件]()里分析object文件里的symbol list时讲到由于object文件并没有经过链接，所以所有symbol地址信息是无效的（待分配的），而map文件就是所有relocatable文件经过链接器统一链接后生成的记录链接信息的文件，map文件里可以查到所有symbol在存储器中具体分配地址。话不多说，让我们直接开启map文件分析之旅，以第三节课[project文件]()里demo工程为例。  
+　　痞子衡在第四节课[可重定向文件(.o/.a)](http://www.cnblogs.com/henjay724/p/8276595.html)里分析object文件里的symbol list时讲到由于object文件并没有经过链接，所以所有symbol地址信息是无效的（待分配的），而map文件就是所有relocatable文件经过链接器统一链接后生成的记录链接信息的文件，map文件里可以查到所有symbol在存储器中具体分配地址。话不多说，让我们直接开启map文件分析之旅，以第三节课[工程文件(.ewp)](http://www.cnblogs.com/henjay724/p/8232585.html)里demo工程为例。  
 
 ### 一、解析map文件
 　　在IAR软件选项设置options->Linker->List里选中Generate linker map file，编译链接demo工程可在D:\myProject\bsp\builds\demo\Release\List路径下得到demo.map文件。让我们从头到尾逐一分析里面内容：  
@@ -59,8 +59,8 @@ are calls to deallocation functions in the application.
 ```
 
 #### 1.3 各object中Section放置信息
-　　从map文件第三部分开始，就进入非常有用的信息环节了。第一个重要信息就是section放置信息。我们在第四节课[relocatable文件]()里分析过单个relocatable文件task.o，task.o里各个基本section都有，但是都并没有分配有效地址，而这里列出了所有relocatable文件统一存储和地址分配信息，从这里我们可以看到，链接器在整合各section的时候，都是以object文件为单位的，这意味着同一个object文件里的同一个section里的对象（变量/函数）在存储空间里的位置也是靠在一起的。  
-　　另外一个有意思的信息是在第二节课[linker文件]()里，我们一共有四句block放置语句，在这里section也被分成了四个block：A0,P1,P2,P3。IDE给每个block重命名了，这些重命名的信息将会在第六节课[executable文件]()里被提到。  
+　　从map文件第三部分开始，就进入非常有用的信息环节了。第一个重要信息就是section放置信息。我们在第四节课[可重定向文件(.o/.a)](http://www.cnblogs.com/henjay724/p/8276595.html)里分析过单个relocatable文件task.o，task.o里各个基本section都有，但是都并没有分配有效地址，而这里列出了所有relocatable文件统一存储和地址分配信息，从这里我们可以看到，链接器在整合各section的时候，都是以object文件为单位的，这意味着同一个object文件里的同一个section里的对象（变量/函数）在存储空间里的位置也是靠在一起的。  
+　　另外一个有意思的信息是在第二节课[链接文件(.icf)](http://www.cnblogs.com/henjay724/p/8191908.html)里，我们一共有四句block放置语句，在这里section也被分成了四个block：A0,P1,P2,P3。IDE给每个block重命名了，这些重命名的信息将会在第六节课[可执行文件(.out/.elf)](http://www.cnblogs.com/henjay724/p/8276677.html)里被提到。  
 ```text
 *******************************************************************************
 *** PLACEMENT SUMMARY
@@ -311,7 +311,7 @@ tmalloc_small           0x00000d35  0x242  Code  Lc  dlmalloc.o [3]
 ```
 
 ### 二、代码对象与section的关系
-　　痞子衡在第二节课[linker文件]()里的讲过section的概念，并且列出了IAR系统里默认的各section的含义。经过上面对map文件的分析，现在让我们直接用demo工程里的main.c和task.c源文件来实例分析section：  
+　　痞子衡在第二节课[链接文件(.icf)](http://www.cnblogs.com/henjay724/p/8191908.html)里的讲过section的概念，并且列出了IAR系统里默认的各section的含义。经过上面对map文件的分析，现在让我们直接用demo工程里的main.c和task.c源文件来实例分析section：  
 
 <table>
     <tr>

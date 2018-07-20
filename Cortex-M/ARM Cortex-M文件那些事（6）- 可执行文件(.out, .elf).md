@@ -3,9 +3,9 @@
 
 　　第四、五节课里，痞子衡已经给大家介绍了2种output文件，本文继续给大家讲project生成的另一种output文件-executable文件，也是特别重要的output文件。  
 
-　　文件关系：[linker文件]() + [project文件]() + [relocatable文件]() -> **executable文件**  
+　　文件关系：[链接文件(.icf)](http://www.cnblogs.com/henjay724/p/8191908.html) + [工程文件(.ewp)](http://www.cnblogs.com/henjay724/p/8232585.html) + [可重定向文件(.o/.a)](http://www.cnblogs.com/henjay724/p/8276595.html) -> **可执行文件(.out/.elf)**  
 
-　　仔细看过痞子衡之前课程的朋友肯定知道，痞子衡在第四节课[relocatable文件]()里介绍的object文件在格式上其实跟本文要讲的elf文件是类似的，它们都属于ELF文件分支。只不是relocatable文件只是中间过渡文件，而本文要讲的elf却是标准的output文件，这个文件几乎包含了工程的所有信息，有了这个文件我们既可以在线调试工程，也可以将elf文件转换成image文件，直接下载image文件数据进芯片中脱机运行。今天痞子衡就为大家仔细分析elf文件。  
+　　仔细看过痞子衡之前课程的朋友肯定知道，痞子衡在第四节课[可重定向文件(.o/.a)](http://www.cnblogs.com/henjay724/p/8276595.html)里介绍的object文件在格式上其实跟本文要讲的elf文件是类似的，它们都属于ELF文件分支。只不是relocatable文件只是中间过渡文件，而本文要讲的elf却是标准的output文件，这个文件几乎包含了工程的所有信息，有了这个文件我们既可以在线调试工程，也可以将elf文件转换成image文件，直接下载image文件数据进芯片中脱机运行。今天痞子衡就为大家仔细分析elf文件。  
 
 ### 一、elf文件基础
 　　ELF全称Executable and Linkable Format，可执行连接格式，ELF格式的文件最早用于存储Linux程序，后演变到ARM系统上存储ARM程序。ELF文件（目标文件）格式主要三种：  
@@ -13,7 +13,7 @@
 > * **可执行文件**：用于生成应用image，载入存储器执行（后缀通常为.out或者.elf）。这个文件是用于加载执行阶段。
 > * **共享目标文件**：用于和其他共享目标文件或者object文件一起生成可执行文件，或者和可执行文件一起创建应用image。（也称共享库文件，后缀为.so的文件）。这个文件既可用于编译和链接阶段，也可用于加载执行阶段。
 
-　　我们在ARM开发中更多接触的是前两种格式，第一种格式前面系列文章[relocatable文件]()已经介绍过，本文的主角是第二种格式-可执行文件。不管是哪种格式的ELF文件，其都可能包含如下三种基本索引表：  
+　　我们在ARM开发中更多接触的是前两种格式，第一种格式前面系列文章[可重定向文件(.o/.a)](http://www.cnblogs.com/henjay724/p/8276595.html)已经介绍过，本文的主角是第二种格式-可执行文件。不管是哪种格式的ELF文件，其都可能包含如下三种基本索引表：  
 > * **file header**：一般在文件的开始，描述了ELF文件的整体组织情况。
 > * **program header**：告诉系统如何创建image，可执行文件必须具有program header，而可重定向文件则不需要。
 > * **section header**：包含了描述文件section的信息，每个section都有一个header，每一个header给出诸如section名称、section大小等信息。可重定向文件必须包含section header。
@@ -130,7 +130,7 @@ Usage: readelf <option(s)> elf-file(s)
 ```
 
 #### 2.2 逐步分析elf文件
-　　万事俱备了，开始分析elf文件，以第三节课[project文件]()里demo工程为例。编译链接该工程可在D:\myProject\bsp\builds\demo\Release\Exe路径下得到demo.elf文件。该文件大小32612 bytes，显然这么精简的一个小工程image size不可能这么大，说明elf文件里的记录信息数据占比非常大。  
+　　万事俱备了，开始分析elf文件，以第三节课[工程文件(.ewp)](http://www.cnblogs.com/henjay724/p/8232585.html)里demo工程为例。编译链接该工程可在D:\myProject\bsp\builds\demo\Release\Exe路径下得到demo.elf文件。该文件大小32612 bytes，显然这么精简的一个小工程image size不可能这么大，说明elf文件里的记录信息数据占比非常大。  
 
 ##### 2.2.1 获得file header
 ```text

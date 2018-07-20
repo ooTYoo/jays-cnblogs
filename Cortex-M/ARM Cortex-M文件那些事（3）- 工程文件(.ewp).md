@@ -1,7 +1,7 @@
 ----
 　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家讲的是**嵌入式开发里的project文件**。  
 
-　　前面两节课里，痞子衡分别给大家介绍了嵌入式开发中的两种典型input文件：[source文件]()、[linker文件]()。痞子衡要再次提问了，还有没有input文件呢?答案确实是有，但这次真的是有且仅有了，本文要介绍的主角project文件也属于半个input文件。为什么说是半个?因为project文件不仅包含开发者指定的input信息，还包含很多其他辅助调试的input/output信息，算是嵌入式开发中承前启后的文件。而本文侧重点在于project文件中与开发者应用相关的input信息，仅当得到了这些input信息，再加上前面介绍的source和linker文件，那么你就已经得到了application所有的信息，你可以用它们来可以生成无歧义的可执行image binary。  
+　　前面两节课里，痞子衡分别给大家介绍了嵌入式开发中的两种典型input文件：[源文件(.c/.h/.s)](http://www.cnblogs.com/henjay724/p/8183257.html)、[链接文件(.icf)](http://www.cnblogs.com/henjay724/p/8191908.html)。痞子衡要再次提问了，还有没有input文件呢?答案确实是有，但这次真的是有且仅有了，本文要介绍的主角project文件也属于半个input文件。为什么说是半个?因为project文件不仅包含开发者指定的input信息，还包含很多其他辅助调试的input/output信息，算是嵌入式开发中承前启后的文件。而本文侧重点在于project文件中与开发者应用相关的input信息，仅当得到了这些input信息，再加上前面介绍的source和linker文件，那么你就已经得到了application所有的信息，你可以用它们来可以生成无歧义的可执行image binary。  
 　　随着嵌入式软件工程的发展，为了应对日益复杂的需求，现代IDE的功能也越来越强大了，IDE版本更迭让人应接不暇，Keil MDK已然踏入5.0时代，IAR EWARM更是进入了8.0时代，IDE各有千秋，但本文要讲的内容却是每个IDE必须具有的基本功能，还是继续以IAR EWARM为例开始今天的内容：  
 
 ### 一、标准IDE功能
