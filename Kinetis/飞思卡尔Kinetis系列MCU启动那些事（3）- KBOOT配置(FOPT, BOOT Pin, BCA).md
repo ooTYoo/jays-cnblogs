@@ -120,5 +120,5 @@ enum _flash_constants
 
 　　最后再解释一下BCA地址为何是APP_VECTOR_TABLE + 0x3c0，我们知道ARM Cortex-M系统规定Application前1KB（0x0 - 0x3FF）应放中断向量表，Cortex-M最大支持256个中断，其中前16个是系统中断，后240个是外设中断，而Cortex-M厂商生产的芯片一般用不满240个外设中断，所以其实中断向量表后半部分其实是reserved的，因此我们可以把reserved区域里的0x3C0 - 0x3FF这64bytes用作BCA配置。  
 
-　　至此，飞思卡尔Kinetis系列MCU的KBOOT形态痞子衡便介绍完毕了，掌声在哪里~~~ 
+　　至此，飞思卡尔Kinetis系列MCU的KBOOT配置痞子衡便介绍完毕了，掌声在哪里~~~ 
 
