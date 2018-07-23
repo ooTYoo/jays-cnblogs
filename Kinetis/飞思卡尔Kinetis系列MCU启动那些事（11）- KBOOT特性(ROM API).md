@@ -38,16 +38,24 @@ typedef struct BootloaderTree
 } bootloader_tree_t;
 ```
 
-　　在所有导出的模块driver API中，Flash driver API是使用最广泛的，其API原型如下（不同芯片中Flash driver API版本可能不一致，下面是用于K80芯片上的F1.2.2版）：  
+　　在所有导出的模块driver API中，Flash driver API是使用最广泛的，其API原型如下（不同芯片中Flash driver API版本可能不一致，截止目前共有3个版本：F1.0.x、F1.1.x、F1.2.x）：  
 
 ```C
 //! @brief Interface for the flash driver.
 typedef struct FlashDriverInterface {
-    standard_version_t version;
+#if !defined(FLASH_API_TREE_1_0)
+    standard_version_t version; //!< flash driver API version number.
+#endif
     status_t (*flash_init)(flash_driver_t * driver);
-    status_t (*flash_erase_all)(flash_driver_t * driver, uint32_t key);
-    status_t (*flash_erase_all_unsecure)(flash_driver_t * driver, uint32_t key);
-    status_t (*flash_erase)(flash_driver_t * driver, uint32_t start, uint32_t lengthInBytes, uint32_t key);
+#if defined(FLASH_API_TREE_1_0)
+    status_t (*flash_erase_all)(flash_config_t *config);
+    status_t (*flash_erase_all_unsecure)(flash_config_t *config);
+    status_t (*flash_erase)(flash_config_t *config, uint32_t start, uint32_t lengthInBytes);
+#else
+    status_t (*flash_erase_all)(flash_config_t *config, uint32_t key);
+    status_t (*flash_erase_all_unsecure)(flash_config_t *config, uint32_t key);
+    status_t (*flash_erase)(flash_config_t *config, uint32_t start, uint32_t lengthInBytes, uint32_t key);
+#endif
     status_t (*flash_program)(flash_driver_t * driver, uint32_t start, uint32_t * src, uint32_t lengthInBytes);
     status_t (*flash_get_security_state)(flash_driver_t * driver, flash_security_state_t * state);
     status_t (*flash_security_bypass)(flash_driver_t * driver, const uint8_t * backdoorKey);
@@ -55,12 +63,18 @@ typedef struct FlashDriverInterface {
     status_t (*flash_verify_erase)(flash_driver_t * driver, uint32_t start, uint32_t lengthInBytes, flash_margin_value_t margin);
     status_t (*flash_verify_program)(flash_driver_t * driver, uint32_t start, uint32_t lengthInBytes, const uint8_t * expectedData, flash_margin_value_t margin, uint32_t * failedAddress, uint32_t * failedData);
     status_t (*flash_get_property)(flash_driver_t * driver, flash_property_t whichProperty, uint32_t * value);
+#if (!defined(FLASH_API_TREE_1_0)) && (!defined(FLASH_API_TREE_1_1))
     status_t (*flash_register_callback)(flash_driver_t * driver, flash_callback_t callback);
     status_t (*flash_program_once)(flash_driver_t * driver, uint32_t index, uint32_t * src, uint32_t lengthInBytes);
     status_t (*flash_read_once)(flash_driver_t * driver, uint32_t index, uint32_t * dst, uint32_t lengthInBytes);
     status_t (*flash_read_resource)(flash_driver_t * driver, uint32_t start, uint32_t *dst, uint32_t lengthInBytes, flash_read_resource_option_t option);
+#endif
 } flash_driver_interface_t;
 ```
+
+　　下表列出了所有含ROM空间的芯片中Flash driver API的版本：  
+
+<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_API_flash_version.PNG" style="zoom:100%" />
 
 > * Note: 模块driver API设计必须满足几个条件：一、API里不能使用全局变量；二、模块IRQHandler不能直接当做API  
 
