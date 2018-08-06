@@ -34,7 +34,7 @@
 　　第一步是添加一个Frame，这是GUI的轮廓基础，其size（default为500； 300）决定了GUI整体界面的大小。  
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/wxFormBuilder-step1-form.PNG" style="zoom:100%" />
 
-　　第二步是在Frame下添加一个Sizer，后续所有控件均是放在Sizer里的。关于Sizer部分需要特别说明一下，wxPython提供的Sizer类型有如下七种：wxBoxSizer、wxWrapSizer、wxStaticBoxSizer、wxGridSizer、wxFlexGridSizer、wxGridBagSizer、wxStdDialogButtonSizer，<font color="Blue">Sizer的样式决定了后续控件的整体相对位置关系，选定了Sizer即选定了GUI界面样式</font>。关于这七种Sizer的具体样式请见 [https://docs.wxpython.org/sizers_overview.html#sizers-overview](https://docs.wxpython.org/sizers_overview.html#sizers-overview)  
+　　第二步是在Frame下添加一个Sizer，后续所有控件均是放在Sizer里的。关于Sizer部分需要特别说明一下，wxPython提供的Sizer类型有如下七种：wxBoxSizer、wxWrapSizer、wxStaticBoxSizer、wxGridSizer、wxFlexGridSizer、wxGridBagSizer、wxStdDialogButtonSizer，<font color="Blue">Sizer的样式决定了后续控件的整体相对位置关系，选定了Sizer即选定了GUI界面样式</font>。关于这七种Sizer的具体样式请见 [https://docs.wxpython.org/sizers_overview.html#sizers-overview](https://docs.wxpython.org/sizers_overview.html#sizers-overview)。<font color="Blue">如果你觉得单个Sizer里的控件布局太单调，你可以嵌套使用Sizer，这是实现GUI界面控件布局多样化的关键</font>。  
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/wxFormBuilder-step2-layout.PNG" style="zoom:100%" />
 
 　　第三步是在Frame顶部添加一个menubar：  
