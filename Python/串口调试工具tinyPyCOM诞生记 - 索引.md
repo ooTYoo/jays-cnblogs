@@ -12,8 +12,8 @@
 ### 设计篇（持续更新中...）
 > [串口调试工具tinyPyCOM诞生记（1）- 环境搭建(Python2.7.14 + pySerial3.4 + wxPython4.0.3)](http://www.cnblogs.com/henjay724/p/9416049.html)  
 > [串口调试工具tinyPyCOM诞生记（2）- 界面构建(wxFormBuilder)](http://www.cnblogs.com/henjay724/p/9430234.html)  
+> [串口调试工具tinyPyCOM诞生记（3）- 串口功能实现](http://www.cnblogs.com/henjay724/p/9436995.html)  
 
-> [串口调试工具tinyPyCOM诞生记（3）- 串口功能实现]()  
 > [串口调试工具tinyPyCOM诞生记（4）- 联合调试(vspd, sscom)]()  
 > [串口调试工具tinyPyCOM诞生记（5）- 软件优化]()  
 > [串口调试工具tinyPyCOM诞生记（6）- 打包成exe]()  
