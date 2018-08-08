@@ -21,16 +21,16 @@
         <td>pySerial 3.4</td>
         <td>Serial Port访问的Python封装库</td>
         <td><a href="https://pypi.org/project/pyserial/">https://pypi.org/project/pyserial/</a><br>
-		    <a href="https://github.com/pyserial/pyserial">https://github.com/pyserial/pyserial</a><br>
-		    <a href="https://pythonhosted.org/pyserial/">https://pythonhosted.org/pyserial/</a><br>
-		</td>
+            <a href="https://github.com/pyserial/pyserial">https://github.com/pyserial/pyserial</a><br>
+            <a href="https://pythonhosted.org/pyserial/">https://pythonhosted.org/pyserial/</a><br>
+        </td>
     </tr>
     <tr>
         <td>wxPython 4.0.3</td>
         <td>跨平台开源GUI库wxWidgets的Python封装库</td>
         <td><a href="https://www.wxpython.org/">https://www.wxpython.org/</a><br>
-		    <a href="https://pypi.org/project/wxPython/">https://pypi.org/project/wxPython/</a>
-		</td>
+            <a href="https://pypi.org/project/wxPython/">https://pypi.org/project/wxPython/</a>
+        </td>
     </tr>
     <tr>
         <td>wxFormBuilder 3.8.0</td>
@@ -41,6 +41,13 @@
         <td>PyCharm Community 2018.02</td>
         <td>一款流行的Python集成开发环境</td>
         <td><a href="http://www.jetbrains.com/pycharm/">http://www.jetbrains.com/pycharm/</a></td>
+    </tr>
+    <tr>
+        <td>PyInstaller 3.3.1</td>
+        <td>Python应用程序打包工具</td>
+        <td><a href="http://www.pyinstaller.org/">http://www.pyinstaller.org/</a><br>
+            <a href="https://github.com/pyinstaller/pyinstaller">https://github.com/pyinstaller/pyinstaller</a>
+        </td>
     </tr>
     <tr>
         <td>vspd 9</td>
@@ -101,7 +108,7 @@
 > ```text
 > Collecting wxPython
 >   Downloading https://files.pythonhosted.org/packages/88/88/a23b96662c5ab82dd8dbbb68c68dedea466229e8151fd2911713a1cd27b2/wxPython-4.0.3-cp27-cp27m-win_amd64.whl (22.8MB)
-Collecting six (from wxPython)
+> Collecting six (from wxPython)
 >   Downloading https://files.pythonhosted.org/packages/67/4b/141a581104b1f6397bfa78ac9d43d8ad29a7ca43ea90a2d863fe3056e86a/six-1.11.0-py2.py3-none-any.whl
 > Collecting PyPubSub (from wxPython)
 >   Downloading https://files.pythonhosted.org/packages/14/80/8e1d34848fea10826763600ca7eeb7a76d914ccab7cb0d64c9c180c30a73/Pypubsub-4.0.0.zip (64kB)
@@ -129,9 +136,42 @@ Collecting six (from wxPython)
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_preparation_vspd_view4.PNG" style="zoom:100%" />
 
-　　虚拟Serial Port设备已经有了并且对接了，最后还需要一个成熟的串口调试助手，作为串口通讯的另一方，痞子衡选取的是非常经典的sscom，从大虾官网下载sscom包，sscom是个免安装的工具，可以直接打开使用，设置sscom使用COM11，将来tinyPyCOM使用COM10，到这里环境搭建大功告成。  
+　　虚拟Serial Port设备已经有了并且对接了，最后还需要一个成熟的串口调试助手，作为串口通讯的另一方，痞子衡选取的是非常经典的sscom，从大虾官网下载sscom包，sscom是个免安装的工具，可以直接打开使用，设置sscom使用COM11，将来tinyPyCOM使用COM10。  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_preparation_sscom_view.PNG" style="zoom:100%" />
+
+### 三、发布环境搭建（PyInstaller）
+　　tinyPyCOM工具开发和调试工作都完成之后，我们希望将她打包成一个独立的可执行文件（即运行设备不需要安装Python+pySerial+wxPython），PyInstaller可以帮助我们完成打包工作，所以我们需要利用pip工具安装PyInstaller包：  
+
+> PS C:\tools_mcu\Python27\Scripts><font style="font-weight:bold;" color="Blue"> .\pip.exe install pyinstaller</font>
+> ```text
+> Collecting pyinstaller
+>   Downloading https://files.pythonhosted.org/packages/3c/86/909a8c35c5471919b3854c01f43843d9b5aed0e9948b63e560010f7f3429/PyInstaller-3.3.1.tar.gz (3.5MB)
+> Requirement already satisfied: setuptools in c:\tools_mcu\python27\lib\site-packages (from pyinstaller) (28.8.0)
+> Collecting pefile>=2017.8.1 (from pyinstaller)
+>   Downloading https://files.pythonhosted.org/packages/ed/cc/157f20038a80b6a9988abc06c11a4959be8305a0d33b6d21a134127092d4/pefile-2018.8.8.tar.gz (62kB)
+> Collecting macholib>=1.8 (from pyinstaller)
+>   Downloading https://files.pythonhosted.org/packages/a1/01/845b2df65117dbdabf00c6df879625f4968ede6f512956710f05f4c7663a/macholib-1.10-py2.py3-none-any.whl
+> Collecting dis3 (from pyinstaller)
+>   Downloading https://files.pythonhosted.org/packages/c8/a1/bb0ab17df7e6cbc6d1555dd1c6fdaa09e90842f0f683507042b9dae83e2d/dis3-0.1.2.tar.gz
+> Collecting future (from pyinstaller)
+>   Downloading https://files.pythonhosted.org/packages/00/2b/8d082ddfed935f3608cc61140df6dcbf0edea1bc3ab52fb6c29ae3e81e85/future-0.16.0.tar.gz (824kB)
+> Collecting pypiwin32 (from pyinstaller)
+>   Downloading https://files.pythonhosted.org/packages/13/e8/4f38eb30c4dae36634a53c5b2cd73b517ea3607e10d00f61f2494449cec0/pypiwin32-223.tar.gz
+> Collecting altgraph>=0.15 (from macholib>=1.8->pyinstaller)
+>   Downloading https://files.pythonhosted.org/packages/0a/cc/646187eac4b797069e2e6b736f14cdef85dbe405c9bfc7803ef36e4f62ef/altgraph-0.16.1-py2.py3-none-any.whl
+> Collecting pywin32>=223 (from pypiwin32->pyinstaller)
+>   Downloading https://files.pythonhosted.org/packages/65/83/0b14690d70bcd193a67c8b0a640129717e37a11d8e6a3e28a01e47910737/pywin32-223-cp27-cp27m-win_amd64.whl (7.3MB)
+> Installing collected packages: future, pefile, altgraph, macholib, dis3, pywin32, pypiwin32, pyinstaller
+>   Running setup.py install for future ... done
+>   Running setup.py install for pefile ... done
+>   Running setup.py install for dis3 ... done
+>   Running setup.py install for pypiwin32 ... done
+>   Running setup.py install for pyinstaller ... done
+> Successfully installed altgraph-0.16.1 dis3-0.1.2 future-0.16.0 macholib-1.10 pefile-2018.8.8 pyinstaller-3.3.1 pypiwin32-223 pywin32-223
+> ```
+
+　　PyInstaller包安装好之后，环境搭建便大功告成
 
 　　至此，串口调试工具tinyPyCOM诞生之环境搭建痞子衡便介绍完毕了，掌声在哪里~~~  
 

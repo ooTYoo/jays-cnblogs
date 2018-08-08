@@ -21,15 +21,15 @@
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_GUI_product.PNG" style="zoom:100%" />
 
 ### 四、使用生成的Python代码
-　　将wxFormBuilder生成的python代码保存为tinypycom_win.py文件（其中Frame class名为com_win），并存放于\tinyPyCOM\wxFormBuilder目录下，此时需要另外新建一个名为tinypycom_main的主函数文件，并放在\tinyPyCOM\pycom_project目录下。其中tinypycom_main文件内容如下：  
+　　将wxFormBuilder生成的python代码保存为tinypycom_win.py文件（其中Frame class名为com_win），并存放于\tinyPyCOM\gui目录下，此时需要另外新建一个名为tinypycom_main的主函数文件，并放在\tinyPyCOM\src目录下。其中tinypycom_main文件内容如下：  
 
 ```Python
 import wx
 import sys, os
-sys.path.append(os.path.abspath("../wxFormBuilder"))
+sys.path.append(os.path.abspath("../gui"))
 import tinypycom_win
 
-class mianWin(tinypycom_win.com_win):
+class mainWin(tinypycom_win.com_win):
 
     def clearRecvDisplay( self, event ):
         event.Skip()
@@ -47,7 +47,7 @@ class mianWin(tinypycom_win.com_win):
 if __name__ == '__main__':
     app = wx.App()
 
-    main_win = mianWin(None)
+    main_win = mainWin(None)
     main_win.SetTitle(u"tinyPyCOM v.0.1.0 -- https://www.cnblogs.com/henjay724/")
     main_win.Show()
 

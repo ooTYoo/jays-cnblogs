@@ -147,7 +147,7 @@ import wx
 import my_win
 
 # 创建mainWin类并传入my_win.MyFrame1
-class mianWin(my_win.MyFrame1):
+class mainWin(my_win.MyFrame1):
 
    # 实现Button控件的响应函数showMessage
    def showMessage(self, event):
@@ -158,7 +158,7 @@ if __name__ == '__main__':
     # 下面是使用wxPython的固定用法
     app = wx.App()
 
-    main_win = mianWin(None)
+    main_win = mainWin(None)
     main_win.Show()
 
     app.MainLoop()
