@@ -132,7 +132,24 @@ class mainWin(tinypycom_win.com_win):
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_optimization_format_send_error.PNG" style="zoom:100%" />
 
-#### 1.3 启用状态栏
+#### 1.3 启用菜单栏
+　　菜单栏是一个功能齐全的软件的标配，用于实现各种特性功能，此处痞子衡仅添加了一个“Help”菜单，用于显示tinyPyCOM的主页以及作者信息。首先需要在wxFormBuilder添加menu控件，然后设置回调函数名，下面是回调函数的实现：  
+
+```Python
+    def showHomepageMessage( self, event ):
+        messageText = (('Code: \n    https://github.com/JayHeng/tinyPyCOM.git \n') +
+                       ('Doc: \n    https://www.cnblogs.com/henjay724/p/9416096.html \n'))
+        wx.MessageBox(messageText, "Homepage", wx.OK | wx.ICON_INFORMATION)
+
+    def showAboutMessage( self, event ):
+        messageText = (('Author: Jay Heng \n') +
+                       ('Email: hengjie1989@foxmail.com \n'))
+        wx.MessageBox(messageText, "About", wx.OK | wx.ICON_INFORMATION)
+```
+
+<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_optimization_menu.PNG" style="zoom:100%" />
+
+#### 1.4 启用状态栏
 　　状态栏也是一般串口调试助手的标配，用于显示发送/接收数据统计信息以及串口开关状态，因此痞子衡为tinyPyCOM也加上了状态栏功能，状态栏主要分为三栏：接收数据统计、发送数据统计、串口状态。  
 
 ```Python
@@ -216,18 +233,22 @@ class mainWin(tinypycom_win.com_win):
         if s_serialPort.isOpen():
             s_serialPort.close()
             self.m_button_openClose.SetLabel('Open')
+			# 添加代码开始
             self.m_bitmap_led.SetBitmap(wx.Bitmap( u"../img/led_black.png", wx.BITMAP_TYPE_ANY ))
+			# 添加代码结束
         else:
             # ...
             self.m_button_openClose.SetLabel('Close')
+			# 添加代码开始
             self.m_bitmap_led.SetBitmap(wx.Bitmap( u"../img/led_green.png", wx.BITMAP_TYPE_ANY ))
+			# 添加代码结束
             # ...
 ```
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_optimization_led_switch.PNG" style="zoom:100%" />
 
 #### 2.2 添加图片Logo显示
-　　图片logo显示纯粹是为了让界面不单调，痞子衡特地从pySerial、Python、wxPython官网截取了它们的logo，放到tinyPyCOM的主界面下方，表明tinyPyCOM的技术实现靠的就是它们。如下静态图片效果完全是在wxFormBuilder里去操作实现的。  ，不需要自己手动写代码
+　　图片logo显示纯粹是为了让界面不单调，痞子衡特地从pySerial、Python、wxPython官网截取了它们的logo，放到tinyPyCOM的主界面下方，表明tinyPyCOM的技术实现靠的就是它们。如下静态图片效果完全是在wxFormBuilder里去操作实现的,不需要自己手动写代码。  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_optimization_logo.PNG" style="zoom:100%" />
 
