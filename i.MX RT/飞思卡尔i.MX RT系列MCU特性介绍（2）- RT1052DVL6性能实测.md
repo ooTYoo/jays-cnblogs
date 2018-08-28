@@ -181,9 +181,12 @@ define symbol m_data_start             = 0x20000000;
 define symbol m_data_end               = 0x2001FFFF;
 ```
 
-　　还等什么，将coremark工程赶紧下载进芯片并打开串口调试助手看CoreMark得分啊。痞子衡实测的CoreMark得分为2952，这与官方标称的3020有一点点差距，但这性能已经足够优秀了！！！  
+　　还等什么？将coremark工程赶紧下载进芯片并打开串口调试助手看CoreMark得分啊。痞子衡实测的CoreMark得分为2952，这与官方标称的3020有一点差距。  
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/CoreMark_myScore.PNG" style="zoom:100%" />  
 
-　　想偷懒的朋友直接移步痞子衡的github [https://github.com/JayHeng/Cortex-M_app](https://github.com/JayHeng/Cortex-M_app) 去下载移植好的工程，工程在\Cortex-M_app\apps\coremark_imxrt1052\bsp\build\coremark.eww  
+　　对于coremark得分没上3000，痞子衡感到不服啊，那怎么提高coremark得分？痞子衡试尽方法（改编译器选项、调coremark配置）均无功而返，后来无意中看到EEMBC上跑出3036得分的IDE（编译器）是IAR 7.80，于是死马当活马医吧，痞子衡也在IAR 7.80.4上运行了一次，得到了3017分，原来这微小差异取决于编译器版本，真相大白。  
+<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/CoreMark_myScore2.PNG" style="zoom:100%" />  
+
+　　想偷懒的朋友直接移步痞子衡的github [https://github.com/JayHeng/Cortex-M_app](https://github.com/JayHeng/Cortex-M_app) 去下载移植好的工程，工程在\Cortex-M_app\apps\coremark_imxrt1052\bsp\下面，build8202和build7804分别对应不同的IAR版本。  
 
 　　至此，飞思卡尔i.MX RT系列MCU的CoreMark性能与实测痞子衡便介绍完毕了，掌声在哪里~~~

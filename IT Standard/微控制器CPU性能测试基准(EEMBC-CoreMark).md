@@ -70,12 +70,12 @@
     </tr>
     <tr>
         <td>USE_CLOCK</td>
-        <td>Define to 1 if the platform has stdio.h.</td>
+        <td>Define to 1 if platform has the time.h header file and implementation of functions thereof</td>
         <td>0</td>
     </tr>
     <tr>
         <td>HAS_STDIO</td>
-        <td>Define to 1 if the platform has stdio.h and implements the printf function.</td>
+        <td>Define to 1 if the platform has stdio.h.</td>
         <td>0</td>
     </tr>
     <tr>
@@ -86,17 +86,17 @@
     <tr>
         <td>COMPILER_VERSION</td>
         <td>Please put compiler version here (e.g. gcc 4.1)</td>
-        <td></td>
+        <td>"IAR EWARM v8.20.2"</td>
     </tr>
     <tr>
         <td>COMPILER_FLAGS</td>
         <td>Please put compiler flags here (e.g. -o3)</td>
-        <td></td>
+        <td>"High - Speed - No size constraints"</td>
     </tr>
     <tr>
         <td>MEM_LOCATION</td>
         <td>Please put the mem location of code execution here (e.g STACK)</td>
-        <td></td>
+        <td>"STACK"</td>
     </tr>
     <tr>
         <td>CORETIMETYPE</td>
@@ -307,7 +307,7 @@ CoreMark 1.0 : 6508.490622 / GCC3.4.4 -O2 / Heap                          (*Only
 ```
 
 #### 2.5 跑分榜
-　　截止到目前（2018.03），EEMBC网站共记录535款微控制器的CoreMark跑分结果（注意并不是所有跑分结果都经过EEMBC核实），所有跑分结果可在这里查询 [http://www.eembc.org/coremark/index.php](http://www.eembc.org/coremark/index.php)，下图是跑分榜部分结果（按提交日期排序）。如果是设计人员根据性能选型的话，可以选按得分高低排序。  
+　　截止到目前（2018.03），EEMBC网站共记录535款微控制器的CoreMark跑分结果（注意并不是所有跑分结果都经过EEMBC核实），所有跑分结果可在这里查询 [https://www.eembc.org/coremark/scores.php](https://www.eembc.org/coremark/scores.php)，下图是跑分榜部分结果（按提交日期排序）。如果是设计人员根据性能选型的话，可以选按得分高低排序。  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/EEMBC-CoreMark-Scores.PNG" style="zoom:80%" />  
 
