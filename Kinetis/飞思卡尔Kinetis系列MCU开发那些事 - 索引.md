@@ -15,8 +15,8 @@
 > [飞思卡尔Kinetis系列MCU启动那些事（1）- KBOOT架构](https://www.cnblogs.com/henjay724/p/9316150.html)  
 > [飞思卡尔Kinetis系列MCU启动那些事（2）- KBOOT形态(ROM/Bootloader/Flashloader)](https://www.cnblogs.com/henjay724/p/9322963.html)  
 > [飞思卡尔Kinetis系列MCU启动那些事（3）- KBOOT配置(FOPT/BOOT Pin/BCA)](https://www.cnblogs.com/henjay724/p/9350462.html)  
-> [飞思卡尔Kinetis系列MCU启动那些事（11）- KBOOT特性(ROM API)](http://www.cnblogs.com/henjay724/p/9351763.html)  
 > [飞思卡尔Kinetis系列MCU启动那些事（9）- KBOOT特性(IntegrityCheck)](https://www.cnblogs.com/henjay724/p/9355642.html)  
+> [飞思卡尔Kinetis系列MCU启动那些事（11）- KBOOT特性(ROM API)](http://www.cnblogs.com/henjay724/p/9351763.html)  
 
 > [飞思卡尔Kinetis系列MCU启动那些事（4）- KBOOT通信外设(uart/spi/i2c/can/usb-hid)]()  
 > [飞思卡尔Kinetis系列MCU启动那些事（5）- KBOOT初级工具(blhost/bus_pal/KinetisFlashTool)]()  

@@ -184,6 +184,6 @@ define symbol m_data_end               = 0x2001FFFF;
 　　还等什么，将coremark工程赶紧下载进芯片并打开串口调试助手看CoreMark得分啊。痞子衡实测的CoreMark得分为2952，这与官方标称的3020有一点点差距，但这性能已经足够优秀了！！！  
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/CoreMark_myScore.PNG" style="zoom:100%" />  
 
-　　想偷懒的朋友直接移步痞子衡的github [https://github.com/JayHeng/cortex-m_app](https://github.com/JayHeng/cortex-m_app) 去下载移植好的工程，工程在\cortex-m_app\apps\coremark_imxrt1052\bsp\build\coremark.eww  
+　　想偷懒的朋友直接移步痞子衡的github [https://github.com/JayHeng/Cortex-M_app](https://github.com/JayHeng/Cortex-M_app) 去下载移植好的工程，工程在\Cortex-M_app\apps\coremark_imxrt1052\bsp\build\coremark.eww  
 
 　　至此，飞思卡尔i.MX RT系列MCU的CoreMark性能与实测痞子衡便介绍完毕了，掌声在哪里~~~
