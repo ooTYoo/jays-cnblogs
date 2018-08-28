@@ -29,7 +29,34 @@ class mainWin(tinypycom_win.com_win):
             # ...
 ```
 
-#### 1.2 实现格式切换功能
+#### 1.2 自动检测可用Port
+　　最初版本实现Port口选择是用户按标准格式“COMx”手动输入，但这样有一个问题，即用户输入的格式有可能不合法，并且即使是一个合法的格式输入，但也可能不是一个可用的有效Port。参照市面上流行的串口调试助手，有的是下拉菜单选择所有COM口（比如AccessPort，这样可以解决不合法格式输入的问题），有的是下拉菜单选择可用的COM口（比如sscom，这样可以解决Port是否有效的问题），痞子衡参照sscom的做法对tinyPyCOM进行了如下优化：  
+
+```Python
+class mainWin(tinypycom_win.com_win):
+
+    def __init__(self, parent):
+        self.refreshComPort(None)
+        self.m_choice_comPort.SetSelection( 0 )
+
+    def refreshComPort( self, event ):
+        comports = list(serial.tools.list_ports.comports())
+        ports = [None] * len(comports)
+        for i in range(len(comports)):
+            comport = list(comports[i])
+            # example comport = [u'COM3', u'Intel(R) Active Management Technology - SOL (COM3)', u'PCI\\VEN_8086&DEV_9D3D&SUBSYS_06DC1028&REV_21\\3&11583659&0&B3']
+            ports[i] = comport[0] + ' - ' + comport[1]
+        self.m_choice_comPort.Clear()
+        self.m_choice_comPort.SetItems(ports)
+
+    def setPort ( self ):
+        index = self.m_choice_comPort.GetSelection()
+        comPort = self.m_choice_comPort.GetString(index)
+        comPort = comPort.split(' - ')
+        s_serialPort.port = comPort[0]
+```
+
+#### 1.3 实现格式切换功能
 　　Char/Hex格式转换属于比较实用的功能，一般的串口调试助手都会有这个功能，tinyPyCOM之前默认总是按照Char格式来输入和显示，"Format"选项框的功能实际上并没有实现，因此痞子衡在这里加上了格式切换功能。  
 
 ```Python
@@ -132,7 +159,7 @@ class mainWin(tinypycom_win.com_win):
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_optimization_format_send_error.PNG" style="zoom:100%" />
 
-#### 1.3 启用菜单栏
+#### 1.4 启用菜单栏
 　　菜单栏是一个功能齐全的软件的标配，用于实现各种特性功能，此处痞子衡仅添加了一个“Help”菜单，用于显示tinyPyCOM的主页以及作者信息。首先需要在wxFormBuilder添加menu控件，然后设置回调函数名，下面是回调函数的实现：  
 
 ```Python
@@ -149,7 +176,7 @@ class mainWin(tinypycom_win.com_win):
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_optimization_menu.PNG" style="zoom:100%" />
 
-#### 1.4 启用状态栏
+#### 1.5 启用状态栏
 　　状态栏也是一般串口调试助手的标配，用于显示发送/接收数据统计信息以及串口开关状态，因此痞子衡为tinyPyCOM也加上了状态栏功能，状态栏主要分为三栏：接收数据统计、发送数据统计、串口状态。  
 
 ```Python
@@ -248,7 +275,7 @@ class mainWin(tinypycom_win.com_win):
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_optimization_led_switch.PNG" style="zoom:100%" />
 
 #### 2.2 添加图片Logo显示
-　　图片logo显示纯粹是为了让界面不单调，痞子衡特地从pySerial、Python、wxPython官网截取了它们的logo，放到tinyPyCOM的主界面下方，表明tinyPyCOM的技术实现靠的就是它们。如下静态图片效果完全是在wxFormBuilder里去操作实现的,不需要自己手动写代码。  
+　　图片logo显示纯粹是为了让界面不单调，痞子衡特地从pySerial、Python、wxPython官网截取了它们的logo，放到tinyPyCOM的主界面下方，表明tinyPyCOM的技术实现靠的就是它们。如下静态图片效果完全是在wxFormBuilder里去操作实现的,不需要自己手动写代码。这个原则上并不算优化，仅是一个示例，最终tinyPyCOM并没有采用这个优化。  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_optimization_logo.PNG" style="zoom:100%" />
 

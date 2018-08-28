@@ -27,7 +27,7 @@
     </tr>
     <tr>
         <td>wxPython 4.0.3</td>
-        <td>跨平台开源GUI库wxWidgets的Python封装库</td>
+        <td>跨平台开源GUI库 [wxWidgets](https://www.wxwidgets.org/) 的Python封装库</td>
         <td><a href="https://www.wxpython.org/">https://www.wxpython.org/</a><br>
             <a href="https://pypi.org/project/wxPython/">https://pypi.org/project/wxPython/</a>
         </td>
@@ -140,7 +140,7 @@
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_preparation_sscom_view.PNG" style="zoom:100%" />
 
-### 三、发布环境搭建（PyInstaller）
+### 四、发布环境搭建（PyInstaller）
 　　tinyPyCOM工具开发和调试工作都完成之后，我们希望将她打包成一个独立的可执行文件（即运行设备不需要安装Python+pySerial+wxPython），PyInstaller可以帮助我们完成打包工作，所以我们需要利用pip工具安装PyInstaller包：  
 
 > PS C:\tools_mcu\Python27\Scripts><font style="font-weight:bold;" color="Blue"> .\pip.exe install pyinstaller</font>

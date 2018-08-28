@@ -48,7 +48,7 @@
 ```
 
 #### 2.2 开始打包
-　　准备工作就绪，可以开始打包了，<font color="Blue">在使用PyInstaller打包前必须明白一点的是，PyInstaller仅能将.py格式的源文件以及其所调用的相关Python第三方源文件库打包进最终的.exe文件，如果你的应用程序会用到图片（.ico图标文件不算）等多媒体文件，这些多媒体文件并不能被打包，后续exe在使用时，这些多媒体文件必须一同在场，并且还要保证与打包/开发时的相对路径是一致的</font>。  
+　　准备工作就绪，可以开始打包了，<font color="Blue">在使用PyInstaller打包前必须明白一点的是，PyInstaller仅能将.py格式的源文件以及其所调用的相关Python第三方源文件库打包进最终的.exe文件，如果你的应用程序会用到图片等多媒体文件，这些多媒体文件并不能被打包，后续exe在使用时，这些多媒体文件必须一同在场，并且还要保证与打包/开发时的相对路径是一致的</font>。  
 　　痞子衡使用的是如下命令格式打包tinyPyCOM: pystaller -F -w [src1.py] [src2.py]... -i [pic.ico]，解释一下这个命令组合，-F的意思是将应用程序打包成单个可执行文件（与其对立的命令是-D，打包成多文件放在一个文件夹），-w表明要打包成窗口型（与其对立的命令是-c，控制台型），[src1.py][src2.py][...]为你自己创建的应用程序源文件(src1.py必须是含\_\_main\_\_的主函数文件)，-i指定图标文件。  
 
 > PS D:\my_git_repo\tinyPyCOM\src><font style="font-weight:bold;" color="Blue">  pyinstaller -F -w .\tinypycom_main.py .\tinypycom_formatter.py ..\gui\tinypycom_win.py -i ..\img\tinypycom.ico </font>
@@ -132,7 +132,7 @@
                   \tinypycom_main.spec       --spec文件
 ```
 
-　　其中build文件夹存放的是PyInstaller在打包过程中生成的调试信息文件，dist文件夹下面的tinypycom_main.exe便是我们要的最终的可执行文件，tinypycom_main.spec是PyInstaller自动生成的命令解释文件，其实你在命令行里输入的命令首先被翻译放到.spec文件里，然后PyInstaller主要是根据.spec文件来打包的，不信你可以试着用pyinstall tinypycom_main.spec命令重新再打包一次，得到的结果是一样的。下面是.spec文件里的内容，如果你对.spec文件了解，当然也可以自己创建.spec文件来进行打包。  
+　　其中build文件夹存放的是PyInstaller在打包过程中生成的调试信息文件，dist文件夹下面的tinypycom_main.exe便是我们要的最终的可执行文件，tinypycom_main.spec是PyInstaller自动生成的命令解释文件，其实你在命令行里输入的命令首先被翻译放到.spec文件里，然后PyInstaller主要是根据.spec文件来打包的，不信你可以试着用pyinstaller tinypycom_main.spec命令重新再打包一次，得到的结果是一样的。下面是.spec文件里的内容，如果你对.spec文件了解，当然也可以自己创建.spec文件来进行打包。  
 
 ```text
 # -*- mode: python -*-
