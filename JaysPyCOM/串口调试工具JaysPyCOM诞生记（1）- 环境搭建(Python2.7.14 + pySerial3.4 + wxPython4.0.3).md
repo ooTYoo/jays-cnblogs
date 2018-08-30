@@ -1,8 +1,8 @@
 ----
 
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**串口调试工具tinyPyCOM诞生之环境搭建**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**串口调试工具JaysPyCOM诞生之环境搭建**。  
 
-　　在写tinyPyCOM时需要先搭好开发和调试环境，下表列出了开发过程中会用到的所有软件/工具包：  
+　　在写JaysPyCOM时需要先搭好开发和调试环境，下表列出了开发过程中会用到的所有软件/工具包：  
 
 ### 一、涉及工具列表
 
@@ -62,7 +62,7 @@
 </table>
 
 ### 二、开发环境搭建（Python + pySerial + wxPython + wxFormBuilder）
-　　tinyPyCOM工具是一个完全基于Python语言开发的应用软件，首先安装好Python 2.7.14，痞子衡的安装目录为C:\tools_mcu\Python27，安装完成后确保系统环境变量里包括该路径（C:\tools_mcu\Python27），因为该路径下包含python.exe，后续python命令需调用这个python.exe完成的。  
+　　JaysPyCOM工具是一个完全基于Python语言开发的应用软件，首先安装好Python 2.7.14，痞子衡的安装目录为C:\tools_mcu\Python27，安装完成后确保系统环境变量里包括该路径（C:\tools_mcu\Python27），因为该路径下包含python.exe，后续python命令需调用这个python.exe完成的。  
 　　在C:\tools_mcu\Python27\Scripts目录下默认有easy_install.exe，这是PEAK(Python Enterprise Application Kit)开发的setuptools包里的工具，这个工具可以用来完成安装python第三方模块的工作。我们需要借助easy_install.exe来安装pip工具：  
 
 > PS C:\tools_mcu\Python27\Scripts><font style="font-weight:bold;" color="Blue"> .\easy_install.exe pip</font>
@@ -121,27 +121,27 @@
 > ```
 
 　　有了pySerial便可以访问Serial Port，有了wxPython便可以设计GUI。  
-　　单纯使用wxPython设计tinyPyCOM GUI界面时仅能是手工写代码布局，手工布局的界面创建和修改起来都比较繁琐，我们需要一款可视化的界面设计工具，痞子衡选择的是wxFormBuilder，从其github官网下载安装包并安装到C:\tools_mcu\wxFormBuilder目录下。安装完成打开软件便可在Designer里尽情创作界面，创作完成后点击"Python"便可看到Python GUI源代码，这个GUI源代码后续直接复制到tinyPyCOM工程里使用。  
+　　单纯使用wxPython设计JaysPyCOM GUI界面时仅能是手工写代码布局，手工布局的界面创建和修改起来都比较繁琐，我们需要一款可视化的界面设计工具，痞子衡选择的是wxFormBuilder，从其github官网下载安装包并安装到C:\tools_mcu\wxFormBuilder目录下。安装完成打开软件便可在Designer里尽情创作界面，创作完成后点击"Python"便可看到Python GUI源代码，这个GUI源代码后续直接复制到JaysPyCOM工程里使用。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_preparation_wxFormBuilder_view.PNG" style="zoom:100%" />
+<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPyCOM_preparation_wxFormBuilder_view.PNG" style="zoom:100%" />
 
-　　至此tinyPyCOM工具开发的Python基础环境便搭好了。  
+　　至此JaysPyCOM工具开发的Python基础环境便搭好了。  
 
 ### 三、测试环境搭建（PyCharm + vspd + sscom）
-　　在开发tinyPyCOM工具过程中免不了要调试Python代码，所以我们还需要一个Python IDE，痞子衡选择的是PyCharm，在jetbrains官网下载PyCharm community免费版并安装，安装完成后打开PyCharm并创建名为tinyPyCOM空工程，成功创建后会看到tinyPyCOM目录下自动生成一个.idea的文件夹，该文件夹是用于pycharm管理项目。  
+　　在开发JaysPyCOM工具过程中免不了要调试Python代码，所以我们还需要一个Python IDE，痞子衡选择的是PyCharm，在jetbrains官网下载PyCharm community免费版并安装，安装完成后打开PyCharm并创建名为JaysPyCOM空工程，成功创建后会看到JaysPyCOM目录下自动生成一个.idea的文件夹，该文件夹是用于pycharm管理项目。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_preparation_pycharm_project.PNG" style="zoom:100%" />
+<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPyCOM_preparation_pycharm_project.PNG" style="zoom:100%" />
 
-　　有了PyCharm环境，便可以开始写tinyPyCOM代码，代码在开发过程中，需要结合Serial Port进行联合调试，如果手里没有硬件串口设备，可以使用虚拟串口设备，vspd便是著名的虚拟串口驱动，从eltima官网下载vspd标准版并安装，安装完成后打开vspd可看到如下界面，COM10和COM11（COM号是自定义的）便是虚拟出来的串口设备号，并且已经完成了对接。  
+　　有了PyCharm环境，便可以开始写JaysPyCOM代码，代码在开发过程中，需要结合Serial Port进行联合调试，如果手里没有硬件串口设备，可以使用虚拟串口设备，vspd便是著名的虚拟串口驱动，从eltima官网下载vspd标准版并安装，安装完成后打开vspd可看到如下界面，COM10和COM11（COM号是自定义的）便是虚拟出来的串口设备号，并且已经完成了对接。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_preparation_vspd_view4.PNG" style="zoom:100%" />
+<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPyCOM_preparation_vspd_view4.PNG" style="zoom:100%" />
 
-　　虚拟Serial Port设备已经有了并且对接了，最后还需要一个成熟的串口调试助手，作为串口通讯的另一方，痞子衡选取的是非常经典的sscom，从大虾官网下载sscom包，sscom是个免安装的工具，可以直接打开使用，设置sscom使用COM11，将来tinyPyCOM使用COM10。  
+　　虚拟Serial Port设备已经有了并且对接了，最后还需要一个成熟的串口调试助手，作为串口通讯的另一方，痞子衡选取的是非常经典的sscom，从大虾官网下载sscom包，sscom是个免安装的工具，可以直接打开使用，设置sscom使用COM11，将来JaysPyCOM使用COM10。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/tinyPyCOM_preparation_sscom_view.PNG" style="zoom:100%" />
+<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPyCOM_preparation_sscom_view.PNG" style="zoom:100%" />
 
 ### 四、发布环境搭建（PyInstaller）
-　　tinyPyCOM工具开发和调试工作都完成之后，我们希望将她打包成一个独立的可执行文件（即运行设备不需要安装Python+pySerial+wxPython），PyInstaller可以帮助我们完成打包工作，所以我们需要利用pip工具安装PyInstaller包：  
+　　JaysPyCOM工具开发和调试工作都完成之后，我们希望将她打包成一个独立的可执行文件（即运行设备不需要安装Python+pySerial+wxPython），PyInstaller可以帮助我们完成打包工作，所以我们需要利用pip工具安装PyInstaller包：  
 
 > PS C:\tools_mcu\Python27\Scripts><font style="font-weight:bold;" color="Blue"> .\pip.exe install pyinstaller</font>
 > ```text
@@ -173,7 +173,7 @@
 
 　　PyInstaller包安装好之后，环境搭建便大功告成
 
-　　至此，串口调试工具tinyPyCOM诞生之环境搭建痞子衡便介绍完毕了，掌声在哪里~~~  
+　　至此，串口调试工具JaysPyCOM诞生之环境搭建痞子衡便介绍完毕了，掌声在哪里~~~  
 
 
 

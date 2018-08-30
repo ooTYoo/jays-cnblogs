@@ -1,11 +1,11 @@
 ----
 
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**串口调试工具tinyPyCOM诞生之串口功能实现**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**串口调试工具JaysPyCOM诞生之串口功能实现**。  
 
-　　串口调试助手是最核心的当然是串口数据收发与显示的功能，tinyPyCOM借助的是pySerial库实现串口收发功能，今天痞子衡为大家介绍pySerial是如何在tinyPyCOM发挥功能的。  
+　　串口调试助手是最核心的当然是串口数据收发与显示的功能，JaysPyCOM借助的是pySerial库实现串口收发功能，今天痞子衡为大家介绍pySerial是如何在JaysPyCOM发挥功能的。  
 
 ### 一、pySerial简介
-　　pySerial是一套基于python实现serial port访问的库，该库的设计者为Chris Liechti，该库从2001年开始推出，一直持续更新至今，tinyPyCOM使用的是pySerial 3.4。  
+　　pySerial是一套基于python实现serial port访问的库，该库的设计者为Chris Liechti，该库从2001年开始推出，一直持续更新至今，JaysPyCOM使用的是pySerial 3.4。  
 　　pySerial的使用非常简单，可在其官网浏览一遍其提供的API： [https://pythonhosted.org/pyserial/pyserial_api.html](https://pythonhosted.org/pyserial/pyserial_api.html)，下面痞子衡整理了比较常用的API如下：  
 
 ```Python
@@ -83,7 +83,7 @@ class Serial(SerialBase):
     </tr>
 </table>
 
-### 二、tinyPyCOM串口功能实现
+### 二、JaysPyCOM串口功能实现
 　　串口功能代码实现主要分为三大部分：配置功能实现、接收功能实现、发送功能实现。在实现这些功能之前首先需要import两个module，分别是serial、threading，serial就是pySerial库；threading是python自带线程库，其具体作用下面代码里会介绍。  
 　　除此以外还定义两个全局变量，s_serialPort和s_recvInterval，s_serialPort是串口设备object实例，s_recvInterval是线程间隔时间。  
 ```Python
@@ -95,10 +95,10 @@ s_recvInterval = 0.5
 ```
 
 #### 2.1串口配置功能
-　　串口配置里主要就是实现GUI界面上"Open/Close"按钮的回调函数，即openClosePort()，软件刚打开时所有可用Port默认是Close状态，如果用户选定了配置参数（串口号、波特率...），并点击了"Open/Close"按钮，此时便会触发openClosePort()的执行，在openClosePort()里我们需要配置s_serialPort的参数并打开指定的串口设备。  
+　　串口配置里主要就是实现GUI界面上"Open"按钮的回调函数，即openClosePort()，软件刚打开时所有可用Port默认是Close状态，如果用户选定了配置参数（串口号、波特率...），并点击了"Open"按钮，此时便会触发openClosePort()的执行，在openClosePort()里我们需要配置s_serialPort的参数并打开指定的串口设备。  
 
 ```Python
-class mainWin(tinypycom_win.com_win):
+class mainWin(jayspycom_win.com_win):
 
     def setPort ( self ):
         s_serialPort.port = self.m_textCtrl_comPort.GetLineText(0)
@@ -115,7 +115,7 @@ class mainWin(tinypycom_win.com_win):
     def openClosePort( self, event ):
         if s_serialPort.isOpen():
             s_serialPort.close()
-            self.m_button_openClose.SetLabel('isClosed->Open')
+            self.m_button_openClose.SetLabel('Open')
         else:
 		    # 获取GUI配置面板里的输入值赋给s_serialPort
             self.setPort()
@@ -125,7 +125,7 @@ class mainWin(tinypycom_win.com_win):
             self.setParitybits()
 			# 打开s_serialPort指定的串口设备
             s_serialPort.open()
-            self.m_button_openClose.SetLabel('isOpen->Close')
+            self.m_button_openClose.SetLabel('Close')
             s_serialPort.reset_input_buffer()
             s_serialPort.reset_output_buffer()
 			# 开启串口接收线程（每0.5秒定时执行一次）
@@ -180,7 +180,7 @@ class mainWin(tinypycom_win.com_win):
 
 　　目前串口收发与显示实现均是基于字符方式，即发送输入框、接收显示框里仅支持ASCII码字符串，关于Char/Hex显示转换的功能（setRecvFormat()/setSendFormat()）并未加上，后续优化里会进一步做。  
 
-　　至此，串口调试工具tinyPyCOM诞生之串口功能实现痞子衡便介绍完毕了，掌声在哪里~~~  
+　　至此，串口调试工具JaysPyCOM诞生之串口功能实现痞子衡便介绍完毕了，掌声在哪里~~~  
 
 
 
