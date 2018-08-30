@@ -1,8 +1,8 @@
 ----
 
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**语音处理工具tinyPySPEECH诞生之环境搭建**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**语音处理工具JaysPySPEECH诞生之环境搭建**。  
 
-　　在写tinyPySPEECH时需要先搭好开发环境，下表列出了开发过程中会用到的所有软件/工具包：  
+　　在写JaysPySPEECH时需要先搭好开发环境，下表列出了开发过程中会用到的所有软件/工具包：  
 
 ### 一、涉及工具列表
 
@@ -10,7 +10,7 @@
     <tr>
         <th style="width: 200px;">工具</th>
         <th style="width: 400px;">功能</th>
-        <th style="width: 300px;">下载地址</th>
+        <th style="width: 350px;">下载地址</th>
     </tr>
     <tr>
         <td>Python 2.7.14</td>
@@ -42,6 +42,20 @@
         <td><a href="https://github.com/Uberi/speech_recognition">https://github.com/Uberi/speech_recognition</a></td>
     </tr>
     <tr>
+        <td>PocketSphinx 0.1.15</td>
+        <td>卡内基-梅隆大学开源语音识别引擎 <a href="https://cmusphinx.github.io/">CMU Sphinx</a> 的Python封装</td>
+        <td><a href="https://github.com/bambocher/pocketsphinx-python">https://github.com/bambocher/pocketsphinx-python</a><br>
+		    <a href="https://pypi.org/project/pocketsphinx/">https://pypi.org/project/pocketsphinx/</a>
+		</td>
+    </tr>
+    <tr>
+        <td>pyttsx3 2.7</td>
+        <td>pyTTS, pyttsx项目的延续之作，一款轻量级的Python文语合成引擎</td>
+        <td><a href="https://github.com/nateshmbhat/pyttsx3">https://github.com/nateshmbhat/pyttsx3</a><br>
+            <a href="https://pypi.org/project/pyttsx3/">https://pypi.org/project/pyttsx3/</a>
+		</td>
+    </tr>
+    <tr>
         <td>wxPython 4.0.3</td>
         <td>跨平台开源GUI库 <a href="https://www.wxwidgets.org/">wxWidgets</a> 的Python封装库</td>
         <td><a href="https://www.wxpython.org/">https://www.wxpython.org/</a><br>
@@ -60,8 +74,8 @@
     </tr>
 </table>
 
-### 二、开发环境搭建（Python + PyAudio + Matplotlib + NumPy + SpeechRecognition）
-　　tinyPySPEECH工具是一个完全基于Python语言开发的应用软件，首先安装好Python 2.7.14，痞子衡的安装目录为C:\tools_mcu\Python27，安装完成后确保系统环境变量里包括该路径（C:\tools_mcu\Python27），因为该路径下包含python.exe，后续python命令需调用这个python.exe完成的。此外pip是Python的包管理工具，我们可以借助pip来安装PyAudio和Matplotlib包（NumPy含在Matplotlib里）：  
+### 二、基础环境搭建（Python + PyAudio + Matplotlib + NumPy）
+　　JaysPySPEECH工具是一个完全基于Python语言开发的应用软件，首先安装好Python 2.7.14，痞子衡的安装目录为C:\tools_mcu\Python27，安装完成后确保系统环境变量里包括该路径（C:\tools_mcu\Python27），因为该路径下包含python.exe，后续python命令需调用这个python.exe完成的。此外pip是Python的包管理工具，我们可以借助pip来安装PyAudio和Matplotlib包（NumPy含在Matplotlib里）：  
 
 > PS C:\tools_mcu\Python27\Scripts><font style="font-weight:bold;" color="Blue"> .\pip.exe install pyaudio</font>
 > ```text
@@ -94,7 +108,15 @@
 > Installing collected packages: backports.functools-lru-cache, pytz, cycler, kiwisolver, python-dateutil, pyparsing, numpy, matplotlib
 > Successfully installed backports.functools-lru-cache-1.5 cycler-0.10.0 kiwisolver-1.0.1 matplotlib-2.2.3 numpy-1.15.0 pyparsing-2.2.0 python-dateutil-2.7.3 pytz-2018.5
 > ```
->
+
+　　有了PyAudio便可以读写Audio，有了Matplotlib便可以将Audio以波形方式图形化显示出来。这两个工具安装完成，JaysPySPEECH工具开发的Python基础环境便搭好了。  
+
+> Note: 关于GUI及调试等相关工具（wxPython、wxFormBuilder、PyCharm）的安装详见痞子衡另一个作品 [tinyPyCOM的环境搭建](http://www.cnblogs.com/henjay724/p/9416049.html)。
+
+### 二、高级环境搭建（SpeechRecognition + PocketSphinx + pyttsx3）
+　　上一步主要安装了JaysPySPEECH的基础开发环境，用于Audio的录播与显示，但是JaysPySPEECH设计之初便考虑支持语音识别、文语转换功能，因为我们还需要进一步安装相关Python库。  
+　　首先安装语音识别库，SpeechRecognition是一款非常流行的支持多引擎的语音识别Python库，痞子衡为JaysPySPEECH选用的就是SpeechRecognition，其中语音识别引擎选用的是可以离线工作的PocketSphinx，具体安装如下：  
+
 > PS C:\tools_mcu\Python27\Scripts><font style="font-weight:bold;" color="Blue">  .\pip.exe install SpeechRecognition</font>
 > ```text
 > Collecting SpeechRecognition
@@ -102,10 +124,46 @@
 > Installing collected packages: SpeechRecognition
 > Successfully installed SpeechRecognition-3.8.1
 > ```
+>
+> PS C:\tools_mcu\Python27\Scripts><font style="font-weight:bold;" color="Blue"> python -m pip install --upgrade pip setuptools wheel</font>
+> ```text
+> Requirement already up-to-date: pip in c:\tools_mcu\python27\lib\site-packages (18.0)
+> Collecting setuptools
+>   Downloading https://files.pythonhosted.org/packages/66/e8/570bb5ca88a8bcd2a1db9c6246bb66615750663ffaaeada95b04ffe74e12/setuptools-40.2.0-py2.py3-none-any.whl (568kB)
+> Collecting wheel
+>   Downloading https://files.pythonhosted.org/packages/81/30/e935244ca6165187ae8be876b6316ae201b71485538ffac1d718843025a9/wheel-0.31.1-py2.py3-none-any.whl (41kB)
+> Installing collected packages: setuptools, wheel
+>   Found existing installation: setuptools 28.8.0
+>     Uninstalling setuptools-28.8.0:
+>       Successfully uninstalled setuptools-28.8.0
+> Successfully installed setuptools-40.2.0 wheel-0.31.1
+> ```
+>
+> PS C:\tools_mcu\Python27\Scripts><font style="font-weight:bold;" color="Blue"> .\pip.exe install --upgrade pocketsphinx</font>
+> ```text
+> Collecting pocketsphinx
+>   Downloading https://files.pythonhosted.org/packages/38/d3/192476022e989377ab00cb84fb0b18790e400bbd58e464155c58cb4622f8/pocketsphinx-0.1.15-cp27-cp27m-win_amd64.whl (29.1MB)
+> Installing collected packages: pocketsphinx
+> Successfully installed pocketsphinx-0.1.15
+> ```
 
-　　有了PyAudio便可以读写Audio，有了Matplotlib便可以将Audio以图形方式显示出来，有了SpeechRecognition便可以识别Audio内容。这三个工具安装完成，tinyPySPEECH工具开发的Python环境便搭好了。  
+　　最后安装文语合成库，pyttsx3是一款超轻量级的文语合成Python库，其是经典的pyTTS、pyttsx项目的延续，其内核为Microsoft Speech API (SAPI5)，可离线工作，具体安装如下：  
 
-> Note: 关于GUI及调试等相关工具（wxPython、wxFormBuilder、PyCharm）的安装详见痞子衡另一个作品 [tinyPyCOM的环境搭建](http://www.cnblogs.com/henjay724/p/9416049.html)。
+> PS C:\tools_mcu\Python27\Scripts><font style="font-weight:bold;" color="Blue"> .\pip.exe install pyttsx3</font>
+> ```text
+> Collecting pyttsx3
+>   Downloading https://files.pythonhosted.org/packages/24/4e/580726c73272344d3e74b7aaffae55ff6b6450061fbecb8cc6e112531c02/pyttsx3-2.7.tar.gz
+> Requirement already satisfied: pypiwin32 in c:\tools_mcu\python27\lib\site-packages (from pyttsx3) (223)
+> Requirement already satisfied: pywin32>=223 in c:\tools_mcu\python27\lib\site-packages (from pypiwin32->pyttsx3) (223)
+> Building wheels for collected packages: pyttsx3
+>   Running setup.py bdist_wheel for pyttsx3 ... done
+>   Stored in directory: C:\Users\nxa07314\AppData\Local\pip\Cache\wheels\a2\8a\fe\11112aca9c89142c3a404bc67ef3393a7ad530da26639a05d4
+> Successfully built pyttsx3
+> Installing collected packages: pyttsx3
+> Successfully installed pyttsx3-2.7
+> ```
 
-　　至此，语音处理工具tinyPySPEECH诞生之环境搭建痞子衡便介绍完毕了，掌声在哪里~~~  
+　　到了这里，JaysPySPEECH工具开发的Python环境便全部搭好了。
+
+　　至此，语音处理工具JaysPySPEECH诞生之环境搭建痞子衡便介绍完毕了，掌声在哪里~~~  
 
