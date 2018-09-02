@@ -56,6 +56,11 @@
 		</td>
     </tr>
     <tr>
+        <td>eSpeak 1.48.04</td>
+        <td>一款开源的TTS，可将转换结果保存为wav</td>
+        <td><a href="http://espeak.sourceforge.net/">http://espeak.sourceforge.net/</a></td>
+    </tr>
+    <tr>
         <td>wxPython 4.0.3</td>
         <td>跨平台开源GUI库 <a href="https://www.wxwidgets.org/">wxWidgets</a> 的Python封装库</td>
         <td><a href="https://www.wxpython.org/">https://www.wxpython.org/</a><br>
@@ -113,7 +118,7 @@
 
 > Note: 关于GUI及调试等相关工具（wxPython、wxFormBuilder、PyCharm）的安装详见痞子衡另一个作品 [tinyPyCOM的环境搭建](http://www.cnblogs.com/henjay724/p/9416049.html)。
 
-### 二、高级环境搭建（SpeechRecognition + PocketSphinx + pyttsx3）
+### 二、高级环境搭建（SpeechRecognition + PocketSphinx + pyttsx3 + eSpeak）
 　　上一步主要安装了JaysPySPEECH的基础开发环境，用于Audio的录播与显示，但是JaysPySPEECH设计之初便考虑支持语音识别、文语转换功能，因为我们还需要进一步安装相关Python库。  
 　　首先安装语音识别库，SpeechRecognition是一款非常流行的支持多引擎的语音识别Python库，痞子衡为JaysPySPEECH选用的就是SpeechRecognition，其中语音识别引擎选用的是可以离线工作的PocketSphinx，具体安装如下：  
 
@@ -163,7 +168,7 @@
 > Successfully installed pyttsx3-2.7
 > ```
 
-　　到了这里，JaysPySPEECH工具开发的Python环境便全部搭好了。
+　　pyttsx3仅能在线发声，无法保存到wav文件，因此我们还需要一个可以保存wav文件的TTS，痞子衡选择了eSpeak，其具体安装详见系列第六篇。到了这里，JaysPySPEECH工具开发的Python环境便全部搭好了。
 
 　　至此，语音处理工具JaysPySPEECH诞生之环境搭建痞子衡便介绍完毕了，掌声在哪里~~~  
 
