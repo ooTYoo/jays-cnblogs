@@ -171,7 +171,7 @@ print("Could not request results from Microsoft Bing Voice Recognition service; 
 > ```
 
 ### 二、JaysPySPEECH语音识别实现
-　　语音识别代码实现其实很简单，直接调用speech_recognition里的API即可，目前仅实现了CMU Sphinx引擎，并且仅支持中英双语识别，代码如下：  
+　　语音识别代码实现其实很简单，直接调用speech_recognition里的API即可，目前仅实现了CMU Sphinx引擎，并且仅支持中英双语识别。具体到JaysPySPEECH上主要是实现GUI界面上"ASR"按钮的回调函数，即audioSpeechRecognition()，如果用户选定了配置参数（语言类型、ASR引擎类型），并点击了"ASR"按钮，此时便会触发audioSpeechRecognition()的执行。代码如下：  
 
 ```Python
 import speech_recognition

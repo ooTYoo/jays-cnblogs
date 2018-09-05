@@ -4,7 +4,7 @@
 
 　　串口调试助手是嵌入式开发里非常常用的小工具，市面上有非常多流行的串口调试工具，比如TeraTerm、SecureCRT、AccessPort、sscom等，其中有些工具功能全面且强大，可以满足大部分串口调试需求，但如果有的时候你有一些特殊定制化的需求，这些工具不一定能满足你的需求，这时候你需要写一个属于你自己的串口调试助手，本系列痞子衡会教大家从零开始写一个基于Python的串口调试工具，这个串口调试工具我们暂且叫她JaysPyCOM，第一个稳定正式版v1.0.0效果如下：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPyCOM_overview.png" style="zoom:100%" />
+<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPyCOM_v1.0.0_overview.png" style="zoom:100%" />
 
 > * JaysPyCOM的github: https://github.com/JayHeng/JaysPyCOM.git  
 

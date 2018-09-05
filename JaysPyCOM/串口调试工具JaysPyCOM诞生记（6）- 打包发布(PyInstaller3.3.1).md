@@ -51,15 +51,15 @@
 　　准备工作就绪，可以开始打包了，<font color="Blue">在使用PyInstaller打包前必须明白一点的是，PyInstaller仅能将.py格式的源文件以及其所调用的相关Python第三方源文件库打包进最终的.exe文件，如果你的应用程序会用到图片等多媒体文件，这些多媒体文件并不能被打包，后续exe在使用时，这些多媒体文件必须一同在场，并且还要保证与打包/开发时的相对路径是一致的</font>。  
 　　痞子衡使用的是如下命令格式打包JaysPyCOM: pystaller -F -w [src1.py] [src2.py]... -i [pic.ico]，解释一下这个命令组合，-F的意思是将应用程序打包成单个可执行文件（与其对立的命令是-D，打包成多文件放在一个文件夹），-w表明要打包成窗口型（与其对立的命令是-c，控制台型），[src1.py][src2.py][...]为你自己创建的应用程序源文件(src1.py必须是含\_\_main\_\_的主函数文件)，-i指定图标文件。  
 
-> PS D:\my_git_repo\JaysPyCOM\src><font style="font-weight:bold;" color="Blue">  pyinstaller -F -w .\jayspycom_main.py .\jayspycom_formatter.py ..\gui\jayspycom_win.py -i ..\img\jayspycom.ico </font>
+> PS D:\my_git_repo\JaysPyCOM\bin><font style="font-weight:bold;" color="Blue">  pyinstaller -F -w ..\src\jayspycom_main.py ..\src\jayspycom_formatter.py ..\gui\jayspycom_win.py -i ..\img\jayspycom.ico </font>
 > ```text
 > 223 INFO: PyInstaller: 3.3.1
 > 225 INFO: Python: 2.7.14
 > 227 INFO: Platform: Windows-10-10.0.15063
-> 230 INFO: wrote D:\my_git_repo\JaysPyCOM\src\jayspycom_main.spec
+> 230 INFO: wrote D:\my_git_repo\JaysPyCOM\bin\jayspycom_main.spec
 > 233 INFO: UPX is not available.
 > 237 INFO: Extending PYTHONPATH with paths
-> ['D:\\my_git_repo\\JaysPyCOM\\src',
+> ['D:\\my_git_repo\\JaysPyCOM\\bin',
  'D:\\my_git_repo\\JaysPyCOM\\src',
  'D:\\my_git_repo\\JaysPyCOM\\gui',
  'D:\\my_git_repo\\JaysPyCOM\\src']
@@ -99,12 +99,12 @@
 > 9258 INFO: Using Python library C:\WINDOWS\system32\python27.dll
 > 9260 INFO: Found binding redirects:
 [BindingRedirect(name=u'Microsoft.VC90.CRT', language=None, arch=u'amd64', oldVersion=(9, 0, 21022, 8), newVersion=(9, 0, 30729, 9279), publicKeyToken=u'1fc8b3b9a1e18e3b')]
-9264 INFO: Warnings written to D:\my_git_repo\JaysPyCOM\src\build\jayspycom_main\warnjayspycom_main.txt
-> 9287 INFO: Graph cross-reference written to D:\my_git_repo\JaysPyCOM\src\build\jayspycom_main\xref-jayspycom_main.html
+9264 INFO: Warnings written to D:\my_git_repo\JaysPyCOM\bin\build\jayspycom_main\warnjayspycom_main.txt
+> 9287 INFO: Graph cross-reference written to D:\my_git_repo\JaysPyCOM\bin\build\jayspycom_main\xref-jayspycom_main.html
 > 9329 INFO: checking PYZ
 > 9329 INFO: Building PYZ because out00-PYZ.toc is non existent
-> 9330 INFO: Building PYZ (ZlibArchive) D:\my_git_repo\JaysPyCOM\src\build\jayspycom_main\out00-PYZ.pyz
-> 9608 INFO: Building PYZ (ZlibArchive) D:\my_git_repo\JaysPyCOM\src\build\jayspycom_main\out00-PYZ.pyz completed successfully.
+> 9330 INFO: Building PYZ (ZlibArchive) D:\my_git_repo\JaysPyCOM\bin\build\jayspycom_main\out00-PYZ.pyz
+> 9608 INFO: Building PYZ (ZlibArchive) D:\my_git_repo\JaysPyCOM\bin\build\jayspycom_main\out00-PYZ.pyz completed successfully.
 > 9648 INFO: checking PKG
 > 9649 INFO: Building PKG because out00-PKG.toc is non existent
 > 9651 INFO: Building PKG (CArchive) out00-PKG.pkg
@@ -118,7 +118,7 @@
 > 14697 INFO: Updating icons from ['..\\img\\jayspycom.ico'] to c:\users\nxa07314\appdata\local\temp\1\tmpcvu1zy
 > 14698 INFO: Writing RT_GROUP_ICON 0 resource with 20 bytes
 > 14698 INFO: Writing RT_ICON 1 resource with 4264 bytes
-> 14707 INFO: Appending archive to EXE D:\my_git_repo\JaysPyCOM\src\dist\jayspycom_main.exe
+> 14707 INFO: Appending archive to EXE D:\my_git_repo\JaysPyCOM\bin\dist\jayspycom_main.exe
 > 14724 INFO: Building EXE from out00-EXE.toc completed successfully.
 ```
 
@@ -166,7 +166,7 @@ exe = EXE(pyz,
           console=False , icon='..\\img\\jayspycom.ico')
 ```
 
-　　jayspycom_main.exe可执行文件已经生成好了，让我们试着打开使用一下，直接在\JaysPyCOM\src\dist\目录下打开这个文件发现报了如下错误，看起来是找不到图片路径，这是怎么回事？痞子衡其实在前面已经提到过，需要保证文件夹内图片相对路径与打包时相对路径一致，试着将jayspycom_main.exe放到\JaysPyCOM\bin\目录下再打开看是不是正常了，因为这时候相对路径是一致的。大功告成了，最后将jayspycom_main.exe重命名为JaysPyCOM.exe。  
+　　jayspycom_main.exe可执行文件已经生成好了，让我们试着打开使用一下，直接在\JaysPyCOM\bin\dist\目录下打开这个文件发现报了如下错误，看起来是找不到图片路径，这是怎么回事？痞子衡其实在前面已经提到过，需要保证文件夹内图片相对路径与打包时相对路径一致，试着将jayspycom_main.exe放到\JaysPyCOM\bin\目录下再打开看是不是正常了，因为这时候相对路径是一致的。大功告成了，最后将jayspycom_main.exe重命名为JaysPyCOM.exe。  
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPyCOM_exe_error.PNG" style="zoom:100%" />
 
