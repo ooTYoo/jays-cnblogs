@@ -10,10 +10,10 @@
 
 ### 设计篇（持续更新中...）
 > [语音处理工具JaysPySPEECH诞生记（1）- 环境搭建(Python2.7.14 + PyAudio0.2.11 + Matplotlib2.2.3 + SpeechRecognition3.8.1 + pyttsx3 2.7)](https://www.cnblogs.com/henjay724/p/9542690.html)  
+> [语音处理工具JaysPySPEECH诞生记（3）- 音频显示实现(Matplotlib, NumPy1.15.0)](https://www.cnblogs.com/henjay724/p/9644637.html)  
 > [语音处理工具JaysPySPEECH诞生记（5）- 语音识别实现(SpeechRecognition, PocketSphinx0.1.15)](https://www.cnblogs.com/henjay724/p/9576670.html)  
 > [语音处理工具JaysPySPEECH诞生记（6）- 文语合成实现(pyttsx3, eSpeak1.48.04)](https://www.cnblogs.com/henjay724/p/9590032.html)  
 
 > [语音处理工具JaysPySPEECH诞生记（2）- 界面构建(wxFormBuilder3.8.0)]()  
-> [语音处理工具JaysPySPEECH诞生记（3）- 音频显示实现(Matplotlib, NumPy1.15.0)]()  
 > [语音处理工具JaysPySPEECH诞生记（4）- 音频录播实现(PyAudio)]()  
 > [语音处理工具JaysPySPEECH诞生记（7）- 深度开发]()  
