@@ -9,7 +9,10 @@
 　　本系列文章会逐一介绍Kinetis系列微控制器开发相关知识。  
 
 ### 调试篇（持续更新中...）
-> [飞思卡尔Kinetis系列MCU板载调试器OpenSDA了解一下]()  
+> [飞思卡尔Kinetis开发板OpenSDA调试器那些事（上）- 背景与架构](https://www.cnblogs.com/henjay724/p/9697837.html)  
+
+> [飞思卡尔Kinetis开发板OpenSDA调试器那些事（中）- 使用与修复]()  
+> [飞思卡尔Kinetis开发板OpenSDA调试器那些事（下）- 原理与开发]()  
 
 ### 启动篇（持续更新中...）
 > [飞思卡尔Kinetis系列MCU启动那些事（1）- KBOOT架构](https://www.cnblogs.com/henjay724/p/9316150.html)  
