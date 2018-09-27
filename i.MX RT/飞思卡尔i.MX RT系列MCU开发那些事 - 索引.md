@@ -7,13 +7,13 @@
 
 　　本系列文章会逐一介绍i.MX RT系列微控制器开发相关知识。  
 
-### 介绍篇（持续更新中...）
+### 介绍篇（持续更新中...4/4）
 > [飞思卡尔i.MX RT系列MCU特性介绍（1）- 概览](http://www.cnblogs.com/henjay724/p/8556171.html)  
 > [飞思卡尔i.MX RT系列MCU特性介绍（2）- RT1052DVL6性能实测](http://www.cnblogs.com/henjay724/p/8727199.html)  
 > [飞思卡尔i.MX RT系列MCU特性介绍（3）- 命名规则](https://www.cnblogs.com/henjay724/p/9073569.html)  
 > [飞思卡尔i.MX RT系列MCU特性介绍（4）- RT105x选型](https://www.cnblogs.com/henjay724/p/9073887.html)  
 
-### 启动篇（持续更新中...）
+### 启动篇（持续更新中...9/13）
 > [飞思卡尔i.MX RT系列MCU启动那些事（1）- Boot简介](http://www.cnblogs.com/henjay724/p/9031655.html)  
 > [飞思卡尔i.MX RT系列MCU启动那些事（2）- Boot配置(BOOT Pin/eFUSE)](http://www.cnblogs.com/henjay724/p/9034563.html)  
 > [飞思卡尔i.MX RT系列MCU启动那些事（3）- Serial Downloader模式(sdphost/mfgtool)](https://www.cnblogs.com/henjay724/p/9096222.html)  
@@ -29,4 +29,8 @@
 > [飞思卡尔i.MX RT系列MCU启动那些事（11）- 从Serial NOR启动]()  
 > [飞思卡尔i.MX RT系列MCU启动那些事（12）- 从SD/eMMC启动]()  
 
-
+### 标准篇（持续更新中...4/4）
+> [微控制器CPU性能测试基准(EEMBC-CoreMark)](https://www.cnblogs.com/henjay724/p/8729364.html)  
+> [并行接口NAND标准(ONFI)及SLC Raw NAND简介](https://www.cnblogs.com/henjay724/p/9152535.html)  
+> [并行接口NAND互操作性标准(JEDEC-JESD230)](https://www.cnblogs.com/henjay724/p/9221808.html)  
+> [通用NOR接口标准(CFI-JESD68)及SLC Parallel NOR简介](https://www.cnblogs.com/henjay724/p/9251620.html)  

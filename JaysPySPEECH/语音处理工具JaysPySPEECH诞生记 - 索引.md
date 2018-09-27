@@ -8,7 +8,7 @@
 
 > * JaysPySPEECH的github: https://github.com/JayHeng/JaysPySPEECH.git  
 
-### 设计篇（持续更新中...）
+### 设计篇（持续更新中...4/7）
 > [语音处理工具JaysPySPEECH诞生记（1）- 环境搭建(Python2.7.14 + PyAudio0.2.11 + Matplotlib2.2.3 + SpeechRecognition3.8.1 + pyttsx3 2.7)](https://www.cnblogs.com/henjay724/p/9542690.html)  
 > [语音处理工具JaysPySPEECH诞生记（3）- 音频显示实现(Matplotlib, NumPy1.15.0)](https://www.cnblogs.com/henjay724/p/9644637.html)  
 > [语音处理工具JaysPySPEECH诞生记（5）- 语音识别实现(SpeechRecognition, PocketSphinx0.1.15)](https://www.cnblogs.com/henjay724/p/9576670.html)  

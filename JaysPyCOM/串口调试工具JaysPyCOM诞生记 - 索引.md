@@ -8,10 +8,10 @@
 
 > * JaysPyCOM的github: https://github.com/JayHeng/JaysPyCOM.git  
 
-### 工具篇（全一篇已完结）
+### 工具篇（全1篇已完结）
 > [极易上手的可视化wxPython GUI构建工具(wxFormBuilder)](http://www.cnblogs.com/henjay724/p/9426966.html)
 
-### 设计篇（全六篇已完结）
+### 设计篇（全6篇已完结）
 > [串口调试工具JaysPyCOM诞生记（1）- 环境搭建(Python2.7.14 + pySerial3.4 + wxPython4.0.3)](http://www.cnblogs.com/henjay724/p/9416049.html)  
 > [串口调试工具JaysPyCOM诞生记（2）- 界面构建(wxFormBuilder3.8.0)](http://www.cnblogs.com/henjay724/p/9430234.html)  
 > [串口调试工具JaysPyCOM诞生记（3）- 串口功能实现(pySerial)](http://www.cnblogs.com/henjay724/p/9436995.html)  

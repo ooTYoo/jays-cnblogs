@@ -7,10 +7,10 @@
 
 　　本系列文章会逐一介绍ARM Cortex-M内核微控制器开发相关知识。  
 
-### 资料篇（持续更新中...）
+### 资料篇（持续更新中...1/1）
 > [史上最强ARM Cortex-M学习资源汇总(持续更新中...)](http://www.cnblogs.com/henjay724/p/8717135.html)  
 
-### 内核篇（持续更新中...）
+### 内核篇（持续更新中...5/11）
 > [ARM Cortex-M内核那些事（1）- 内核架构编年史](http://www.cnblogs.com/henjay724/p/8408775.html)  
 > [ARM Cortex-M内核那些事（2）- 第一款微控制器](http://www.cnblogs.com/henjay724/p/8408904.html)  
 > [ARM Cortex-M内核那些事（3）- 功能模块](http://www.cnblogs.com/henjay724/p/8408825.html)  
@@ -24,17 +24,17 @@
 > [ARM Cortex-M内核那些事（10）- 数字信号处理(DSP)]()  
 > [ARM Cortex-M内核那些事（11）- 安全区域(TrustZone)]()  
 
-### 中断篇（持续更新中...）
+### 中断篇（持续更新中...0/5）
 > [ARM Cortex-M中断那些事（1）- 工作机制]()  
 > [ARM Cortex-M中断那些事（2）- 管理模块(SCB/NVIC)]()  
 > [ARM Cortex-M中断那些事（3）- 向量表]()  
 > [ARM Cortex-M中断那些事（4）- 优先级设置]()  
 > [ARM Cortex-M中断那些事（5）- 异常处理]()  
 
-### 功耗篇（持续更新中...）
+### 功耗篇（持续更新中...0/0）
 > [ARM Cortex-M低功耗那些事（0）- 索引]()  
 
-### 调试篇（持续更新中...）
+### 调试篇（持续更新中...1/8）
 > [ARM Cortex-M调试那些事（1）- 4线协议标准(JTAG)](http://www.cnblogs.com/henjay724/p/8447578.html)  
 
 > [ARM Cortex-M调试那些事（2）- 2线协议标准(SWD)]()  
@@ -45,7 +45,7 @@
 > [ARM Cortex-M调试那些事（7）- Flashloader]()  
 > [ARM Cortex-M调试那些事（8）- 常用技巧]()  
 
-### 文件篇（全九篇已完结）
+### 文件篇（全9篇已完结）
 > [ARM Cortex-M文件那些事（0）- 文件关联](http://www.cnblogs.com/henjay724/p/8166334.html)  
 > [ARM Cortex-M文件那些事（1）- 源文件(.c/.h/.s)](http://www.cnblogs.com/henjay724/p/8183257.html)  
 > [ARM Cortex-M文件那些事（2）- 链接文件(.icf)](http://www.cnblogs.com/henjay724/p/8191908.html)  
