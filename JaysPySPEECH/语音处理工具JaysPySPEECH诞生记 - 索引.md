@@ -6,7 +6,7 @@
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPySPEECH_v1.0.0_overview.PNG" style="zoom:100%" />
 
-> * JaysPySPEECH的github: https://github.com/JayHeng/JaysPySPEECH.git  
+> * JaysPySPEECH的github: https://github.com/JayHeng/jays-py-speech.git  
 
 ### 设计篇（持续更新中...4/7）
 > [语音处理工具JaysPySPEECH诞生记（1）- 环境搭建(Python2.7.14 + PyAudio0.2.11 + Matplotlib2.2.3 + SpeechRecognition3.8.1 + pyttsx3 2.7)](https://www.cnblogs.com/henjay724/p/9542690.html)  

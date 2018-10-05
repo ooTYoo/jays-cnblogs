@@ -6,7 +6,7 @@
 
 <img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPyCOM_v1.0.0_overview.png" style="zoom:100%" />
 
-> * JaysPyCOM的github: https://github.com/JayHeng/JaysPyCOM.git  
+> * JaysPyCOM的github: https://github.com/JayHeng/jays-py-com.git  
 
 ### 工具篇（全1篇已完结）
 > [极易上手的可视化wxPython GUI构建工具(wxFormBuilder)](http://www.cnblogs.com/henjay724/p/9426966.html)
