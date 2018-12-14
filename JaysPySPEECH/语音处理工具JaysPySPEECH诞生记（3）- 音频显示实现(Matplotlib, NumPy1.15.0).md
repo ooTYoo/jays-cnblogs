@@ -7,7 +7,7 @@
 ### 一、SciPy工具集
 　　SciPy是一套Python科学计算相关的工具集，其本身也是一个Python库，这个工具集主要包含以下6大Python库，JaysPySPEECH所用到的Matplotlib以及NumPy均属于SciPy工具集。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPySPEECH_Waveform_scipy_list.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPySPEECH_Waveform_scipy_list.PNG" style="zoom:100%" />
 
 #### 1.1 NumPy
 　　NumPy是一套最基础的Python科学计算包，它主要用于数组与矩阵运算，它是一个开源项目，被收录进 [NumFOCUS](https://numfocus.org/) 组织维护的 [Sponsored Project](https://numfocus.org/sponsored-projects) 里。JaysPySPEECH使用的是NumPy 1.15.0。  
@@ -27,7 +27,7 @@
 
 　　Matplotlib绘图功能非常强大，但是作为一般使用，我们没有必要去通读其官方文档，其提供了非常多的example代码，这些example都在 https://matplotlib.org/gallery/index.html， 我们只要找到能满足我们需求的example，在其基础上简单修改即可。 下面就是一个最简单的正弦波示例：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPySPEECH_Waveform_matplotlib_simpleplot.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPySPEECH_Waveform_matplotlib_simpleplot.PNG" style="zoom:100%" />
 
 ```Python
 import matplotlib
@@ -52,7 +52,7 @@ plt.show()
 ### 二、JaysPySPEECH音频显示实现
 　　JaysPySPEECH关于音频显示功能实现主要有四点：选择.wav文件、读取.wav文件、绘制.wav波形、添加光标功能，最终JaysPySPEECH效果如下图所示，痞子衡为逐一为大家介绍实现细节。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPySPEECH_Waveform_final_view.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPySPEECH_Waveform_final_view.PNG" style="zoom:100%" />
 
 #### 2.1 选择.wav文件功能
 　　选择wav文件主要借助的是wxPython里的genericDirCtrl控件提供的功能实现的，我们使用genericDirCtrl控件创建了一个名为m_genericDirCtrl_audioDir的对象，借助其SetFilter()方法实现了仅显示.wav文件格式的过滤，并且我们为m_genericDirCtrl_audioDir还创建了一个event，即viewAudio()，这个event的触发条件是选中m_genericDirCtrl_audioDir里列出的.wav文件，当viewAudio（）被触发时，我们通过GetFilePath()方法即可获得选中的.wav文件路径。  

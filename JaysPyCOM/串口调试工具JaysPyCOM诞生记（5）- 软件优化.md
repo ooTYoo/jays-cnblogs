@@ -155,9 +155,9 @@ class mainWin(jayspycom_win.com_win):
 
 　　发送输入框格式切换功能实测如下，尤其是在Hex模式下，如果有异常输入，JaysPyCOM会直接清屏，并在输入框里提示正确的示例。接收显示框格式切换功能雷同，但并不包含异常输入提示，因为这是个结果显示输出框。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPyCOM_optimization_format_send.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPyCOM_optimization_format_send.PNG" style="zoom:100%" />
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPyCOM_optimization_format_send_error.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPyCOM_optimization_format_send_error.PNG" style="zoom:100%" />
 
 #### 1.4 启用菜单栏
 　　菜单栏是一个功能齐全的软件的标配，用于实现各种特性功能，此处痞子衡仅添加了一个“Help”菜单，用于显示JaysPyCOM的主页以及作者信息。首先需要在wxFormBuilder添加menu控件，然后设置回调函数名，下面是回调函数的实现：  
@@ -174,7 +174,7 @@ class mainWin(jayspycom_win.com_win):
         wx.MessageBox(messageText, "About", wx.OK | wx.ICON_INFORMATION)
 ```
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPyCOM_optimization_menu.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPyCOM_optimization_menu.PNG" style="zoom:100%" />
 
 #### 1.5 启用状态栏
 　　状态栏也是一般串口调试助手的标配，用于显示发送/接收数据统计信息以及串口开关状态，因此痞子衡为JaysPyCOM也加上了状态栏功能，状态栏主要分为三栏：接收数据统计、发送数据统计、串口状态。  
@@ -247,7 +247,7 @@ class mainWin(jayspycom_win.com_win):
 
 　　状态栏实测功能如下：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPyCOM_optimization_statusbar_info.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPyCOM_optimization_statusbar_info.PNG" style="zoom:100%" />
 
 ### 二、界面优化
 #### 2.1 添加串口开关亮灯效果
@@ -272,7 +272,7 @@ class mainWin(jayspycom_win.com_win):
             # ...
 ```
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPyCOM_optimization_led_switch.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPyCOM_optimization_led_switch.PNG" style="zoom:100%" />
 
 　　至此，串口调试工具JaysPyCOM诞生之软件优化痞子衡便介绍完毕了，掌声在哪里~~~  
 

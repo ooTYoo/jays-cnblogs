@@ -8,7 +8,7 @@
 ### 一、进入Serial Downloader模式
 　　i.MXRT上电永远是从ROM启动去执行BootROM程序，最顶层的Boot行为模式由BOOT_MODE[1:0] pins的状态决定，想进入Serial Downloader模式最直接的方式便是将BOOT_MODE[1:0]输入状态拨成2'b01，在设计i.MXRT的硬件板时BOOT_MODE[1:0] pins应设计成可通过拨码开关选择输入电平，下图是RT1052硬件板的参考设计：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_BOOT_MODEx_sch.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_BOOT_MODEx_sch.PNG" style="zoom:100%" />
 
 　　拨码开关SW5应拨向SW_DIP-8的8和10，即设置BOOT_MODE[1:0]=2'b01，此时便直接进入了Serial Downloader模式。  
 　　当然如果SW5不按上面这么设置，也有可能进入Serial Downloader模式，但是需要其他前提条件，即Boot From Fuses/Internal Boot模式下从Boot Device加载启动失败。  
@@ -16,7 +16,7 @@
 ### 二、sdphost/mfgtool的使用
 　　进入了Serial Downloader模式，此时便可以用恩智浦提供的host工具与BootROM进行命令交互，host工具在 [Flashloader包](https://www.nxp.com/products/processors-and-microcontrollers/applications-processors/i.mx-applications-processors/i.mx-rt-series/i.mx-rt1050-crossover-processor-with-arm-cortex-m7-core:i.MX-RT1050?tab=Design_Tools_Tab) 里。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_FlashloaderDownloadPage.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_FlashloaderDownloadPage.PNG" style="zoom:100%" />
 
 　　下载好Flashloader包之后，在\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools下可以找到所有host工具，其中用于与BootROM通信的有两个：sdphost.exe与MfgTool2.exe。  
 
@@ -118,7 +118,7 @@ Commands:
 
 　　当使用串口转USB模块连接i.MXRT的LPUART1或者使用USB Cable连接上USB_OTG1口后可以看到PC设备管理器会识别出相关设备：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_sdp_device_manager.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_sdp_device_manager.PNG" style="zoom:100%" />
 
 　　让我们尝试一下使用sdphost与BootROM通信，先试一下USB通信:  
 > PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\sdphost\win> <font style="font-weight:bold;" color="Blue">.\sdphost.exe -u 0x1fc9,0x0130 -- error-status</font>
@@ -140,11 +140,11 @@ Commands:
 　　MfgTool2.exe是GUI工具，其实际上是在sdphost工具基础上做了一层图形化封装，但功能上有一些削减，并且使用MfgTool2.exe仅能通过USB口与BootROM进行通信。  
 　　如果板子不连USB Cable，直接打开MfgTool2.exe，可看到如下界面，显示"No Device Connected"。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_mfgtool_no_connect.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_mfgtool_no_connect.PNG" style="zoom:100%" />
 
 　　当板子连上USB Cable后可以看到状态变为"HID-compliant vendor-defined device"，这表明软件已可以正常使用。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_mfgtool_hid_connected.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_mfgtool_hid_connected.PNG" style="zoom:100%" />
 
 　　从软件界面来看，似乎能控制的只有2个按钮：Start和Exit，那到底如何使用这个软件，其实秘密藏在如下两个配置文件里：  
 　　\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\mfgtools-rel\cfg.ini  
@@ -262,7 +262,7 @@ typedef struct boot_data{
 
 　　至此，Flashloader就算启动完成了，jump-address命令执行完成之后，你会发现USB设备被重新枚举了，此时新枚举的USB-HID设备是Flashloader里的通信外设。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_sdp_flashloader_usb.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_sdp_flashloader_usb.PNG" style="zoom:100%" />
 
 　　如果你试着用blhost与Flashloader通信得到如下结果，恭喜你，Flashloader已被成功启动了。  
 > PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\blhost\win> <font style="font-weight:bold;" color="Blue">.\blhost.exe -u 0x15a2,0x0073 -- get-property 1</font>

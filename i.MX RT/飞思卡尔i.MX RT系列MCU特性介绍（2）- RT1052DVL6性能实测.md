@@ -9,7 +9,7 @@
 #### 1.1 硬件平台NXP i.MX RT1050 EVK
 　　要开始实测i.MXRT105x的CoreMark，首先你得有一块开发板，恩智浦官网上有i.MXRT105x配套的评估板，如下图所示，痞子衡今天用的就是这块板子，板载主芯片型号为iMXRT1052DVL6。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/CoreMark_i.MXRT105xEVK_min.png" style="zoom:100%" />  
+<img src="http://henjay724.com/image/cnblogs/CoreMark_i.MXRT105xEVK_min.png" style="zoom:100%" />  
 
 #### 1.2 集成开发环境IAR EWARM
 　　ARM Cortex-M微控制器的集成开发环境有很多，其中IAR EWARM凭借优良的特性备受广大工程师青睐，且痞子衡在CoreMark标准基本知识介绍文章的最后贴出了一张iMXRT1050与STM32H743性能对比图，其中CoreMark跑分就是在IAR下得到的，所以今天痞子衡也选用IAR作为软件环境，具体版本为IAR EWARM v8.20.2。  
@@ -18,7 +18,7 @@
 　　在开始移植CoreMark程序到i.MXRT1052上之前，我们需要先有一个i.MXRT1052的基本hello world的例程，当然我们可以对着数据手册自己从头写一个，但是这里痞子衡推荐使用官方软件开发包。  
 　　注册并登录恩智浦官网，来到 [MCUXpresso SDK Builder](https://mcuxpresso.nxp.com/en/select) 页面，在"Select Development Board"里选择EVKB-IMXRT1050后点击Build MCUXpresso SDK后跳转到下一个页面，在"Developer Environment Settings"里选择IAR并点击Download SDK后便可得到SDK_2.3.1_EVKB-IMXRT1050.zip，下面是痞子衡下载的开发包具体版本信息：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/CoreMark_i.MXRT105x_SDK.PNG" style="zoom:100%" />  
+<img src="http://henjay724.com/image/cnblogs/CoreMark_i.MXRT105x_SDK.PNG" style="zoom:100%" />  
 
 ### 二、开始实测
 #### 2.1 跑通hello world
@@ -143,7 +143,7 @@ void uart_send_char(char c) {
 #define COMPILER_FLAGS "High - Speed - No size constraints"
 ```
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/CoreMark_IAR_Optimizations_min.png" style="zoom:100%" />  
+<img src="http://henjay724.com/image/cnblogs/CoreMark_IAR_Optimizations_min.png" style="zoom:100%" />  
 
 #### 2.4 输出CoreMark结果
 　　到这里CoreMark的移植工作就完全结束了，此时coremark工程也应该能正常编译了。为得到最高的CoreMark得分，最后需要再确定两件事：一、Core Clock是否确定配置为600MHz；二、工程代码段/数据段是否放在了ITCM/DTCM RAM。  
@@ -182,10 +182,10 @@ define symbol m_data_end               = 0x2001FFFF;
 ```
 
 　　还等什么？将coremark工程赶紧下载进芯片并打开串口调试助手看CoreMark得分啊。痞子衡实测的CoreMark得分为2952，这与官方标称的3020有一点差距。  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/CoreMark_myScore.PNG" style="zoom:100%" />  
+<img src="http://henjay724.com/image/cnblogs/CoreMark_myScore.PNG" style="zoom:100%" />  
 
 　　对于coremark得分没上3000，痞子衡感到不服啊，那怎么提高coremark得分？痞子衡试尽方法（改编译器选项、调coremark配置）均无功而返，后来无意中看到EEMBC上跑出3036得分的IDE（编译器）是IAR 7.80，于是死马当活马医吧，痞子衡也在IAR 7.80.4上运行了一次，得到了3017分，原来这微小差异取决于编译器版本，真相大白。  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/CoreMark_myScore2.PNG" style="zoom:100%" />  
+<img src="http://henjay724.com/image/cnblogs/CoreMark_myScore2.PNG" style="zoom:100%" />  
 
 　　想偷懒的朋友直接移步痞子衡的github [https://github.com/JayHeng/cortex-m-apps](https://github.com/JayHeng/cortex-m-apps) 去下载移植好的工程，工程在\cortex-m-apps\apps\coremark_imxrt1052\bsp\下面，build8202和build7804分别对应不同的IAR版本。  
 

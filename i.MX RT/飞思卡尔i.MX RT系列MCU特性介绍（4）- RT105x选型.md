@@ -5,16 +5,16 @@
 
 　　打开恩智浦官网，进入 [i.MXRT105x购买页面](https://www.nxp.com/cn/products/processors-and-microcontrollers/applications-processors/i.mx-applications-processors/i.mx-rt-series/i.mx-rt1050-crossover-processor-with-arm-cortex-m7-core:i.MX-RT1050?tab=Buy_Parametric_Tab) 可以看到有以下全8款芯片在售，从Part Number命名来看主要有3类差异：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Intr_105x_parts.PNG" style="zoom:100%" />  
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Intr_105x_parts.PNG" style="zoom:100%" />  
 
 ### 三类差异
 #### 第一类差异：i.MXRT105<font color="Blue">1</font>xVLxx与i.MXRT105<font color="Blue">2</font>xVLxx
 　　第一类差异可以通过查看Data Sheet找到，这类差异主要是区分芯片内部IP模块支持情况，进入Data Sheet下载页面：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Intr_105x_datasheets.PNG" style="zoom:100%" />  
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Intr_105x_datasheets.PNG" style="zoom:100%" />  
 
 　　打开其中任意一个文档，搜索Table 1. Ordering information可看到如下表，从表中可以看到1052子系列比1051子系列多了显示模块IP的支持（LCD/CSI/PXP）。  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Intr_105x_ordering_info.PNG" style="zoom:100%" />  
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Intr_105x_ordering_info.PNG" style="zoom:100%" />  
 
 #### 第二类差异：i.MXRT105x<font color="Blue">CVL5</font>x与i.MXRT105x<font color="Blue">DVL6</font>x
 　　第二类差异其实在芯片购买页面直接就可以看到，这类差异是用于区分芯片级别，含CVL5芯片是工业级别，而含DVL6芯片是消费级别，消费级别与工业级别差异主要在以下2点：  
@@ -45,14 +45,14 @@
 #### 第三类差异：i.MXRT105xxVLx<font color="Blue">A</font>与i.MXRT105xxVLx<font color="Blue">B</font>
 　　这三类差异必须查看Errata才能找到，这类差异主要是标示芯片不同Tapeout版本Bug情况，进入Errata下载页面：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Intr_105x_errata.PNG" style="zoom:100%" />  
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Intr_105x_errata.PNG" style="zoom:100%" />  
 
 　　打开Errata个文档，搜索Table 2. Summary of Silicon Errata可看到如下表，下面仅截取部分示例：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Intr_105x_errata_table2_index.PNG" style="zoom:100%" />  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Intr_105x_errata_table2_dcdc.PNG" style="zoom:100%" />  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Intr_105x_errata_table2_semc.PNG" style="zoom:100%" />  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Intr_105x_errata_table2_boot.PNG" style="zoom:100%" />  
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Intr_105x_errata_table2_index.PNG" style="zoom:100%" />  
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Intr_105x_errata_table2_dcdc.PNG" style="zoom:100%" />  
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Intr_105x_errata_table2_semc.PNG" style="zoom:100%" />  
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Intr_105x_errata_table2_boot.PNG" style="zoom:100%" />  
 
 　　其中DCDC电源问题是比较严重的问题，会导致芯片上电异常，这也是恩智浦在推出i.MXRT105xxVLx<font color="Blue">A</font>（也称A0版本）之后很快又推出了i.MXRT105xxVLx<font color="Blue">B</font>（也称A1版本）的原因，并且已将A0版本芯片全部下架。除了电源问题外，BootROM里也存在一些Bug，痞子衡后续介绍的Boot系列文章均针对的是A1版本。  
 

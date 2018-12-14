@@ -92,7 +92,7 @@
 　　声波是一种在时间上和振幅上均连续的模拟量，在嵌入式里要想研究声波，首先需要将声波转换成一连串电压变化的模拟电信号，麦克风器件就是一种采集声波信号并将其转换成模拟电压信号输出的装置。  
 　　有了声波的模拟电压信号，下一步需要将模拟信号数字化，即将模拟信号经过模数转换器（A/D）后变成数字信号，说白了就是将声音数字化。最常见的声音数字化方式就是脉冲编码调制PCM（Pulse Code Modulation），PCM是70年代末发展起来的技术，最早应用于由飞利浦和索尼公司共同推出的CD上，下图给出了PCM编码全过程：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Waveform_PCM-from_analog_to_digital.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Waveform_PCM-from_analog_to_digital.PNG" style="zoom:100%" />
 
 　　从上图中我们可以看到PCM编码主要有三个过程：采样、量化、编码，在这过程中主要有4个参数用于评价PCM：<font color="Blue">声道数、采样率、量化位数、编码方式</font>。痞子衡会在下面逐一介绍PCM编码过程时穿插介绍这4个参数：  
 
@@ -112,11 +112,11 @@
 　　量化后的抽样信号就转化为按抽样时序排列的一串十进制数字码流，即十进制数字信号。简单高效的数据系统是二进制码系统，因此，应将十进制数字码变换成二进制编码，这种把量化的抽样信号变换成给定字长(量化位数)的二进制码流的过程称为编码。  
 　　编码方式种类非常多，其对比可见 [Comparison of audio coding formats](https://en.wikipedia.org/wiki/Comparison_of_audio_coding_formats)，PCM音频格式编码常见有四种：[PCM](https://en.wikipedia.org/wiki/Pulse-code_modulation)（Linear PCM）、ADPCM（Adaptive differential PCM）、 [A-law](https://en.wikipedia.org/wiki/A-law_algorithm)（A律13折线码）、[μ-law](https://en.wikipedia.org/wiki/%CE%9C-law_algorithm)（μ律15折线码），最简单的当然是下图所示的[LPCM](https://commons.wikimedia.org/wiki/File:Pcm-ru.svg)（示例为4bit），这是一种均匀量化编码，广泛用于	Audio CD, AES3, WAV, AIFF, AU, M2TS, VOB中。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Waveform_PCM-lpcm_4bit.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Waveform_PCM-lpcm_4bit.PNG" style="zoom:100%" />
 
 　　除LPCM外，A-law和μ-law是两种不得不提的非均匀量化编码，这两种非均匀量化编码是为了提高小信号的信噪比，其基本思想是在量化之前先让信号经过一次处理，对大信号进行压缩而对小信号进行较大的放大，这一处理过程通常也称为“压缩量化”。压缩量化的实质是“压大补小”，使小信号在整个动态范围内的信噪比基本一致。下面是这两种编码与LPCM的 [对比图](https://en.wikipedia.org/wiki/File:Ulaw_alaw_db.svg)。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Waveform_PCM-Alaw_vs_Mlaw.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Waveform_PCM-Alaw_vs_Mlaw.PNG" style="zoom:100%" />
 
 ### 三、Waveform文件格式解析
 　　前面讲的PCM编码后的声音数据是需要保存的，WAVE文件常常用来保存PCM编码数据。WAVE文件是微软公司（Microsoft）开发的一种声音文件格式，用于保存Windows平台的音频信息资源，被Windows平台及其应用程序所广泛支持，WAVE文件默认打开工具是WINDOWS的媒体播放器。  
@@ -140,14 +140,14 @@ typedef struct {
 
 　　Chunk是可以嵌套的，但是只有ckID为'RIFF'或者'LIST'的Chunk才能包含其他的Chunk。标志为'RIFF'的Chunk是比较特殊的，每一个RIFF文件首先存放的必须是一个'RIFF' Chunk，并且只能有这一个标志为'RIFF'的Chunk。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Waveform_PCM-riff_chunk.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Waveform_PCM-riff_chunk.PNG" style="zoom:100%" />
 
 　　更多RIFF的知识详见这个网站链接 [RIFF (Resource Interchange File Format)](https://www.loc.gov/preservation/digital/formats/fdd/fdd000025.shtml)，链接里收集了很多介绍RIFF的资源。  
 
 #### 3.2 WAVE文件结构
 　　WAVE是Microsoft开发的一种音频文件格式，它符合上面提到的RIFF文件格式标准，可以看作是RIFF文件的一个具体实例。既然WAVE符合RIFF规范，其基本的组成单元也是Chunk。一个 [WAVE文件](http://soundfile.sapp.org/doc/WaveFormat/) 通常有三个Chunk以及一个可选Chunk，其在文件中的排列方式依次是：RIFF Chunk，Format Chunk，Fact Chunk（附加块，可选），Data Chunk，如下图所示：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Waveform_PCM-wave_file_format.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Waveform_PCM-wave_file_format.PNG" style="zoom:100%" />
 
 　　根据上面的WAVE文件结构图，可以定义如下44bytes的wave_head_t用来描述WAVE文件的头。如果你曾经接触过Windows的音频接口API，你会发现wave_fmt_t中的部分结构与标准MSDN里的 [WAVEFORMAT](https://msdn.microsoft.com/en-us/library/ms713498.aspx) 是一致的。  
 
@@ -189,7 +189,7 @@ struct _wave_head
 
 　　wave_head_t结构体内除了wFormatTag成员之外，其他都可以根据字面上的意思来理解。关于wFormatTag的具体定义，可见Windows SDK里的 [mmreg.h文件](http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/Docs/Pages%20from%20mmreg.h.pdf)，下面列举了几个最常见Format的Tag值定义：
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Waveform_PCM-wave_format_code.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Waveform_PCM-wave_format_code.PNG" style="zoom:100%" />
 
 　　当WAVE文件的头被解析成功后，下一步便是获取WAVE文件里的声音源数据，我们知道声音文件有单声道和多声道之分，对于单声道文件很好理解，声音数据就是按序排放，而如果是立体声（2声道）文件，那么左右声道的声音数据到底是怎么排放的呢？下面以一个示例立体声文件数据（仅分析前72bytes）进行解释：  
 
@@ -204,18 +204,18 @@ offset(h)
 
 　　下图是这个72bytes数据解析图，从图中可以看到，左右声道的声音数据是按块（nBlockAlign指定）交替排放的。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Waveform_PCM-wave_file_stereo_example.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Waveform_PCM-wave_file_stereo_example.PNG" style="zoom:100%" />
 
 　　更多WAVE的知识详见这两个网站链接 [WAVE Audio File Format](https://www.loc.gov/preservation/digital/formats/fdd/fdd000001.shtml) 和 [Audio File Format Specifications](http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html)，链接里收集了很多介绍WAVE的资源。  
 
 #### 3.3 WAVE文件实例分析
 　　WAVE文件格式我们都了解透彻了，下面我们尝试分析一个经典的WAVE文件："Windows XP 启动.wav"，这个文件可以说是最知名的WAVE文件了，痞子衡特别喜欢这段music，让我们直接用二进制编辑器HxD打开它：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Waveform_PCM-winxp_startup.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Waveform_PCM-winxp_startup.PNG" style="zoom:100%" />
 
 　　按wave_head_t解析WAVE头可知，这段wave是44.1kHz/16bit双声道线性PCM码音频，实际音频数据总长度为1361076bytes（1361076（datasize）/176400（nAvgBytesPerSec）=7.7158秒），最后再用[Adobe Audition（原Cool Edit）](https://www.adobe.com/products/audition/free-trial-download.html)打开查看其波形图：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Waveform_PCM-winxp_startup_audition.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Waveform_PCM-winxp_startup_audition.PNG" style="zoom:100%" />
 
 　　至此，PCM编码及Waveform音频文件格式痞子衡便介绍完毕了，掌声在哪里~~~ 
 

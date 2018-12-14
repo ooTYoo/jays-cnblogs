@@ -22,11 +22,11 @@ Spansion S29GL128S90TFI020      （x16 bits,    512B Page/128KB Sector/128Mb Dev
 
 > Note: 对于小容量Paralle NOR芯片（比如512KB，地址线A0-A18），i.MXRT当然也可以支持，SEMC未用的地址线（此处为A19-A23）可不用管。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_semc_io_mux.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_semc_io_mux.PNG" style="zoom:100%" />
 
 　　如下是典型的NOR硬件连接设计，示例NOR芯片是MT28EW128ABA1LPC-0SIT，该NOR芯片为Non-ADM，所以我们使用了一片74ALVT16373锁存器桥接了一下，当WEIM_ADV_B信号为高电平时，锁存器Dx会输出给Qx，即此时WEIM_DATA[15:0]作为地址线输出给A[15:0]，而WEIM_ADV_B信号为低电平时，WEIM_DATA[15:0]就是数据线（即此处WEIM_ADV_B作为ADV#信号是高有效，这在后续配置NOR eFUSE时会涉及到）。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_mt28ew128aba_pcb.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_mt28ew128aba_pcb.PNG" style="zoom:100%" />
 
 
 ### 三、Parallel NOR加载启动过程
@@ -36,7 +36,7 @@ Spansion S29GL128S90TFI020      （x16 bits,    512B Page/128KB Sector/128Mb Dev
 　　对于Non-XIP启动而言，其基本流程与第六篇里介绍的non-XIP image加载启动过程类似，只有两点区别，<font color="Blue">第一个区别是存储在NOR Flash里的Bootable image中IVT偏移地址是固定在0x1000（对于NAND Flash，偏移固定是0x400）；第二个区别是BootROM加载initial image的大小为12KB（对于NAND Flash，initial image是4KB），且这个initial image的加载不需要经过OCRAM缓存，BootROM是直接从NOR对应的SEMC map region去获取的</font>。  
 　　对于XIP启动而言，其基本流程与non-XIP image加载启动过程差异就比较大了，因为整个Bootable image都不需要搬运，BootROM直接从NOR对应的SEMC map region去获取IVT,BootData,Application，而<font color="Blue">BootROM中分配给SEMC NOR的XIP空间为0x90000000 - 0x90FFFFFF，所以XIP执行的Application需要链接在这个空间里。</font>  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_image_layout.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_image_layout.PNG" style="zoom:100%" />
 
 　　有了前面的背景知识，NOR的加载启动过程便是上电之后，BootROM先从NOR起始地址处加载initial image数据（12KB），再根据initial image里的IVT获取Application起始地址，如Application地址是链接在SRAM里，便认为这是个Non-XIP Application，然后再将Application拷贝到相应SRAM里去启动；如Application地址是链接在SEMC NOR XIP空间里，则不需要拷贝，直接原地XIP执行启动。  
 
@@ -128,7 +128,7 @@ blhost -p COMx -- configure-memory 0x8 0x2000
 
 　　在上述示例里痞子衡首先使用了fill-memory命令在0x2000地址处暂存了4byte配置数据，然后通过config-memory将这4byte数据里的信息配置到Flashloader的Parallel NOR接口中，实际上这2个命令成功执行后，你就可以开始使用Flashloader下载Bootable image了。那么这4byte配置数据到底是怎么组织的？详见下表：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_img_option2.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_img_option.PNG" style="zoom:100%" />
 
 　　从上表我们可以知道，其实这4byte数据提供的配置信息主要是NOR配置，这4byte里真正需要注意的只有两个地方（ADV# Polarity、Data Port Size），其余可用固定配置。  
 　　configure-memory命令执行成功之后，底下image的下载很简单，只需要将Bootable image从SEMC NOR起始map地址开始下载即可，具体步骤如下：    
@@ -143,11 +143,11 @@ blhost -p COMx -- write-memory 0x90000000 ivt_image.bin
 
 　　Bootable image下载成功之后，我们可以试着用read-memory从NOR芯片里读回IVT,BootData,Application确认一下，Bootable image起始地址在0x90000000，那么IVT,BootData应该在0x90001000，Application应该在0x90003000：  
 　　Non-XIP Bootable image读回情况如下，检查初始PC可知其链接在SRAM空间  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_readback_img_nonxip.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_readback_img_nonxip.PNG" style="zoom:100%" />
 
 　　XIP Bootable image读回情况如下，检查初始PC可知其链接在SEMC NOR map空间  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_readback_img_xip.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_readback_img_xip.PNG" style="zoom:100%" />
 
 > <font color="Red">Note: 如果Application是XIP在SEMC NOR空间，其时钟初始化代码不能覆盖BootROM里对于SEMC的相关配置，否则XIP可能会失败。</font>
 
@@ -160,7 +160,7 @@ blhost -p COMx -- write-memory 0x90000000 ivt_image.bin
 　　设置好正确Boot模式后，再来选择Boot Device，，你还需要将BOOT_CFG1[7:4]（eFUSE偏移0x450处的32bit配置数据的bit7:4）烧写成4'b0001，此时便进入了从SEMC NOR启动模式。  
 　　如果想确保i.MXRT芯片一定正在从Parallel NOR启动，可在芯片上电时使用Jlink调试器或者借助Flashloader读取芯片内部2个寄存器的值，这2个寄存器分别是SRC_SBMR1/2, 我们设的关于启动模式的BOOT_MODE pins/BOOT_CFG pin/eFUSE偏移0x450配置值在上电时会自动加载到SRC_SBMR1/2寄存器里，BootROM主要是根据SRC_SBMR1/2寄存器的值来判断启动模式的。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_readback_ocotp_src_regs.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_readback_ocotp_src_regs.PNG" style="zoom:100%" />
 
 　　PS: BOOT_MODE[1:0]也可以设为2'b10，即芯片处于Internal Boot模式，此时需要确保BT_FUSE_SEL（eFUSE偏移0x460处的32bit配置数据的bit4）为1'b0和BOOT_CFG1[7:4]这四个pin的输入状态设为4'b0001。  
 
@@ -169,9 +169,9 @@ blhost -p COMx -- write-memory 0x90000000 ivt_image.bin
 
 　　你应该记得我们在使用Flashloader下载Application的时候提供过4bytes的NOR配置数据，这4bytes的NOR配置数据是为了让Flashloader能够正确初始化Parallel NOR接口去访问NOR芯片（主要是写Bootable image），同样BootROM上电也需要初始化Parallel NOR接口去访问NOR芯片（主要是读Bootable image），所以BootROM也需要类似这4bytes NOR配置数据，而BootROM的NOR配置便放在如下的eFUSE区域里：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_1050a1_1020_fusemap.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_1050a1_1020_fusemap.PNG" style="zoom:100%" />
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_1060_fusemap.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_ParallelNOR_1060_fusemap.PNG" style="zoom:100%" />
 
 　　上述所有步骤全部完成之后，复位芯片你就应该能看到你放在Parallel NOR里的Application已经正常地启动了。  
 

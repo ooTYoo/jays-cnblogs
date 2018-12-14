@@ -4,7 +4,7 @@
 　　飞思卡尔半导体（现恩智浦半导体）于2010年开始推出的Kinetis系列昭示着ARM Cortex-M MCU阵营又多了一个顶级厂商，其第一款芯片Kinetis K60，搭载Cortex-M4内核（也是业界第一款Cortex-M4内核产品），主频最高可达150MHz，性能可达1.25DMIPS/MHz。  
 　　Kinetis芯片家族发展至今（2017）已拓展至7大家族系列：K/L/E/V/EA/M/W，其中K/L系列主打通用市场，其余5个系列专攻细分领域。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_k_l_v_e_ea_series.png" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_k_l_v_e_ea_series.png" style="zoom:100%" />
 
 　　本系列文章会逐一介绍Kinetis系列微控制器开发相关知识。  
 

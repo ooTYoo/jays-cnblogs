@@ -24,15 +24,15 @@ Winbond W29N01GVSIAA            （x8 bits, 2KB Page/128KB Block/1Gb Device,  1b
 
 　　i.MXRT对于Raw NAND的底层接口支持是通过内部SEMC这个IP实现的，如下是SEMC的内部模块图，从图中我们可以看到，从内部数据总线来看SEMC支持AXI Bus/IP Bus两种（此两种方式会在后续eFUSE配置里看到），而从外部接口来看SEMC最多能支持五种设备（SDRAM, NAND, NOR, SRAM, 8080 Display），NAND是其中一种。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_semc_block_diagram1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_RawNAND_semc_block_diagram.PNG" style="zoom:100%" />
 
 　　虽然SEMC最多能支持五种设备，但并不是同时支持的，同一时刻仅能支持一种设备，因此SEMC接口信号必然是复用的，下表是SEMC接口复用表，关于NAND接口信号，需要特别说一下的是CE#信号，从表中我们可以看到<font color="Blue">NAND的CE6#信号有5个，即有5种配置选择，但i.MXRT BootROM固定选择的是SEMC_CSX[0]</font>，这点在设计NAND硬件连接时需要特别注意。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_semc_io_mux.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_RawNAND_semc_io_mux.PNG" style="zoom:100%" />
 
 　　如下是典型的NAND硬件连接设计，示例NAND芯片是MX30<font color="Blue">L</font>F4GE8AB-TI（经典的TSOP-48封装，芯片丝印上的<font color="Blue">L</font>表明其是3.3V供电），其中WP#信号没有使能，并且供电选择同时支持3.3V和1.8V（通过R302选择，此处应连2-3），有朋友会疑问，为什么此处要留有2路不同供电电压？因为后期方便我们更换不同的供电输入的NAND芯片。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_mx30lf4g_pcb.png" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_RawNAND_mx30lf4g_pcb.png" style="zoom:100%" />
 
 ### 三、Raw NAND加载启动过程
 　　确保Raw NAND硬件相关设计无误之后，底下便是下载更新Bootable Image进Raw NAND以供BootROM加载启动了，在下载Bootable image之前有必要先了解Raw NAND的加载启动过程：  
@@ -41,7 +41,7 @@ Winbond W29N01GVSIAA            （x8 bits, 2KB Page/128KB Block/1Gb Device,  1b
 　　举例来说，如果NAND的block大小为128KB，Firmware（即Bootable Image）大小为260KB，我们指定从NAND地址0x40000处（即block index = 2）开始存储Firmware，但是很不幸的是index为2、4的block均是坏块，那么实际上Firmware被分散存储在了index为3、5、6三个block中，为了将来能正确地从NAND中读回Firmware，我们需要额外记录至少两个信息，一是指定的Firmware起始存储地址0x40000，二是NAND中坏块信息block index 2、4。FCB/DBBT就是用来记录这些额外的信息。  
 　　FCB大小为1KB，其主要记录了Firmware信息（地址，长度，份数），以及DBBT地址信息。DBBT大小为1056bytes，其记录了NAND芯片中所有的坏块个数以及位置，DBBT即所谓的坏块表。FCB/DBBT最大可有两份，实际应用中一般只用一份即可，后面介绍均以一份FCB/DBBT为例讲解，<font color="Blue">FCB0永远从NAND地址0x0处（即index为0的block中的第1个Page）开始存放，DBBT0一般放在index为n的block里（其实n是可设的，这在后面使用Flashloader时会讲到，为求简单我们常常设n=1），Firmware 0一般放在index为n+1的block里（Firmware只允许从index为n+1的block及其之后开始存放，Firmware最大可以有8份）。</font>关于FCB/DBBT结构原型，后续会进一步介绍。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_image_layout1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_RawNAND_image_layout.PNG" style="zoom:100%" />
 
 　　有了前面的背景知识，NAND的加载启动过程便是上电之后，BootROM先从NAND起始地址处获取FCB0数据，再根据FCB0里的信息获取DBBT0数据以及Firmware 0起始地址，底下便进入跟NOR Flash一样的加载过程，只不过在加载Firmware 0的过程中需要根据DBBT0坏块表信息自动跳过坏块。如果在读取Firmware 0时，发现部分Firmware数据所在的block是一个坏块，但是这个block没有被记录在DBBT0中，这说明该坏块是新产生的（该新坏块信息会在下一次下载Application时记录在新DBBT中），存在该坏块中的Firmware数据被破坏了，Firmware 0便失效了，BootROM便会尝试按同样的流程去加载Firmware 1、2...7，直到找到有效的Firmware，这就是为什么在NAND中存储多份Firmware的意义。  
 
@@ -142,14 +142,14 @@ blhost -u -- configure-memory 0x100 0x2000
 
 　　在上述示例里痞子衡首先使用了fill-memory命令在0x2000地址处暂存了12byte配置数据，然后通过config-memory将这12byte数据里的信息配置到Flashloader的Raw NAND接口中，实际上这4个命令成功执行后，FCB/DBBT就已经被下载进Raw NAND里面了。那么这12byte配置数据到底是怎么组织的？详见下表：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_img_option1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_RawNAND_img_option.PNG" style="zoom:100%" />
 
 　　从上表我们可以知道，其实这<font color="Blue">12byte数据提供的配置信息还是比较多的，涵盖NAND配置、FCB配置、Image配置，但是与FCB/DBBT原本的数据结构相比已经大幅精简，我们还可以再进一步简化，这12byte里真正需要注意的只有四个地方（ECC status、ECC Type、IO Port Size、EDO mode），其余可用固定配置。</font>由于此处我们示例NAND芯片为MX30LF4GE8AB-TI，查看NAND芯片手册可知其是x8 IO且没有HW ECC，那么IO Port Size需设2'b01（即x8），ECC type、ECC status分别可设1'b1、1'b0（HW ECC Check，initial HW ECC is enabled，其实这样设在没有HW ECC的NAND芯片上的意思是不使能ECC Check），EDO mode可设1'b0（即non-EDO模式）。  
 　　configure-memory命令执行成功之后，我们可以试着用read-memory从NAND芯片里读回FCB,DBBT确认一下，示例NAND芯片MX30LF4GE8AB-TI的page size为2KB，block size为128KB，那么FCB应该在0x0处，DBBT应该在0x20000处，从0x0处读回1KB数据发现其确实是有效的FCB，从FCB里找到其中DBBTSerachAreaStartPage = 0x40，即DBBT放在index为64的Page里（即index为1的Block起始Page里），再从0x20000处读回1056bytes数据发现其也确实是有效的DBBT。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_readback_fcb1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_RawNAND_readback_fcb.PNG" style="zoom:100%" />
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_readback_dbbt1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_RawNAND_readback_dbbt.PNG" style="zoom:100%" />
 
 　　解决了第一个问题即FCB/DBBT问题，还有另一个问题便是image应该如何下载进Raw NAND？  
 　　其实image的下载很简单，只需要将Bootable image从index为2的block里（与FCB里的firmwareTable[0].startPage对应）开始下载即可，示例NAND芯片MX30LF4GE8AB-TI的block size为128KB，则下载地址应为0x40000，具体步骤如下：  
@@ -161,7 +161,7 @@ blhost -u -- write-memory 0x40000 ivt_image.bin 0x100    // Program ivt_image.bi
 ```
 　　Bootable image下载成功之后，同样我们可以试着用read-memory从NAND芯片里读回IVT,BootData,Application确认一下，Bootable image起始地址在0x40000，那么IVT,BootData应该在0x40400，Application应该在0x42000，查看数据发现确实是有效的Bootable image。你可能会疑问，NAND的读写操作一般都是按page的，为何我们使用read-memory命令提供的地址参数可以不按page对齐？其实Flashloader内部会有page缓存区，Flashloader底层对NAND的访问是按page进行的，并缓存在内部page缓存区，接口上层来读写NAND数据实际是在page缓存区进行的，所以不受page对齐限制。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_readback_img.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_RawNAND_readback_img.PNG" style="zoom:100%" />
 
 　　至此，Application的下载工作便结束了。  
 
@@ -171,11 +171,11 @@ blhost -u -- write-memory 0x40000 ivt_image.bin 0x100    // Program ivt_image.bi
 　　在进入Boot Device选择之前，你首先需要确定BOOT_MODE[1:0]=2'b10，即芯片处于Internal Boot模式，并且确认BT_FUSE_SEL（eFUSE偏移0x460处的32bit配置数据的bit4）为1'b0，这里看不懂的朋友请温习痞子衡前面的文章 [Boot配置(BOOT Pin/eFUSE)](http://www.cnblogs.com/henjay724/p/9034563.html)。  
 　　设置好正确Boot模式后，再来选择Boot Device，Boot Device由BOOT_CFG1[7:4]这四个pin的输入状态决定，下图是RT105x/RT106x硬件板的参考设计，拨码开关SW6应拨向SW_DIP-8的7,8,11，即设置BOOT_CFG[7:4]=4'b001x（4'b001x适用于i.MXRT105x/i.MXRT106x，对于i.MXRT102x此值应为4'b01xx），此时便进入了从SEMC NAND启动模式。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_bootpin_sel.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_RawNAND_bootpin_sel.PNG" style="zoom:100%" />
 
 　　如果想确保i.MXRT芯片一定正在从Raw NAND启动，可在芯片上电时使用Jlink调试器或者借助Flashloader读取芯片内部2个寄存器的值，这2个寄存器分别是SRC_SBMR1/2, 我们设的关于启动模式的BOOT_MODE pins/BOOT_CFG pin/eFUSE偏移0x450配置值在上电时会自动加载到SRC_SBMR1/2寄存器里，BootROM主要是根据SRC_SBMR1/2寄存器的值来判断启动模式的。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_readback_ocotp_src_regs1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_RawNAND_readback_ocotp_src_regs.PNG" style="zoom:100%" />
 
 　　PS: BOOT_MODE[1:0]也可以设为2'b00，即芯片处于Boot From Fuses模式，但此时稍微繁琐一点，需要将BT_FUSE_SEL（eFUSE偏移0x460处的32bit配置数据的bit4）烧写为1'b1和BOOT_CFG1[7:4]（eFUSE偏移0x450处的32bit配置数据的bit7:4）烧写成4'b001x（适用于i.MXRT105x/i.MXRT106x）。  
 
@@ -184,9 +184,9 @@ blhost -u -- write-memory 0x40000 ivt_image.bin 0x100    // Program ivt_image.bi
 
 　　你应该记得我们在使用Flashloader下载Application的时候提供过12bytes的NAND配置数据，这12bytes的NAND配置数据是为了让Flashloader能够正确初始化Raw NAND接口去访问NAND芯片（主要是写FCB,DBBT,Bootable image），同样BootROM上电也需要初始化Raw NAND接口去访问NAND芯片（主要是读FCB,DBBT,Bootable image），所以BootROM也需要类似这12bytes NAND配置数据，而BootROM的NAND配置便放在如下的eFUSE区域里（i.MXRT105x/i.MXRT102x是一样的，i.MXRT106x与i.MXRT105x比有细微调整），与Flashloader一样这部分配置里真正需要注意的也只有四个地方（ECC status、ECC Type、IO Port Size、EDO mode），其余可用初始配置（即0值）。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_1050a1_1020_fusemap.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_RawNAND_1050a1_1020_fusemap.PNG" style="zoom:100%" />
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_RawNAND_1060_fusemap.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_RawNAND_1060_fusemap.PNG" style="zoom:100%" />
 
 ### 七、几个注意事项
 > 1. i.MXRT105x A0版本与A1版本的BootROM有很大区别，本文内容仅适用于A1版本。

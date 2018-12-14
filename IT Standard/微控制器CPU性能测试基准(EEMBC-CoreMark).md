@@ -47,7 +47,7 @@
 
 　　如果是移植到ARM Cortex-M平台下裸系统运行，一般只需要修改\barebones目录下的文件即可（仅需改动三个函数portable_init()、barebones_clock()、uart_send_char()以及core_portme.h中若干宏定义），其余代码文件不需要修改。关于\barebones下的文件修改，EEMBC上有如下4个示例平台可参考：  
 
-![](http://odox9r8vg.bkt.clouddn.com/image/cnblogs/EEMBC-CoreMark-Ports.PNG)  
+![](http://henjay724.com/image/cnblogs/EEMBC-CoreMark-Ports.PNG)  
 
 #### 2.2 配置参数
 　　前面讲到做平台移植时除了必须要改动3个函数外，还需要设置core_portme.h中若干宏定义，这些宏定义即为配置参数，需要根据要移植到的具体平台的属性而定。一共如下14个宏：  
@@ -309,12 +309,12 @@ CoreMark 1.0 : 6508.490622 / GCC3.4.4 -O2 / Heap                          (*Only
 #### 2.5 跑分榜
 　　截止到目前（2018.03），EEMBC网站共记录535款微控制器的CoreMark跑分结果（注意并不是所有跑分结果都经过EEMBC核实），所有跑分结果可在这里查询 [https://www.eembc.org/coremark/scores.php](https://www.eembc.org/coremark/scores.php)，下图是跑分榜部分结果（按提交日期排序）。如果是设计人员根据性能选型的话，可以选按得分高低排序。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/EEMBC-CoreMark-Scores.PNG" style="zoom:80%" />  
+<img src="http://henjay724.com/image/cnblogs/EEMBC-CoreMark-Scores.PNG" style="zoom:80%" />  
 
 #### 2.6 结果示例
 　　在上节介绍的跑分榜里可点击微控制器型号查看具体结果，也可选择多个微控制器进行结果对比。最近两家ARM Cortex-M微控制器知名厂商恩智浦半导体和意法半导体在高性能微控制器上正一决雌雄，恩智浦推出的i.MX RT1050和意法半导体推出的STM32H743均是基于Cortex-M7内核，且都在2017.10实现初版量产，我们且来比比看这两款微控制器：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/EEMBC-CoreMark-Scores-RT1050vsSTM32H743.PNG" style="zoom:80%" />  
+<img src="http://henjay724.com/image/cnblogs/EEMBC-CoreMark-Scores-RT1050vsSTM32H743.PNG" style="zoom:80%" />  
 
 　　从对比结果来看，i.MX RT1050在性能上完爆STM32H743，其3036的总得分在Cortex-M微控制器里独孤求败，这个跑分结果虽未经过EEMBC认证，但与恩智浦官方给的数据3020基本吻合。  
 　　关于i.MX RT系列微控制器简介可详见我的另一篇文章 [飞思卡尔i.MX RT系列微控制器介绍篇（1）- 概览](http://www.cnblogs.com/henjay724/p/8556171.html)，对于i.MX RT1050跑分结果的验证与复现可详见我的文章 [飞思卡尔i.MX RT系列微控制器介绍篇（2）- 性能CoreMark](http://www.cnblogs.com/henjay724/p/8727199.html)。  

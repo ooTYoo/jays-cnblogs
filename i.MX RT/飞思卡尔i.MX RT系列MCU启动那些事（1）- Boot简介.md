@@ -7,7 +7,7 @@
 #### 1.1 从内部FLASH启动
 　　Boot是任何一款MCU都有的特性。<font color="Blue">提及Boot，首先应该联想到的是FLASH，通常Cortex-M微控制器芯片内部一般都会集成FLASH（从FLASH分类上来看应该属于Parallel NOR FLASH），你的Application代码都是保存在FLASH里，每次上电CPU会自动从FLASH里获取Application代码并执行，这个行为就是Boot</font>。  
 　　大家都知道，ARM Cortex-M内存使用的是统一编址，32bit总线的地址空间是4GB (0x00000000 - 0xFFFFFFFF)。打开最新的Arm®v6/7/8-M Architecture Reference Manual手册找到如下system address map表，你会发现ARM已经将这4GB空间内容给初步规划好了，各ARM Cortex-M微控制器厂商在设计芯片时一般都会遵守ARM规定。  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ArmMemMap.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_ArmMemMap.PNG" style="zoom:100%" />
 　　从上述system address map表中我们可以知道，ARM 4GB空间的前512MB(0x00000000 - 0x1FFFFFFF)规划为非易失性存储器空间。看到这，你是不是明白了为啥各大厂商生产的Cortex-M芯片内部FLASH地址总是从0x0开始，因为仅含FLASH的芯片上电启动默认都是从0x0地址开始获取Application的初始PC和SP开始Boot。  
 
 #### 1.2 BootROM是什么
@@ -18,12 +18,12 @@
 　　<font color="Blue">当芯片既有ROM也有FLASH的时候，便会出现Boot位置选择问题，标准术语称为Boot Mode。芯片上电CPU到底是先从FLASH启动还是先从ROM启动？关于这个问题，各芯片厂商的解决方案不一样</font>。  
 　　Kinetis的Boot Mode由FLASH偏移地址0x40d处的值（上电系统会自动将这个值加载到FTFx_FOPT寄存器中）以及NMI pin共同决定。LPC的Boot Mode由ISP[1:0]以及VBUS pins决定。STM32的Boot Mode由BOOT[1:0] pins决定。  
 　　下图为MK80的具体Boot Mode：  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ModeK80_1.PNG" style="zoom:100%" />
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ModeK80_2.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_ModeK80_1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_ModeK80_2.PNG" style="zoom:100%" />
 　　下图为LPC54114的具体Boot Mode：  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_ModeLPC54114_1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_ModeLPC54114_1.PNG" style="zoom:100%" />
 　　下图为STM32F407的具体Boot Mode：  
-<img src="http://odox9r8vg.bkt.clouddn.com/i.MXRT_Boot_ModeSTM32F407_1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/i.MXRT_Boot_ModeSTM32F407_1.PNG" style="zoom:100%" />
 
 #### 1.4 从内部SRAM启动
 　　SRAM存在于任何一款MCU中，它除了可以保存Application数据变量外，当然也可以存放Application代码以供CPU执行。但是SRAM是易失性存储器，存放的数据断电会丢失，所以从SRAM启动跟从FLASH/ROM启动性质不一样。
@@ -38,7 +38,7 @@
 
 ### 二、i.MXRT Boot
 　　在第一部分里讲了Boot基本原理以及各种Boot方式，那么i.MXRT Boot到底属于哪一种？在回答这个问题之前我们先看一下i.MXRT102x的system memory map（i.MXRT105x也类似，区别是ITCM/DTCM/OCRAM的size是512KB）。  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_1020MemMap.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_1020MemMap.PNG" style="zoom:100%" />
 　　从memory map里可以看到，i.MXRT支持存储类型一共有三种：一是96KB的ROM（即BootROM）、二是总容量3*256KB的RAM（OCRAM/DTCM/ITCM）、三是分配给外部存储器接口控制器（SEMC/QSPI）的2GB区域。看到这里你应该明白了，<font color="Blue">i.MXRT Boot方式主要是借助BootROM从外部存储器加载Application到内部SRAM/外部SDRAM/原地XIP执行</font>。  
 　　那么i.MXRT到底支持从哪些外部存储器加载启动呢？翻看i.MXRT的参考手册里的System Boot章节，可以看到i.MXRT启动支持以下6种外部存储器：  
 > * Serial NOR Flash via FlexSPI

@@ -6,11 +6,11 @@
 ### 一、KBOOT形态区别
 　　KBOOT有三种形态，分别是如下图所示的ROM Bootloader、Flashloader、Flash-Resident Bootloader，三种形态共享大部分KBOOT源码，仅在一些细节上有差别，这些细节在KBOOT源码里是用条件编译加以区分的，对应的条件编译宏分别是BL_TARGET_ROM, BL_TARGET_RAM, BL_TARGET_FLASH。三种形态最大的区别其实是在链接文件上，经过汇编器后的read only section分别链接在了Kinetis芯片System memory空间里的ROM（起始地址0x1c000000）、RAM（区间地址0x20000000）、Flash（起始地址0x00000000）区域。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_form_block.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_form_block.PNG" style="zoom:100%" />
 
 　　下表是KBOOT三种形态的对比，分别从use case、delivery mechanism、supported device、clock configuration、feature五大角度进行了对比：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_form_comparison.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_form_comparison.PNG" style="zoom:100%" />
 
 　　总结来说，可以这么看KBOOT这三种存在的由来：  
 > * 对于2014年初及以后问世的Kinetis芯片（比如MKL03、MKL27、MKL43、MKL80、MKE18F等），芯片内基本都是含ROM空间的，因此KBOOT是以ROM Bootloader的形式存在的；  
@@ -24,28 +24,28 @@
 　　如果是从ROM启动，那么我们可以借助ROM将Application烧写进Flash（内部/外部）的起始空间并跳转过去执行。跳转至Flash执行分为：从内部Flash执行、从外部QSPI NOR Flash执行，这种执行选择是由ROM代码决定的。  
 　　如果已经使用ROM将Application下载进内部Flash起始地址，并在系统设置里设置芯片从内部Flash启动，那么下次芯片复位启动完全可以绕开ROM直接从内部Flash起始地址执行Application。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_form_mem_layout_ROM.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_form_mem_layout_ROM.PNG" style="zoom:100%" />
 
 #### 2.2 Flash-Resident Bootloader
 　　KBOOT的Flash-Resident Bootloader形态是放在内部Flash起始空间的，以源代码的形式提供给客户，客户需要自己编译KBOOT工程并使用编程器/调试器将编译生成的KBOOT binary下载进芯片内部Flash起始地址，除非使用调试器将其擦除，否则其也可以被无限次使用。  
 　　对于没有ROM的芯片，芯片上电只能从内部Flash起始地址处开始启动，因为Flash-Resident Bootloader已经占据了内部Flash的起始空间，所以芯片永远是先执行Flash-Resident Bootloader。借助Flash-Resident Bootloader只能将Application烧写进内部Flash一定偏移处（这个偏移地址由Flash-Resident Bootloader指定）并跳转过去执行。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_form_mem_layout_Bootloader.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_form_mem_layout_Bootloader.PNG" style="zoom:100%" />
 
 #### 2.3 Flashloader
 　　KBOOT的Flashloader形态其实也是放在内部Flash起始空间的，不过与Flash-Resident Bootloader形态在Flash里执行不同之处在于Flashloader形态是在SRAM里执行的，众所周知，SRAM断电是不保存数据的，因此Flashloader需要一个放在内部Flash里的配套loader程序，在芯片上电时先运行Flash里的loader程序，由loader程序将Flashloader从Flash中搬运到SRAM中并跳转到SRAM中运行。  
 　　Flashloader是在芯片出厂之后由飞思卡尔产品工程师将其binary预先下载进内部Flash再售卖给客户，所以客户拿到芯片之后至少可以使用一次Flashloader，客户借助Flashloader可以将Application烧写进内部Flash起始空间(同时也覆盖了原Flashloader-loader)，这就是Flashloader只能被使用一次的原因。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_form_mem_layout_Flashloader.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_form_mem_layout_Flashloader.PNG" style="zoom:100%" />
 
 ##### 2.3.1 loader机制
 　　关于loader机制与实现，有必要详细讲解一下，让我们结合代码分析，首先从官网下载NXP_Kinetis_Bootloader_2_0_0.zip包，就以KS22芯片为例（\targets\MKS22F25612\bootloader.eww）：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_form_codebase_package.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_form_codebase_package.PNG" style="zoom:100%" />
 
 　　使用IAR EWARM 7.80.x开发环境打开KS22的Bootloader工程，可以看到有如下三个工程，其中flashloader.ewp便是主角，其源码文件与ROM和Flash-Resident Bootloader是一样，只是工程链接文件有区别，其代码段链接在于SRAM里；maps_bootloader.ewp便是Flash-Resident Bootloader，不是此处讨论的重点；flashloader_loader.ewp就是Flashloader能在SRAM里执行的关键所在。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_form_ks22_projects.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_form_ks22_projects.PNG" style="zoom:100%" />
 
 　　flashloader_loader.ewp工程里除了必要的芯片startup文件外，只有三个源文件：flashloader_image.c/h，bl_flashloader.c，其中bl_flashloader.c里包含了工程main函数，让我们试着分析这个文件以及main函数，下面是bl_flashloader.c的文件内容：  
 
@@ -119,11 +119,11 @@ const uint32_t g_flashloaderStack = 0x20006270;
 
 　　loader机制越来越清晰了，现在只剩最后一个问题了，flashloader_image.c文件是哪里来的？这个文件当然可以手动创建，文件里的信息都可以从flashloader.ewp工程生成的elf/map文件里中找到，但本着高效的原则，但凡能脚本自动生成的决不手动创建，是的这个flashloader_image.c文件就是脚本自动生成的，在flashloader.ewp的Option选项的Build Actions里可以看到调用脚本的命令，这个脚本名叫create_flashloader_image.bat。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_form_ks22_flashloader_project_option1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_form_ks22_flashloader_project_option.PNG" style="zoom:100%" />
 
 　　在\bin目录下存放了所有脚本文件，当然也包括create_flashloader_image.bat，先打开这个脚本看一下：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_form_codebase_package_bin_folder.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_form_codebase_package_bin_folder.PNG" style="zoom:100%" />
 
 ```Shell
 cd /d %1
@@ -191,7 +191,7 @@ if __name__ == "__main__":
 ### 三、KBOOT各形态芯片支持
 　　截止目前（2017年），KBOOT支持的Kinetis芯片全部列出在下表：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_form_chip_list.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_form_chip_list.PNG" style="zoom:100%" />
 
 　　至此，飞思卡尔Kinetis系列MCU的KBOOT形态痞子衡便介绍完毕了，掌声在哪里~~~ 
 

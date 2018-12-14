@@ -168,7 +168,7 @@ exe = EXE(pyz,
 
 　　jayspycom_main.exe可执行文件已经生成好了，让我们试着打开使用一下，直接在\JaysPyCOM\bin\dist\目录下打开这个文件发现报了如下错误，看起来是找不到图片路径，这是怎么回事？痞子衡其实在前面已经提到过，需要保证文件夹内图片相对路径与打包时相对路径一致，试着将jayspycom_main.exe放到\JaysPyCOM\bin\目录下再打开看是不是正常了，因为这时候相对路径是一致的。大功告成了，最后将jayspycom_main.exe重命名为JaysPyCOM.exe。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPyCOM_exe_error.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPyCOM_exe_error.PNG" style="zoom:100%" />
 
 ### 番外篇
 　　正文中讲了，最终的JaysPyCOM.exe必须配合JaysPyCOM文件夹（主要是\img里的图片）一起使用，并且不能任意移动JaysPyCOM.exe在JaysPyCOM文件夹中位置，看起来这个JaysPyCOM.exe还是有一些使用限制（当然你可以创建JaysPyCOM.exe的快捷方式到桌面，你可以任意移动这个快捷方式，这算是一个workaround），能不能打破这个限制？只要一个JaysPyCOM.exe文件即可，并且放到任意目录下都能运行？答案是有，可以参看这篇文章的思路 [pyinstaller打包——图片资源无法显示问题](https://blog.csdn.net/monster_li57/article/details/80601050)，思路大概原理是事先将图片编码存到.py源文件里，这样在打包时便可将这个图片数据.py源文件直接打包进JaysPyCOM.exe，后续JaysPyCOM.exe在运行时首先将图片数据解码出来并在本地保存为临时图片，这样JaysPyCOM.exe启动便可完成图片加载，等JaysPyCOM.exe图片加载完成之后可以删除临时图片文件。思路有了，小伙伴赶紧动手试一试，这算是痞子衡在这个系列最后一课留给大家的一个课后作业。  

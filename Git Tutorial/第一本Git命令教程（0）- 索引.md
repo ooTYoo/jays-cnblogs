@@ -12,7 +12,7 @@
 > * Remote：远程仓库
 
 　　如果你只是Git的轻度用户，原则上只需要记住如下图所示的7个Git命令就可以了。这7个命令可以帮你将文件改动记录到任意Git空间。  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/gittest%20-%20four%20spaces.PNG" style="zoom:65%" />  
+<img src="http://henjay724.com/image/cnblogs/gittest%20-%20four%20spaces.PNG" style="zoom:65%" />  
 
 ### 四种状态
 　　前面讲了Git有四度空间，而单就文件改动状态层面而言，Git空间内的文件也有4种状态（需要注意的是文件状态并不是与Git空间一一对应的），这是Git第二个重要概念。  
@@ -22,7 +22,7 @@
 > * Staged：将记录在工作区的文件变动状态通知了Git，记录在暂存区
 > * Unmodified：受Git管理中的文件状态（没有变动），记录在本地仓库/远程仓库
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/gittest%20-%20file%20status.PNG" style="zoom:85%" />  
+<img src="http://henjay724.com/image/cnblogs/gittest%20-%20file%20status.PNG" style="zoom:85%" />  
 
 ### 正文篇（持续更新中...7/12）
 　　知道了2个Git重要概念，我们便可以开始Git的命令学习，痞子衡课程使用的Git版本是2.16.2，共十二节课，Enjoy it！  

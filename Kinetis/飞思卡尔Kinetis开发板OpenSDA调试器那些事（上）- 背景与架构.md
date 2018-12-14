@@ -13,11 +13,11 @@
 　　OpenSDA全称是Open-standard Serial and Debug Adapter，从名字上来看，这个项目是要做一个开放标准的串口与调试适配器，该项目主要是为了Kinetis芯片配套官方开发板而设计的，直接板载在Kinetis官方开发板上，用于取代传统的第三方仿真器（比如J-Link）+开发板的开发调试模式。  
 　　众所周知，ARM公司于2010年2月正式发布Cortex-M4内核，飞思卡尔于2010年8月推出其第一款ARM Cortex-M内核芯片Kinetis K60，这也是业界一款Cortex-M4内核的芯片。OpenSDA项目并不是从Kinetis诞生之初便存在的，不信你可以查看最早的Kinetis Tower开发板 [TWR-K60D100M](https://www.nxp.com/cn/support/developer-resources/evaluation-and-development-boards/tower-development-boards/mcu-and-processor-modules/kinetis-modules/kinetis-k60-100-mhz-mcu-tower-system-module:TWR-K60D100M) 原理图（该板通用于Kinetis K10、K20、K60芯片），早期的Kinetis开发板板载调试器为OSBDM/OSJTAG，这是一种早已普遍应用于飞思卡尔HCS12、DSC、PowerPC系列芯片开发板上的调试器，OSBDM/OSJTAG调试器主芯片为MC9S08JM60CLD（S08JM系列）。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/OpenSDA_App_TWR-K60_OSJTAG.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/OpenSDA_App_TWR-K60_OSJTAG.PNG" style="zoom:100%" />
 
 　　随着Kinetis芯片的不断推出，OpenSDA项目逐渐酝酿成熟，尤其是2012年随着飞思卡尔Cortex-M0+内核Kinetis L系列芯片的走红，OpenSDA调试器开始大面积应用于Kinetis L系列芯片配套的Freedom开发板上，从此取代OSBDM/OSJTAG成为Kinetis开发板上的标准调试器，大家可以看一下下面这款经典的 [FRDM-KL25Z](https://www.nxp.com/cn/support/developer-resources/evaluation-and-development-boards/freedom-development-boards/mcu-boards/freedom-development-platform-for-kinetis-kl14-kl15-kl24-kl25-mcus:FRDM-KL25Z) 原理图，其板载调试器即为OpenSDA调试器（V1），OpenSDA调试器主芯片选用的MK20DX128VFM5（Kinetis K20系列）。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/OpenSDA_App_FRDM-KL25_OpenSDA.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/OpenSDA_App_FRDM-KL25_OpenSDA.PNG" style="zoom:100%" />
 
 ### 二、OpenSDA硬件电路
 　　概括来说，OpenSDA调试器主要由硬件和软件两部分组成，其中硬件主要分为主芯片和外围接口电路，下面痞子衡分别为大家介绍OpenSDA的主芯片和外围接口电路。  
@@ -26,29 +26,29 @@
 　　对于一个调试器项目来说，主芯片的选用至关重要，这直接决定了调试器的性能。OpenSDA调试器主芯片选用的是MK20DX128VFM5，这是一款Cortex-M4内核，主频50MHz，16KB SRAM，160KB ROM（128KB Flash，32KB FlexNVM(最大2KB EEPROM)），内置1个USBFS控制器，QFN32封装的芯片。  
 　　为何选择Kinetis芯片作为调试器主控？当然是为了进一步推广Kinetis系列的知名度，毕竟飞思卡尔的Cortex-M芯片推出较晚。那么为何选择Kinetis K2x系列芯片呢？这要从下面Kinetis K系列的特性表里才能找到答案，从下表可以我们看出K2x系列是支持USB接口的入门芯片，而调试器主控是必须要支持USB接口的。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/OpenSDA_App_kinetis_k_series.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/OpenSDA_App_kinetis_k_series.PNG" style="zoom:100%" />
 
 　　为何选择型号为MK20DX128VFM5的K2x芯片呢？虽然这款芯片属于K2x系列里最低配型号（考虑到调试器将随着开发板大面积推广，成本也是一个不可忽略的因素），但是其外设（USBFS, UART, SPI）与存储（16KB RAM，160KB ROM）方面是满足调试器项目要求的。有人可能会问，50MHz主频会不会有点低，从而影响调试器性能？痞子衡可以明确地告诉你，性能是够的，作为对比SEGGER J-Link V7/V8里的主控是Atmel AT91SAM7S64（ARM7TDMI内核, 55MHz主频）。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/OpenSDA_App_kinetis_k2x_series.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/OpenSDA_App_kinetis_k2x_series.PNG" style="zoom:100%" />
 
 #### 2.2 几经搬迁的行宫（V1/V2/V2.1/V2.2）
 　　确定了调试器主芯片，下一步便是设计调试器外围接口电路，实际上外围电路发展至今不止一个版本，我们可以在飞思卡尔官网 [OpenSDA项目主页](https://www.nxp.com/support/developer-resources/run-time-software/kinetis-developer-resources/ides-for-kinetis-mcus/opensda-serial-and-debug-adapter:OPENSDA) 里的Download – OpenSDA Bootloader and Application下面找到如下各版本典型的开发板：  
 
 <table><tbody>
     <tr>
-        <th><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/OpenSDA_App_hw_version1.0_frdm-kl25z.PNG" style="zoom:70%" /></th>
-        <th><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/OpenSDA_App_hw_version2.0_twr-k65f180m.PNG" style="zoom:70%" /></th>
+        <th><img src="http://henjay724.com/image/cnblogs/OpenSDA_App_hw_version1.0_frdm-kl25z.PNG" style="zoom:70%" /></th>
+        <th><img src="http://henjay724.com/image/cnblogs/OpenSDA_App_hw_version2.0_twr-k65f180m.PNG" style="zoom:70%" /></th>
     </tr>
     <tr>
-        <th><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/OpenSDA_App_hw_version2.1_twr-k80f150m.PNG" style="zoom:70%" /></th>
-        <td><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/OpenSDA_App_hw_version2.2_frdm-kw41z.PNG" style="zoom:70%" /></td>
+        <th><img src="http://henjay724.com/image/cnblogs/OpenSDA_App_hw_version2.1_twr-k80f150m.PNG" style="zoom:70%" /></th>
+        <td><img src="http://henjay724.com/image/cnblogs/OpenSDA_App_hw_version2.2_frdm-kw41z.PNG" style="zoom:70%" /></td>
     </tr>
 </table>
 
 　　不过这些版本主要都是硬件设计细节方面的小改动，而对于调试器软件开发而言其实并没有变化，因为接口Pinout并没有改变，痞子衡将上述各开发板原理图里的OpenSDA电路仔细查看对比整理出了如下通用的OpenSDA硬件原理简图：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/OpenSDA_App_hw_block_diagram.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/OpenSDA_App_hw_block_diagram.PNG" style="zoom:100%" />
 
 　　从上面原理简图我们可以看出，OpenSDA电路其实非常简洁，除了电源、晶振、主芯片K20自身的调试接口外，其他跟OpenSDA调试器功能相关的主要有五部分电路：
 > 1. **蓝色LED**： 指示OpenSDA调试器工作状态，主要有两种状态，一种是常亮（正常运行模式），另一种是闪烁（自身Firmware更新模式）。
@@ -60,13 +60,13 @@
 ### 三、OpenSDA软件设计
 　　随着OpenSDA项目的不断迭代，目前（2018年9月）OpenSDA调试器版本已经更新到V2.2，飞思卡尔官网有 [OpenSDA项目主页](https://www.nxp.com/support/developer-resources/run-time-software/kinetis-developer-resources/ides-for-kinetis-mcus/opensda-serial-and-debug-adapter:OPENSDA)，在主页上我们可以看到如下OpenSDA项目版本对比：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/OpenSDA_App_comparsion_table_of_opensda_version.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/OpenSDA_App_comparsion_table_of_opensda_version.PNG" style="zoom:100%" />
 
 #### 3.1 软件架构
 　　不管是哪个版本的OpenSDA，其软件架构是一致的，如下图所示，OpenSDA软件主要由两部分组成：MSD Bootloader、OpenSDA Application(Firmware)，其中MSD Bootloader占据调试器主控K20芯片内部Flash的上半区，K20芯片上电永远先执行MSD Bootloader程序，MSD Bootloader功能比较单一，就是用来更新OpenSDA Firmware，这样使得调试器软件升级比较容易。  
 　　OpenSDA Firmware则是调试器的核心，调试器的主要功能（SWD调试、USB转串口）均是这个应用程序实现的，OpenSDA Firmware占据K20芯片内部Flash的下半区，其本身不能上电自动执行，必须由MSD Bootloader引导执行。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/OpenSDA_App_sw_block_diagram.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/OpenSDA_App_sw_block_diagram.PNG" style="zoom:100%" />
 
 #### 3.2 后宫佳丽有三个（软件服务商）
 　　说到OpenSDA Firmware的供应商，主要有三个，分别是P&EMicro、ARM Mbed、SEGGER，且听痞子衡一一道来：  

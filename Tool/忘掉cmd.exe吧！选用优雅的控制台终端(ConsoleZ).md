@@ -34,7 +34,7 @@
 
 　　尤其是看到同窗分屏显示多标签，小伙伴们是不是有点激动？在Edit->Settings->Hotkeys里找到或定义Spilt Horizontally/Vertically的热键，然后使用热键将打开的Console窗口按需分屏，下面贴一张效果图：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/ConsoleZ-Splitting%20Tabs.PNG" style="zoom:70%" /></td>
+<img src="http://henjay724.com/image/cnblogs/ConsoleZ-Splitting%20Tabs.PNG" style="zoom:70%" /></td>
 
 ### 4.如何包装更多的shell工具？
 　　cmd.exe是ConsoleZ默认包装的shell工具，除了cmd.exe外，我们还会用到其他的shell工具，比如Git bash（痞子衡安装的版本是v2.12.0 x64）。那么ConsoleZ如何包装Git bash呢？在Edit->Settings->Tabs里使用Add新建一个Tab（痞子衡新建的叫ConsoleZ - git bash），然后将Main框里的一些选项配置上，其中最重要的是Shell一栏，需填入如下语句（cmd.exe和sh.exe路径需要根据自己PC路径而定）：  
@@ -42,7 +42,7 @@
 C:\Windows\SysWOW64\cmd.exe /c "C:\mcu_tools\Git\bin\sh.exe --login -i"
 ```
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/ConsoleZ-Work_with_Git_bash.PNG" style="zoom:70%" /></td>
+<img src="http://henjay724.com/image/cnblogs/ConsoleZ-Work_with_Git_bash.PNG" style="zoom:70%" /></td>
 
 　　配置好之后新建Tab时选择ConsoleZ - git bash便可以看到Console打开的是Git bash。  
 

@@ -21,16 +21,16 @@ Spansion S25FL129P              （NOR Flash, Multiple I/O, 80MHz,      256B Pag
 
 　　i.MXRT对于Serial EEPROM/NOR的底层接口支持是通过内部LPSPI这个IP实现的，i.MXRT内部一共有4个LPSPI，BootROM对这4组LPSPI都支持，具体pinmux如下：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_lpspi_io_pinmux.PNG" style="zoom:100%" />
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_lpspi_io_pinmux2.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_lpspi_io_pinmux.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_lpspi_io_pinmux2.PNG" style="zoom:100%" />
 
 　　如下是典型的SPI EEPROM硬件连接设计，示例EEPROM芯片是CAT25512HU5I-GT3，标准1-bit SPI，直接连接即可:  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_cat25512hu5i_pcb1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_cat25512hu5i_pcb.PNG" style="zoom:100%" />
 
 　　如下是典型的QSPI NOR硬件连接设计，示例NOR芯片是MT25QL128ABA1ESE-OSIT，该NOR芯片为Multiple I/O，数据线为DQ[3:0]，当用作1-bit SPI模式时，仅需连接DQ[1:0]：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_mt25ql128aba_pcb.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_mt25ql128aba_pcb.PNG" style="zoom:100%" />
 
 ### 三、Serial EEPROM/NOR加载启动过程
 　　确保Serial EEPROM/NOR硬件相关设计无误之后，底下便是下载更新Bootable Image进Serial EEPROM/NOR以供BootROM加载启动了，在下载Bootable image之前有必要先了解Serial EEPROM/NOR的加载启动过程：  
@@ -38,7 +38,7 @@ Spansion S25FL129P              （NOR Flash, Multiple I/O, 80MHz,      256B Pag
 　　痞子衡在启动系列文章的第六篇 [Bootable image格式与加载(elftosb/.bd)](https://www.cnblogs.com/henjay724/p/9125869.html) 里的最后已经介绍过non-XIP image加载启动过程，这个过程其实已经充分地描述了Serial EEPROM/NOR的加载启动过程。  
 　　有了non-XIP image加载启动的背景知识，Serial EEPROM/NOR的加载启动过程便是上电之后，在主动选择的Primary Boot Device启动失败之后，BootROM会从Serial EEPROM/NOR起始地址处加载initial image数据（4KB），再根据initial image里的IVT,Boot Data获取Application起始地址以及总长度，然后再将Application全部拷贝到相应SRAM里去启动，其过程如下图所示：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_image_layout.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_image_layout.PNG" style="zoom:100%" />
 
 ### 四、下载Application进Serial EEPROM/NOR
 　　理解了Serial EEPROM/NOR加载启动过程，我们便可以开始使用Flashloader下载Application进Serial EEPROM/NOR芯片中：  
@@ -93,7 +93,7 @@ blhost -p COMx -- configure-memory 0x110 0x2000
 
 　　在上述示例里痞子衡首先使用了fill-memory命令在0x2000地址处暂存了8byte配置数据，然后通过config-memory将这8byte数据里的信息配置到Flashloader的Serial EEPROM/NOR接口中，实际上这2个命令成功执行后，你就可以开始使用Flashloader下载Bootable image了。那么这8byte配置数据到底是怎么组织的？详见下表：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_img_option.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_img_option.PNG" style="zoom:100%" />
 
 　　从上表我们可以知道，其实这8byte数据提供的配置信息主要是SPI连接以及EEPROM/NOR Device属性配置。configure-memory命令执行成功之后，底下image的下载很简单，只需要将Bootable image从Serial EEPROM/NOR起始地址开始下载即可，具体步骤如下：    
 
@@ -105,7 +105,7 @@ blhost -p COMx -- write-memory 0x0 ivt_image.bin 0x110
 
 　　Bootable image下载成功之后，我们可以试着用read-memory从Serial EEPROM/NOR芯片里读回IVT,BootData,Application确认一下，Bootable image起始地址在0x0，那么IVT,BootData应该在0x400，Application应该在0x2000：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_readback_img.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_readback_img.PNG" style="zoom:100%" />
 
 　　至此，Application的下载工作便结束了。  
 
@@ -120,7 +120,7 @@ blhost -p COMx -- write-memory 0x0 ivt_image.bin 0x110
 
 　　Serial EEPROM/NOR的配置相对还是比较简单的，只有4部分：Recovery Boot Enable、SPI Speed、SPI addressing、SPI Port，其中Recovery Boot Enable是一定要开启的，SPI Port要根据板级线路设计而定，SPI addressing根据选用的Serial EEPROM/NOR型号而定，SPI Speed是唯一的可以自由配置的选项（当然不能超过所选Serial EEPROM/NOR的最高速度）。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_fusemap.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_SerialEEPROM_fusemap.PNG" style="zoom:100%" />
 
 ### 七、几个注意事项
 > 1. 市面上基本大于64KB的QSPI NOR均兼容EEPROM命令集（即1bit read/normal read模式）。

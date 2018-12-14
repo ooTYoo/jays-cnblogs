@@ -140,7 +140,7 @@
 > // 图形化方式查看本地仓库里的历史提交，共记录4个提交
 > jay@pc MINGW64 /d/my_project/gittest (master)
 > <font style="font-weight:bold;">$ gitk</font>
-> ![](http://odox9r8vg.bkt.clouddn.com/image/cnblogs/gittest_gitk_4commits.PNG)
+> ![](http://henjay724.com/image/cnblogs/gittest_gitk_4commits.PNG)
 
 　　由上图可知，仓库里一共有4次提交，其中两次已推送到远程，还有两次在本地未推送：  
 
@@ -228,7 +228,7 @@ index 0000000..e69de29
 > // 查看本地提交日志，确实最近两次提交已被删除
 > jay@pc MINGW64 /d/my_project/gittest (master)
 > $ <font style="font-weight:bold;">gitk</font>
-> ![](http://odox9r8vg.bkt.clouddn.com/image/cnblogs/gittest_gitk_2commits.PNG)
+> ![](http://henjay724.com/image/cnblogs/gittest_gitk_2commits.PNG)
 >
 > jay@pc MINGW64 /d/my_project/gittest (master)
 > <font style="font-weight:bold;">$ git status</font>
@@ -257,7 +257,7 @@ index 0000000..e69de29
 > // 查看本地提交日志，确实patch已经进入仓库
 > jay@pc MINGW64 /d/my_project/gittest (master)
 > <font style="font-weight:bold;">$ gitk</font>
-> ![](http://odox9r8vg.bkt.clouddn.com/image/cnblogs/gittest_gitk_3commits.PNG)
+> ![](http://henjay724.com/image/cnblogs/gittest_gitk_3commits.PNG)
 
 　　细心的朋友可能会注意到，同一个patch在生成和打入的时候SHA-1号是不一样的，是的，Git会保证任何时候任何人在任何本地仓库生成的任何提交都是唯一的。  
 
@@ -273,4 +273,4 @@ index 0000000..e69de29
 > // 查看本地提交日志，确实patch已经都进入仓库
 > jay@pc MINGW64 /d/my_project/gittest (master)
 > <font style="font-weight:bold;">$ gitk</font>
-> ![](http://odox9r8vg.bkt.clouddn.com/image/cnblogs/gittest_gitk_4commits_with_sha.PNG)
+> ![](http://henjay724.com/image/cnblogs/gittest_gitk_4commits_with_sha.PNG)

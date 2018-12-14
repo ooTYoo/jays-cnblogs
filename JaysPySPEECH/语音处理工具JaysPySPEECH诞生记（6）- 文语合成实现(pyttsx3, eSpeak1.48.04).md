@@ -31,7 +31,7 @@ engine.runAndWait() ;
 #### 1.2 确认PC支持的语音包
 　　在使用pyttsx3进行文语合成时，依赖的是当前PC的语音环境，打开控制面板（Control Panel）->语言识别（Speech Recognition），可见到如下页面：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPySPEECH_TTS_default_voice.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPySPEECH_TTS_default_voice.PNG" style="zoom:100%" />
 
 　　痞子衡使用的PC是Win10英文版，故默认仅有英文语音包（David是男声，Zira是女声），这点也可以使用如下pyttsx3调用代码来确认：  
 
@@ -59,19 +59,19 @@ for voice in voices:
 　　Windows系统下中文语音包有很多，可以使用第三方公司提供的语音包（比如 [NeoSpeech公司](https://neospeech.com/) ），也可以使用微软提供的语音包，痞子衡选用的是经典的慧慧语音包（zh-CN_HuiHui）。  
 　　进入 [Microsoft Speech Platform - Runtime (Version 11)](https://www.microsoft.com/en-us/download/details.aspx?id=27225) 和 [Microsoft Speech Platform - Runtime Languages (Version 11)](https://www.microsoft.com/en-us/download/details.aspx?id=27224) 下载页面将选中文件下载（亲测仅能用Google Chrome浏览器才能正常访问，IE竟然也无法打开）：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPySPEECH_TTS_MSPRuntimeWithLangV11.jpg" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPySPEECH_TTS_MSPRuntimeWithLangV11.jpg" style="zoom:100%" />
 
 　　先安装SpeechPlatformRuntime.msi（双击安装即可），安装完成之后重启电脑，再安装MSSpeech_TTS_zh-CN_HuiHui.msi，安装结束之后需要修改注册表，打开Run（Win键+R键）输入"regedit"即可看到如下registry编辑界面，HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices路径下可以看到默认语音包（DAVID, ZIRA），HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech Server\v11.0\Voices路径下可看到新安装的语音包（HuiHui）：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPySPEECH_TTS_registry_huihui.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPySPEECH_TTS_registry_huihui.PNG" style="zoom:100%" />
 
 　　右键HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech Server\v11.0\Voices，将其导出成.reg文件，使用文本编辑器打开这个.reg文件将其中"\Speech Server\v11.0\"全部替换成"\Speech\"并保存，然后将这个修改后的.reg文件再导入注册表。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPySPEECH_TTS_registry_huihui_export.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPySPEECH_TTS_registry_huihui_export.PNG" style="zoom:100%" />
 
 　　导入成功后，便可在注册表和语音识别选项里看到Huihui身影：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPySPEECH_TTS_registry_huihui_import.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPySPEECH_TTS_registry_huihui_import.PNG" style="zoom:100%" />
 
 > Note: 上述修改仅针对32bit操作系统，如果是64bit系统，需要同时将HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Speech Server\v11.0\Voices路径的注册表按同样方法也操作一遍。  
 
@@ -109,7 +109,7 @@ subprocess.call(["espeak","-vzh+f3", "-f"+txtFile, "-w"+wavFile])
 
 　　如果想直接体验eSpeak的发音质量，可以直接打开\eSpeak\TTSApp.exe应用程序，软件使用非常简单：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/JaysPySPEECH_TTS_espeak_app.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/JaysPySPEECH_TTS_espeak_app.PNG" style="zoom:100%" />
 
 ### 三、JaysPySPEECH文语合成实现
 　　文语合成实现主要分为两部分：TTS, TTW。实现TTS需要import pyttsx3，实现TTW需要借助subprocess调用eSpeak，下面 痞子衡分别介绍这两部分的实现：  

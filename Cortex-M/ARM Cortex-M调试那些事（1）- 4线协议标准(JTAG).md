@@ -30,8 +30,8 @@
 
 <table><tbody>
     <tr>
-        <td><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/jtag-registers-cn.jpg" style="zoom:35%" /></td>
-        <td><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/schematic_diagram_jtag_enab-cn.gif" style="zoom:45%" /></td>
+        <td><img src="http://henjay724.com/image/cnblogs/jtag-registers-cn.jpg" style="zoom:35%" /></td>
+        <td><img src="http://henjay724.com/image/cnblogs/schematic_diagram_jtag_enab-cn.gif" style="zoom:45%" /></td>
     </tr>
 </table> 
 
@@ -41,7 +41,7 @@
 > * 识别码寄存器（IDCODES）：含有器件的识别码和版本序号，该信息可以使器件和它的边界扫描描述语言（BSDL）文件相关联。
 
 　　JTAG系统最核心的是TAP控制器，TAP控制器被设计用来与JTAG系统内部寄存器相互动，TAP控制器是一个被TMS信号控制转换的同步状态机，控制着JTAG系统的行为。  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/jtag-tap_state_machine-cn.gif" style="zoom:50%" />
+<img src="http://henjay724.com/image/cnblogs/jtag-tap_state_machine-cn.gif" style="zoom:50%" />
 　　如上图所示，TAP控制器的内部状态机一共16个状态，关于各个状态具体含义可查阅IEEE1149.1手册。TAP控制器的基本功能是产生BSR和指令寄存器正常工作所需要的时钟和控制信号，其主要功能有以下几点：  
 > * 提供信号将指令装入指令寄存器。
 > * 提供信号将输入数据从TDI管脚移入内部寄存器、把输出数据从内部寄存器移出到TDO管脚。
@@ -62,8 +62,8 @@
 
 <table><tbody>
     <tr>
-        <td><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/jtag-arm20-pinout.jpg" style="zoom:80%" /></td>
-        <td><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/jtag-arm14-pinout.jpg" style="zoom:100%" /></td>
+        <td><img src="http://henjay724.com/image/cnblogs/jtag-arm20-pinout.jpg" style="zoom:80%" /></td>
+        <td><img src="http://henjay724.com/image/cnblogs/jtag-arm14-pinout.jpg" style="zoom:100%" /></td>
     </tr>
 </table> 
 
@@ -206,8 +206,8 @@ end k60_1m;
 
 <table><tbody>
     <tr>
-        <td><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/jtag-device-symbol.PNG" style="zoom:60%" /></td>
-        <td><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/jtag-device-chain.PNG" style="zoom:95%" /></td>
+        <td><img src="http://henjay724.com/image/cnblogs/jtag-device-symbol.PNG" style="zoom:60%" /></td>
+        <td><img src="http://henjay724.com/image/cnblogs/jtag-device-chain.PNG" style="zoom:95%" /></td>
     </tr>
 </table> 
 

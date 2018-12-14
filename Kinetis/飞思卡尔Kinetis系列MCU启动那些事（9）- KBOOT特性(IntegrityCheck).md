@@ -20,11 +20,11 @@ typedef struct BootloaderConfigurationData
 　　要想使能Integrity Check功能，Application中必须包含有效的BCA配置数据（即tag需为'kcfg'），且crcStartAddress、crcByteCount、crcExpectedValue不能全为0xFFFFFFFF，而实际使用中crcStartAddress一般指向Application起始地址，crcByteCount为Application总长度（假定Application在内存中是连续的），crcExpectedValue为Application的CRC32 checksum。  
 　　知道了怎么使能Integrity Check，那有没有方便的工具为Application添加有效的Integrity Check数据呢？当然有！在\NXP_Kinetis_Bootloader_2_0_0\bin\Tools\KinetisFlashTool\win目录下面有一个KinetisFlashTool.exe工具，打开这个工具，选择【BCA Utilities】，并在Image File下面指定你的Application binary文件（此处以\NXP_Kinetis_Bootloader_2_0_0\apps\led_demo\MK80F25615\iar\binaries\led_demo_tower_0000.bin为例），然后点击【Config】便会弹出一个Kinetis Bootloader Configuration界面，确保Tag已被勾选，且在Crc check里勾选Enable并填写正确的Image Address，点击【ok】之后，回到主界面再点击【Save】，恭喜你，你的Application已经被添加了有效的Integrity Check数据。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_ImageCRC_tool_to_add_crc_data.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_ImageCRC_tool_to_add_crc_data.PNG" style="zoom:100%" />
 
 　　你可以用二进制编辑器打开你的Application binary文件查看Integrity Check数据是否添加成功，下面是痞子衡生成的新Application文件，可以看到crcStartAddress = 0, crcByteCount = 0x7A8, crcExpectedValue = 0x4779A38E。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_ImageCRC_img_with_crc.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_ImageCRC_img_with_crc.PNG" style="zoom:100%" />
 
 > Note 1: BCA里指定的CRC计算范围如果包含crcExpectedValue这4bytes的话，在计算CRC时会自动跳过这4bytes。  
 > Note 2: BCA里指定的CRC计算长度如果不是4字节对齐，在计算CRC时会自动补0。  
@@ -32,7 +32,7 @@ typedef struct BootloaderConfigurationData
 ### 二、完整性检测流程
 　　如果你使能了Integrity Check功能并把含有效Integrity Check配置的Application数据下载进了Flash，下一次芯片复位启动时会进入KBOOT执行，KBOOT会按照下面流程对Application进行完整性检测：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_ImageCRC_boot_flow.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_ImageCRC_boot_flow.PNG" style="zoom:100%" />
 
 　　KBOOT首先会从Flash里加载BCA数据并检测BCA数据是否有效，当发现BCA和integrity check数据都是有效的，便会将Integrity Checker状态置为inactive，否则则会置为invalid；  
 　　当KBOOT对Application完成常规的有效性检查（初始PC地址是否合法）之后开始尝试跳转到Application，在跳转到Application之前会启动Integrity Checker流程，Integrity Checker正常工作的前提是其状态为inactive，Integrity Checker会分别检查CRC计算范围是否合法以及CRC结果是否匹配，仅当这些检查都通过时，Integrity Checker会返回passed状态通知KBOOT可以跳转Application。  
@@ -40,7 +40,7 @@ typedef struct BootloaderConfigurationData
 ### 三、完整性检测算法CRC32-MPEG2
 　　关于CRC32算法的具体实现有很多分支，KBOOT中使用的比较主流的MPEG2分支，其具体参数如下表所示：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_ImageCRC_mpeg2_characteristics.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_ImageCRC_mpeg2_characteristics.PNG" style="zoom:100%" />
 
 　　上表中最重要的参数是多项式系数polynomial = 0x04C11BD7，这个参数值代表的是如下多项式：  
 

@@ -3,9 +3,9 @@
 
 ### 1.将本地仓库挂上远程git remote
 　　本地建好了仓库，我们希望能够挂到远程服务器上，方便与其他人共享。目前最流行的远程Git服务器当然是github，此时你需要在github上注册账户并在线创建一个仓库，此处我们输入仓库名为gittest  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/gittest%20-%20create.PNG" style="zoom:70%" />  
+<img src="http://henjay724.com/image/cnblogs/gittest%20-%20create.PNG" style="zoom:70%" />  
 　　点击"Create repository"之后便弹出如下画面，最重要的是我们可以得到一个远程仓库的地址：git@github.com:JayHeng/gittest.git。  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/gittest%20-%20url.PNG" style="zoom:70%" />  
+<img src="http://henjay724.com/image/cnblogs/gittest%20-%20url.PNG" style="zoom:70%" />  
 　　有了远程仓库地址，我们便可以开始将本地仓库与远程仓库建立联系：  
 > // 与远程建立连接之前需要保证本地仓库为非空，即至少需要一次本地提交
 > jay@pc MINGW64 /d/my_project/gittest (master)
@@ -57,7 +57,7 @@
 > ```
 
 　　在github网站设置好正确rsa key之后便可以再次尝试与将本地与远程进行连接：  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/gittest%20-%20ssh-key.PNG" style="zoom:70%" />  
+<img src="http://henjay724.com/image/cnblogs/gittest%20-%20ssh-key.PNG" style="zoom:70%" />  
 
 > // 再试一次确认本地与远程的联系
 > jay@pc MINGW64 /d/my_project/gittest (master)

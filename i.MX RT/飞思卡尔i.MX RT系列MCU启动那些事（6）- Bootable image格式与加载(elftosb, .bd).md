@@ -12,11 +12,11 @@
 　　前面讲了i.MXRT同时支持外接NOR和NAND FLASH，其中NAND FLASH无法XIP，那么存储在NAND FLASH中的image只读段必须要链接在SRAM里。i.MXRT内部有三种SRAM，分别是ITCM, DTCM, OCRAM，是不是这三种SRAM都可以被随意链接呢？答案并不是！因为在Boot期间，BootROM也需要占用SRAM，用于存放BootROM的读写段，所以被BootROM占用的SRAM无法用于链接image的只读段，如果强行链接，会导致BootROM在拷贝image只读段时破坏自身读写段，从而发生不可预料的行为。下图是RT1050 BootROM的memory map，从图中可以得知BootROM占用的是0x20200000开始的OCRAM，并且看起来是整块OCRAM都被占用了，所以不推荐使用OCRAM去链接image只读段。  
 　　黑科技：如果有朋友表示不服，RT1060/RT1050/RT1020的OCRAM是1MB/512KB/256KB，BootROM读写段不可能有这么大，是的，痞子衡告诉你，其实<font color="Blue">BootROM数据段只要32KB（0x20200000 - 0x20207FFF），另外还需要4KB用加载initial non-XIP image（0x20208000 - 0x20208FFF），所以对于存储在non-XIP FLASH的image你可以从0x20209000之后的空间里链接image只读段，而对于存储在XIP FLASH的image你可以从0x20208000之后的空间里链接image只读段</font>，这个秘密一般人痞子衡是不会告诉他的。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_image_bootrom_mem_map.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_image_bootrom_mem_map.PNG" style="zoom:100%" />
 
 　　前面讲了存储在NAND FLASH中的image只读段链接注意事项，而对于可以XIP的NOR FLASH，除了跟NAND一样可以将只读段链接在SRAM外，还可以链接在i.MXRT分配给外接存储器的XIP映射空间里，下表给出了Serial NOR（QSPI）和Parallel NOR（SEMC）各自的映射起始地址，需要注意的是<font color="Blue">Serial NOR支持的最大XIP空间为504MB，但是Parallel NOR支持的最大XIP空间只有16MB</font>，别问痞子衡是怎么知道的，痞子衡无所不知。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_image_xip_space.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_image_xip_space.PNG" style="zoom:100%" />
 
 　　至于image的读写段，在链接时就不用区别Non-XIP/XIP FLASH了，都只能放在SRAM里，并且不用考虑BootROM对SRAM的占用问题（因为不在一个时间域里被使用），只要注意不和image自身只读段冲突就行。  
 　　黑科技：有朋友注意到了SDRAM，是的i.MXRT也支持SDRAM，通过SEMC接口去实现SDRAM读写，所以如果外接了SDRAM并且使能的话，也可以将image只读段/读写段放入SDRAM，关于SDRAM的使用，痞子衡会在后面文章里介绍。  
@@ -119,7 +119,7 @@ const uint8_t dcd_data[] = {
 #### 3.7 KeyBlob
 　　第七个组成部分叫KeyBlob，是个特性组成，主要用于安全启动的加密相关特性，痞子衡会在安全启动里进一步介绍。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_image_layout.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_image_layout.PNG" style="zoom:100%" />
 
 　　上图是包含IVT、BD、DCD、Application、CSF的Bootable image的layout，这张图很好地诠释了IVT的作用。  
 
@@ -137,7 +137,7 @@ const uint8_t dcd_data[] = {
 
 　　其中ivt_application.bin就是最终生成的Bootable image，命令所需要的2个输入文件分别是application.out、config_application.bd，application.out就是你的Application工程编译链接生成的ELF文件，config_application.bd是用户配置文件，这个.bd文件主要是指示elftosb工具如何在Application binary基础上添加IVT、BD等其他信息数据从而形成Bootable image，所以编写.bd文件是关键步骤，bd文件有专门语法格式，但\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\bd_file\imx10xx目录下给了很多bd文件示例，我们只需要在某一个bd文件基础上修改即可  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_image_bd_folder.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_image_bd_folder.PNG" style="zoom:100%" />
 
 　　如果你追过痞子衡博客文章，你应该知道痞子衡曾经实测过RT1052的coremark性能，coremark工程已经上传到痞子衡的github [https://github.com/JayHeng/cortex-m_app](https://github.com/JayHeng/cortex-m_app)，工程路径在\cortex-m_app\apps\coremark_imxrt1052\bsp\build\coremark.eww，编译此工程可得到coremark_a000.out和coremark_a000.bin文件，coremark程序只读段链接在ITCM地址（0x0000a000），我们来试着使用elftosb将coremark程序转换成bootable image，bd文件可参考imx-itcm-unsigned.bd，打开这个参考bd文件：  
 
@@ -174,7 +174,7 @@ elftosb.exe -f imx -V -c config_coremark_a000.bd -o ivt_coremark_a000.bin corema
 
 　　分别打开coremark_a000.bin和ivt_coremark_a000.bin，可以看到ivt_coremark_a000.bin比coremark_a000.bin多了前8KB的数据，这前8KB里包含了有效的IVT（偏移0x400）和BD（偏移0x420）。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_image_binary1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_image_binary.PNG" style="zoom:100%" />
 
 ### 六、Bootable image的加载过程
 　　知道了Bootable image的构成，痞子衡最后再简要为大家介绍一下i.MXRT BootROM是如何从外部存储器中加载Bootable image进SRAM内存的。以non-XIP image加载为例（image链接在ITCM里），下图显示了i.MXRT加载image的四个阶段：  
@@ -184,7 +184,7 @@ elftosb.exe -f imx -V -c config_coremark_a000.bd -o ivt_coremark_a000.bin corema
 > * 第三阶段即内部转移，由于BootROM已经从外部Flash读取了4KB进SRAM临时缓存区，为了避免重复读取，BootROM会把这4KB数据首先复制到Bootable image的目标地址（ITCM）；
 > * 第四阶段即加载完成，BootROM会接着将剩下的Bootable image（BOOT_DATA_T.size - 4KB）从外部Flash中全部读取出来存到目标区域（ITCM）完成全部加载。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_image_sequence.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_image_sequence.PNG" style="zoom:100%" />
 
 　　至此，飞思卡尔i.MX RT系列MCU的Bootable image格式与加载过程痞子衡便介绍完毕了，掌声在哪里~~~ 
 

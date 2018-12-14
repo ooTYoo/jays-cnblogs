@@ -11,30 +11,30 @@
 　　i.MXRT的eFUSE memory总地址空间有1.75KB（地址范围为0x000 - 0x6FF），但可读写操作的空间只有192bytes（位于0x400 - 0x6FF区域），分为6个BANK，每个BANK含8个word（1word = 4bytes）。下图中0x00 - 0x2F是eFUSE的bank word索引地址（也叫index地址），其与eFUSE空间地址对应关系是：  
 > fuse_address = fuse_index * 0x10 + 0x400  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_efuse_otp_footprint1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_efuse_otp_footprint.PNG" style="zoom:100%" />
 
 　　上述可读写的eFUSE memory空间除了OTP特性外，还有Lock控制特性，<font color="Blue">Lock控制是OTP memory的标配，Lock控制有三层：第一层是WP，即写保护，用于保护那些不需要被烧写成1的eFUSE bit；第二层是OP，即覆盖保护，包含WP功能，并且被保护的eFUSE区域对应的shadow register也不能被重写；第三层是RP（WP+OP+RP），即访问保护，被保护的eFUSE区域及其对应的shadow register均不能被读写。</font> Lock控制在eFUSE的BANK0_word0，如下是具体Lock bit定义：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_efuse_otp_lock_area1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_efuse_otp_lock_area.PNG" style="zoom:100%" />
 
 > 关于可读写eFUSE空间所有bit定义详见Reference Manual里的Table 5-9. Fusemap Descriptions。  
 
 #### 1.2 OCOTP控制器与Shadow Register
 　　i.MXRT内部有一个硬件IP模块叫OCOTP_CTRL，即OCOTP控制器，对eFUSE memory的读写控制操作其实都是通过这个OCOTP控制器实现的，下图是OCOTP_CTRL模块图：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_efuse_ocotp_diagram.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_efuse_ocotp_diagram.PNG" style="zoom:100%" />
 
 　　OCOTP_CTRL模块寄存器一共分两类：一类是IP控制寄存器，用于实现对OTP memory的读写操作时序控制；一类是<font color="Blue">Shadow register，用于上电时自动从eFUSE memory获取数据并缓存，这样我们可以直接访问Shadow register而不用访问eFUSE memory也能获取eFUSE内容（注意：当芯片运行中烧写eFUSE，Shadow register的值并不会立刻更新，需要执行IP控制器的reload命令或者将芯片reset才能同步）。</font>  
 
 　　IP控制寄存器偏移地址范围是0x000 - 0x3FF(下图仅截取部分):  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_efuse_otp_reg_ctrl.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_efuse_otp_reg_ctrl.PNG" style="zoom:100%" />
 
 　　Shadow register寄存器偏移地址范围是0x400 - 0x6FF（下图仅截取部分），看到0x400 - 0x6FF的地址范围，有没有感觉很熟悉？是的，这跟上一节讲的可读写操作eFUSE空间偏移地址范围是一致的。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_efuse_otp_reg_shadow.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_efuse_otp_reg_shadow.PNG" style="zoom:100%" />
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_efuse_otp_reg_shadow_end.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_efuse_otp_reg_shadow_end.PNG" style="zoom:100%" />
 
 ### 二、使用blhost烧写eFUSE
 　　eFUSE memory的烧写是通过OCOTP_CTRL模块来实现的，我们当然可以在Application中集成OCOTP_CTRL的驱动程序，然后在Application调用OCOTP_CTRL的驱动程序完成eFUSE的烧写，但这种方式并不是痞子衡要介绍的重点，痞子衡要介绍的是通过Flashloader配套的blhost.exe上位机工具实现eFUSE的烧写。  

@@ -12,7 +12,7 @@
 ### 二、KBOOT架构
 　　从架构角度来分析KBOOT，抛开各种附加特性，其实KBOOT最核心的就是这三大组件：Peripheral Interface、Command & Data Processor、Memory Interface，如下图所示：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_arch.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_arch.PNG" style="zoom:100%" />
 
 #### 2.1 Peripheral Interface
 　　KBOOT首要功能是能够与Host进行数据传输，我们知道数据传输接口种类有很多，KBOOT设计上可同时支持多种常见传输接口（UART, SPI, I2C, USB-HID, CAN），为此KBOOT在Peripheral Interface组件中抽象了Peripheral的行为（byte/packet层传输等），使得在Peripheral种类拓展上更容易。  

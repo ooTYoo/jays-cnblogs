@@ -50,11 +50,11 @@ This document defines a standard NAND flash device interface interoperability st
 　　让我们从分析JESD230与ONFI区别的角度来概要了解JESD230，就以最新的JESD230C与ONFI 4.0对比着来分析吧，ONFI 4.0手册共315页，而JESD230C仅有60页，可见JESD230标准补充的内容相比ONFI原规范内容是少很多的。下面我们仅从软件驱动设计的角度（命令集、参数表）来看两者区别：  
 　　首先从命令集角度来看两者区别，下图是JESD230C与ONFI 4.0命令集对比，根据对比我们可以发现，两者命令基本是兼容的，只是JESD230多了Toggle Mode下的一些Multi-plane相关命令的第二种实现。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/jesd230_cmd_vs_onfi.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/jesd230_cmd_vs_onfi.PNG" style="zoom:100%" />
 
 　　再从参数表角度来看两者区别，下图是JESD230C与ONFI 4.0参数表对比（仅截取部分），ONFI参数表是256bytes，而JESD230参数表是512bytes，关于具体byte定义两者有很多相似之处，其中对于AC特性尤其是速度等级定义，两者是一致，这是互操作性的保证。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/jesd230_para_table_vs_onfi.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/jesd230_para_table_vs_onfi.PNG" style="zoom:100%" />
 
 　　至此，JESD230标准痞子衡便介绍完毕了，掌声在哪里~~~ 
 

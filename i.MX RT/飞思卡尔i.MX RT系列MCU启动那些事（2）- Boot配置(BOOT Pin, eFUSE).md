@@ -10,17 +10,17 @@
 #### 1.1 BOOT_MODE[1:0] Pinout
 　　下表是BOOT_MODE相关pinout信息，可在参考手册的External Signals and Pin Multiplexing章节中找到。  
 　　i.MXRT105x / i.MXRT106x pinout：  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxIndex.PNG" style="zoom:100%" />
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1050.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_PinMuxIndex.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1050.PNG" style="zoom:100%" />
 
 　　i.MXRT102x pinout：  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxIndex.PNG" style="zoom:100%" />
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1020.PNG" style="zoom:100%" />
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1020_1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_PinMuxIndex.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1020.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1020_2.PNG" style="zoom:100%" />
 
 #### 1.2 BMOD[1:0]三种模式
 　　BOOT_MODE[1:0] pin状态是在POR_B pin上沿时被自动采样存储在芯片内部的寄存器SRC->SBMR2[25:24]中的，这两个bit也叫BMOD[1:0]，BootROM其实是根据BMOD[1:0]的值来决定Boot行为的。（注意：如果改变了BOOT_MODE[1:0] pins的输入状态而使用ONOFF pin（RESET_B）去软复位，Boot行为并不会改变，因为BMOD[1:0]值并未改变）。  
-<img src="http://odox9r8vg.bkt.clouddn.com/i.MXRT_Boot_BOOT_MODE_pins_setting.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/i.MXRT_Boot_BOOT_MODE_pins_setting.PNG" style="zoom:100%" />
 　　从上述Boot MODE pin settings表中我们可以知道，除了BMOD[1:0]=2'b11这种情况是reserved之外，其余三种情况对应三种Boot行为，痞子衡为大家逐一分析，先从最简单的行为模式（Serial Downloader）说起。  
 
 ##### 1.2.1 Serial Downloader模式
@@ -49,22 +49,22 @@
 #### 2.1 BOOT_CFG[x:0] Pinout
 　　下表是BOOT_CFG相关pinout信息，可在参考手册的External Signals and Pin Multiplexing章节中找到。  
 　　i.MXRT105x / i.MXRT106x pinout：  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxIndex.PNG" style="zoom:100%" />
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1050_1.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_PinMuxIndex.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1050_2.PNG" style="zoom:100%" />
 
 　　i.MXRT102x pinout：  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxIndex.PNG" style="zoom:100%" />
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1020_2.PNG" style="zoom:100%" />
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1020_3.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_PinMuxIndex.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1020_3.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_PinMuxSRC_1020_4.PNG" style="zoom:100%" />
 
 #### 2.2 BOOT_CFG1[7:4]六种Device
 　　BOOT_CFG1[7:4]用于选择具体Boot Device，无论是RT105x/RT106x还是RT102x，它们支持的外部存储器种类是一样的，但是这里的具体配置值两个芯片上稍稍有些区别（主要是SD和SEMC NAND不一样）。  
 　　下表是BOOT_CFG1[7:4]具体配置值信息，可在参考手册的Fusemap章节中找到。
 　　i.MXRT105x / i.MXRT106x device selection：  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_BOOTCFG1_1050.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_BOOTCFG1_1050.PNG" style="zoom:100%" />
 
 　　i.MXRT102x device selection：  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_BOOTCFG1_1020.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_BOOTCFG1_1020.PNG" style="zoom:100%" />
 
 ### 三、Boot Device具体配置
 　　当Boot Device已经确定之后，底下就是配置该Device具体属性了。假设我们选择了Serial NOR FLASH，但是Serial NOR只是一类FLASH的统称，市面上有非常多的Serial NOR芯片，每个芯片特性可能不完全一样，那么BootROM怎么知道这些不同的Serial NOR芯片的特性呢？还是通过BOOT_CFG[x:0] pin和Fuse来指定。  
@@ -78,7 +78,7 @@
 
 #### 3.2 eFUSE map
 　　前面讲过，Fuse是i.MXRT里一块特殊的存储区域，用于存放全部芯片配置信息，其中有一部分区域分配给Boot。参考手册的Fusemap章节中可见所有bit具体定义，这里痞子衡仅贴出一部分用于示例：  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_Fusemap_1050.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_Fusemap_1050.PNG" style="zoom:100%" />
 　　从上表中我们可以看到i.MXRT105x上BOOT_CFG1，BOOT_CFG2共16bit的完整定义，除了BOOT_CFG1[7:4]前面已经介绍过之外，从其余bit的定义来看，确实是与具体Boot Device属性相关的。  
 　　这些Boot相关的Fuse定义，在这里逐一解释意义不大，需要结合具体Boot Device一起来看，痞子衡后续会在介绍每个Boot Device启动的文章里再进一步分析。  
 

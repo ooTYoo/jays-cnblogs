@@ -13,7 +13,7 @@
     </tr>
     <tr>
         <th>Block<br>Diagram</th>
-        <td><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MX6ULL_PD.PNG" style="zoom:70%" /></td>
+        <td><img src="http://henjay724.com/image/cnblogs/i.MX6ULL_PD.PNG" style="zoom:70%" /></td>
     </tr>
     <tr>
         <th>CPU</th>
@@ -54,9 +54,9 @@
     </tr>
     <tr>
         <th>Block<br>Diagram</th>
-        <td><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT1050_PD.PNG" style="zoom:80%" /></td>
-        <td><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT1020_PD.PNG" style="zoom:80%" /></td>
-        <td><img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT1060_PD.PNG" style="zoom:85%" /></td>
+        <td><img src="http://henjay724.com/image/cnblogs/i.MXRT1050_PD.PNG" style="zoom:80%" /></td>
+        <td><img src="http://henjay724.com/image/cnblogs/i.MXRT1020_PD.PNG" style="zoom:80%" /></td>
+        <td><img src="http://henjay724.com/image/cnblogs/i.MXRT1060_PD.PNG" style="zoom:85%" /></td>
     </tr>
     <tr>
         <th>CPU</th>

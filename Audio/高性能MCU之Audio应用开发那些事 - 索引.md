@@ -3,7 +3,7 @@
 
 　　飞思卡尔半导体（现恩智浦半导体）2017年推出的i.MX RT系列第一款芯片i.MXRT1052，搭载Cortex-M7内核，主频高达600MHz，CoreMark跑分高达3020，这种高性能MCU给嵌入式端Audio处理带来了可能，因此我们可以借助这类高性能MCU实现实时板级Audio处理（降噪、关键词识别等）。  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/MCU_Audio_overview.jpg" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/MCU_Audio_overview.jpg" style="zoom:100%" />
 
 　　本系列文章会逐一介绍高性能MCU之Audio应用开发相关知识。  
 

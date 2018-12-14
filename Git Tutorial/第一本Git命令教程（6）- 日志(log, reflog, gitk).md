@@ -96,7 +96,7 @@
 　　如果你觉得git log这种命令行方式查看与显示提交记录不够直观，Git也提供了图形化方式显示提交记录。  
 > jay@pc MINGW64 /d/my_project/gittest (master)
 > <font style="font-weight:bold;">$ gitk</font>
-> ![](http://odox9r8vg.bkt.clouddn.com/image/cnblogs/gittest_gitk_4commits_full_screen.PNG)
+> ![](http://henjay724.com/image/cnblogs/gittest_gitk_4commits_full_screen.PNG)
 
 ### 3.查看本地历史操作git reflog
 　　无论是gitk还是git log都仅能查看最终在仓库存在的提交信息，无法查看被删除的提交，以及在本地具体Git命令操作记录，这时候你需要使用git reflog。  

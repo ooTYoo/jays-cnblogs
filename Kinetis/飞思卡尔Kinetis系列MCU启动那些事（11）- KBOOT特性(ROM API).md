@@ -74,7 +74,7 @@ typedef struct FlashDriverInterface {
 
 　　下表列出了所有含ROM空间的芯片中Flash driver API的版本：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/Kinetis_Boot_API_flash_version.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Kinetis_Boot_API_flash_version.PNG" style="zoom:100%" />
 
 > * Note: 模块driver API设计必须满足几个条件：一、API里不能使用全局变量；二、模块IRQHandler不能直接当做API  
 

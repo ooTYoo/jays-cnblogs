@@ -3,7 +3,7 @@
 
 　　打开任何一款i.MX RT系列芯片的Data Sheet均可找到如下命名规则表，以i.MXRT105x芯片的Data Sheet为例：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Intr_naming_rule.PNG" style="zoom:100%" />  
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Intr_naming_rule.PNG" style="zoom:100%" />  
 
 　　一款芯片名字共有以上10部分组成，RT系列芯片家族目前成员不多，上表仅适用于i.MXRT105x、i.MXRT102x。从芯片名字上我们主要可以得到五种有效信息，分别是所属子系列、温度范围、封装、最大运行频率等级、Tapeout版本。  
 

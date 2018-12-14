@@ -9,7 +9,7 @@
 #### 1.1 官方程序包
 　　恩智浦提供了 [Flashloader程序包](https://www.nxp.com/products/processors-and-microcontrollers/applications-processors/i.mx-applications-processors/i.mx-rt-series/i.mx-rt1050-crossover-processor-with-arm-cortex-m7-core:i.MX-RT1050?tab=Design_Tools_Tab)，你首先需要下载这个Flashloader包，Flashloader所有相关资源全在包里面。注：每个i.MXRT子系列均有一个以子系列名字命名的Flashloader包，即Flashloader程序并不是通用的（偷偷告诉你，其实RT105x与RT106x是通用的），此处以RT1050系列为例：  
 
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_FlashloaderDownloadPage.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_FlashloaderDownloadPage.PNG" style="zoom:100%" />
 
 　　Flashloader程序是\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Flashloader\flashloader.elf  
 　　Flashloader工具在\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools目录下  
@@ -56,13 +56,13 @@ O.K.
 
 ##### 1.2.3 高级方式：通过Ozone
 　　前两种引导方式都是把Flashloader程序当做黑盒子，只需要将其启动运行即可，接下来痞子衡介绍的引导方式可以让你看到Flashloader源代码并且可以让你调试Flashloader。这第三种引导方式还是通过外接J-Link调试器，但还需要一个特殊的软件，即SEGGER公司提供的Ozone软件，去SEGGER先下载Ozone软件（痞子衡下载的版本是v2.56c），下载安装后打开Ozone软件，第一步选择CM7，第二步选择SWD，第三步选择elf文件时要选择Flashloader下载包里的flashloader.elf  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_flashloader_ozone_elf.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_flashloader_ozone_elf.PNG" style="zoom:100%" />
 
 　　确认elf文件后，点击“Download & Reset Program”  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_flashloader_ozone_load.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_flashloader_ozone_load.PNG" style="zoom:100%" />
 
 　　此时Flashloader程序已经被下载进i.MXRT中，并且在Disassembly窗口可以看到Flashloader汇编源程序，底下你就可以开始调试执行Flashloader程序。由于下载包里的flashloader.elf文件并没有包含所有Flashloader工程的信息（至少没有包含C代码信息，应该是恩智浦官方故意这么做的），所以我们使用Ozone软件调试看不到C代码，稍微有点遗憾。  
-<img src="http://odox9r8vg.bkt.clouddn.com/image/cnblogs/i.MXRT_Boot_flashloader_ozone_asm.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_flashloader_ozone_asm.PNG" style="zoom:100%" />
 
 #### 1.3 支持的通信外设pinout
 　　Flashloader支持的通信外设与BootROM支持的通信外设是一模一样的，也是USB-HID和UART，并且pinout也一样（Pinout适用RT105x和RT102x）：  
