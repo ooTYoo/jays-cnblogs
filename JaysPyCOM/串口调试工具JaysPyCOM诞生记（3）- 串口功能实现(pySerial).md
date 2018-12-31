@@ -1,11 +1,11 @@
 ----
 
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**串口调试工具JaysPyCOM诞生之串口功能实现**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**串口调试工具Jays-PyCOM诞生之串口功能实现**。  
 
-　　串口调试助手是最核心的当然是串口数据收发与显示的功能，JaysPyCOM借助的是pySerial库实现串口收发功能，今天痞子衡为大家介绍pySerial是如何在JaysPyCOM发挥功能的。  
+　　串口调试助手是最核心的当然是串口数据收发与显示的功能，Jays-PyCOM借助的是pySerial库实现串口收发功能，今天痞子衡为大家介绍pySerial是如何在Jays-PyCOM发挥功能的。  
 
 ### 一、pySerial简介
-　　pySerial是一套基于python实现serial port访问的库，该库的设计者为Chris Liechti，该库从2001年开始推出，一直持续更新至今，JaysPyCOM使用的是pySerial 3.4。  
+　　pySerial是一套基于python实现serial port访问的库，该库的设计者为Chris Liechti，该库从2001年开始推出，一直持续更新至今，Jays-PyCOM使用的是pySerial 3.4。  
 　　pySerial的使用非常简单，可在其官网浏览一遍其提供的API： [https://pythonhosted.org/pyserial/pyserial_api.html](https://pythonhosted.org/pyserial/pyserial_api.html)，下面痞子衡整理了比较常用的API如下：  
 
 ```Python
@@ -98,7 +98,7 @@ s_recvInterval = 0.5
 　　串口配置里主要就是实现GUI界面上"Open"按钮的回调函数，即openClosePort()，软件刚打开时所有可用Port默认是Close状态，如果用户选定了配置参数（串口号、波特率...），并点击了"Open"按钮，此时便会触发openClosePort()的执行，在openClosePort()里我们需要配置s_serialPort的参数并打开指定的串口设备。  
 
 ```Python
-class mainWin(jayspycom_win.com_win):
+class mainWin(win.com_win):
 
     def setPort ( self ):
         s_serialPort.port = self.m_textCtrl_comPort.GetLineText(0)
@@ -180,7 +180,7 @@ class mainWin(jayspycom_win.com_win):
 
 　　目前串口收发与显示实现均是基于字符方式，即发送输入框、接收显示框里仅支持ASCII码字符串，关于Char/Hex显示转换的功能（setRecvFormat()/setSendFormat()）并未加上，后续优化里会进一步做。  
 
-　　至此，串口调试工具JaysPyCOM诞生之串口功能实现痞子衡便介绍完毕了，掌声在哪里~~~  
+　　至此，串口调试工具Jays-PyCOM诞生之串口功能实现痞子衡便介绍完毕了，掌声在哪里~~~  
 
 
 
