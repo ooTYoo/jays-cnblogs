@@ -1,11 +1,11 @@
 ----
 
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**语音处理工具JaysPySPEECH诞生之语音识别实现**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**语音处理工具Jays-PySPEECH诞生之语音识别实现**。  
 
-　　语音识别是JaysPySPEECH的核心功能，JaysPySPEECH借助的是SpeechRecognition系统以及CMU Sphinx引擎来实现的语音识别功能，今天痞子衡为大家介绍语音识别在JaysPySPEECH中是如何实现的。  
+　　语音识别是Jays-PySPEECH的核心功能，Jays-PySPEECH借助的是SpeechRecognition系统以及CMU Sphinx引擎来实现的语音识别功能，今天痞子衡为大家介绍语音识别在Jays-PySPEECH中是如何实现的。  
 
 ### 一、SpeechRecognition系统简介
-　　SpeechRecognition是一套基于python实现语音识别的系统，该系统的设计者为 [Anthony Zhang (Uberi)](https://anthony-zhang.me/)，该库从2014年开始推出，一直持续更新至今，JaysPySPEECH使用的是SpeechRecognition 3.8.1。  
+　　SpeechRecognition是一套基于python实现语音识别的系统，该系统的设计者为 [Anthony Zhang (Uberi)](https://anthony-zhang.me/)，该库从2014年开始推出，一直持续更新至今，Jays-PySPEECH使用的是SpeechRecognition 3.8.1。  
 　　SpeechRecognition系统的官方主页如下：  
 
 > * SpeechRecognition官方主页: https://github.com/Uberi/speech_recognition  
@@ -170,13 +170,13 @@ print("Could not request results from Microsoft Bing Voice Recognition service; 
 > INFO: lm_trie.c(482): Building LM trie
 > ```
 
-### 二、JaysPySPEECH语音识别实现
-　　语音识别代码实现其实很简单，直接调用speech_recognition里的API即可，目前仅实现了CMU Sphinx引擎，并且仅支持中英双语识别。具体到JaysPySPEECH上主要是实现GUI界面上"ASR"按钮的回调函数，即audioSpeechRecognition()，如果用户选定了配置参数（语言类型、ASR引擎类型），并点击了"ASR"按钮，此时便会触发audioSpeechRecognition()的执行。代码如下：  
+### 二、Jays-PySPEECH语音识别实现
+　　语音识别代码实现其实很简单，直接调用speech_recognition里的API即可，目前仅实现了CMU Sphinx引擎，并且仅支持中英双语识别。具体到Jays-PySPEECH上主要是实现GUI界面上"ASR"按钮的回调函数，即audioSpeechRecognition()，如果用户选定了配置参数（语言类型、ASR引擎类型），并点击了"ASR"按钮，此时便会触发audioSpeechRecognition()的执行。代码如下：  
 
 ```Python
 import speech_recognition
 
-class mainWin(jayspyspeech_win.speech_win):
+class mainWin(win.speech_win):
 
     def getLanguageSelection(self):
         languageType = self.m_choice_lang.GetString(self.m_choice_lang.GetSelection())
@@ -223,4 +223,4 @@ class mainWin(jayspyspeech_win.speech_win):
 
 ```
 
-　　至此，语音处理工具JaysPySPEECH诞生之语音识别实现痞子衡便介绍完毕了，掌声在哪里~~~  
+　　至此，语音处理工具Jays-PySPEECH诞生之语音识别实现痞子衡便介绍完毕了，掌声在哪里~~~  

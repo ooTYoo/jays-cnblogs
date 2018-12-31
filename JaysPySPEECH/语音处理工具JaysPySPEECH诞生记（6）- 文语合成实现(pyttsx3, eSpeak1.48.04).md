@@ -1,8 +1,8 @@
 ----
 
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**语音处理工具JaysPySPEECH诞生之文语合成实现**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**语音处理工具Jays-PySPEECH诞生之文语合成实现**。  
 
-　　文语合成是JaysPySPEECH的核心功能，JaysPySPEECH借助的是pyttsx3以及eSpeak引擎来实现的文语合成功能，今天痞子衡为大家介绍文语合成在JaysPySPEECH中是如何实现的。
+　　文语合成是Jays-PySPEECH的核心功能，Jays-PySPEECH借助的是pyttsx3以及eSpeak引擎来实现的文语合成功能，今天痞子衡为大家介绍文语合成在Jays-PySPEECH中是如何实现的。
 
 ### 一、pyttsx3简介
 　　pyttsx3是一套基于实现SAPI5文语合成引擎的Python封装库，该库的设计者为Natesh M Bhat，该库其实是 [pyTTS](https://pypi.org/project/pyTTS/) 和 [pyttsx](https://github.com/RapidWareTech/pyttsx) 项目的延续，pyttsx3主要是为Python3版本设计的，但同时也兼容Python2。JaysPySPEECH使用的是pyttsx3 2.7。  
@@ -55,7 +55,7 @@ for voice in voices:
 > ```
 
 #### 1.3 为PC增加语音包支持
-　　要想在使用JaysPySPEECH时可以实现中英双语合成，要确保PC上既有英文语音包也有中文语音包，痞子衡PC上当前仅有英文语音包，故需要安装中文语音包（安装其他语言语音包的方法类似）。  
+　　要想在使用Jays-PySPEECH时可以实现中英双语合成，要确保PC上既有英文语音包也有中文语音包，痞子衡PC上当前仅有英文语音包，故需要安装中文语音包（安装其他语言语音包的方法类似）。  
 　　Windows系统下中文语音包有很多，可以使用第三方公司提供的语音包（比如 [NeoSpeech公司](https://neospeech.com/) ），也可以使用微软提供的语音包，痞子衡选用的是经典的慧慧语音包（zh-CN_HuiHui）。  
 　　进入 [Microsoft Speech Platform - Runtime (Version 11)](https://www.microsoft.com/en-us/download/details.aspx?id=27225) 和 [Microsoft Speech Platform - Runtime Languages (Version 11)](https://www.microsoft.com/en-us/download/details.aspx?id=27224) 下载页面将选中文件下载（亲测仅能用Google Chrome浏览器才能正常访问，IE竟然也无法打开）：  
 
@@ -111,18 +111,18 @@ subprocess.call(["espeak","-vzh+f3", "-f"+txtFile, "-w"+wavFile])
 
 <img src="http://henjay724.com/image/cnblogs/JaysPySPEECH_TTS_espeak_app.PNG" style="zoom:100%" />
 
-### 三、JaysPySPEECH文语合成实现
+### 三、Jays-PySPEECH文语合成实现
 　　文语合成实现主要分为两部分：TTS, TTW。实现TTS需要import pyttsx3，实现TTW需要借助subprocess调用eSpeak，下面 痞子衡分别介绍这两部分的实现：  
 
 #### 3.1 Text-to-Speech实现
-　　TTS代码实现其实很简单，目前仅实现了pyttsx3引擎，并且仅支持中英双语识别。具体到JaysPySPEECH上主要是实现GUI界面上"TTS"按钮的回调函数，即textToSpeech()，如果用户选定了配置参数（语言类型、发音人类型、TTS引擎类型），并点击了"TTS"按钮，此时便会触发textToSpeech()的执行。代码如下：  
+　　TTS代码实现其实很简单，目前仅实现了pyttsx3引擎，并且仅支持中英双语识别。具体到Jays-PySPEECH上主要是实现GUI界面上"TTS"按钮的回调函数，即textToSpeech()，如果用户选定了配置参数（语言类型、发音人类型、TTS引擎类型），并点击了"TTS"按钮，此时便会触发textToSpeech()的执行。代码如下：  
 
 ```Python
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import pyttsx3
 
-class mainWin(jayspyspeech_win.speech_win):
+class mainWin(win.speech_win):
 
     def __init__(self, parent):
         # ...
@@ -194,12 +194,12 @@ class mainWin(jayspyspeech_win.speech_win):
 ```
 
 #### 3.2 Text-to-Wav实现
-　　TTW代码实现也很简单，目前仅实现了eSpeak引擎，并且仅支持中英双语识别。具体到JaysPySPEECH上主要是实现GUI界面上"TTW"按钮的回调函数，即textToWav()，如果用户选定了配置参数（发音人性别类型、TTW引擎类型），并点击了"TTW"按钮，此时便会触发textToWav()的执行。代码如下：  
+　　TTW代码实现也很简单，目前仅实现了eSpeak引擎，并且仅支持中英双语识别。具体到Jays-PySPEECH上主要是实现GUI界面上"TTW"按钮的回调函数，即textToWav()，如果用户选定了配置参数（发音人性别类型、TTW引擎类型），并点击了"TTW"按钮，此时便会触发textToWav()的执行。代码如下：  
 
 ```Python
 import subprocess
 
-class mainWin(jayspyspeech_win.speech_win):
+class mainWin(win.speech_win):
 
     def textToWav(self, text, language):
         fileName = self.m_textCtrl_ttsFileName.GetLineText(0)
@@ -226,5 +226,5 @@ class mainWin(jayspyspeech_win.speech_win):
             self.statusBar.SetStatusText("TTW Conversation Info: Unavailable TTW Engine")
 ```
 
-　　至此，语音处理工具JaysPySPEECH诞生之文语合成实现痞子衡便介绍完毕了，掌声在哪里~~~  
+　　至此，语音处理工具Jays-PySPEECH诞生之文语合成实现痞子衡便介绍完毕了，掌声在哪里~~~  
 

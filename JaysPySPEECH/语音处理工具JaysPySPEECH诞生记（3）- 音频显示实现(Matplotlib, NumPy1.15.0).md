@@ -1,16 +1,16 @@
 ----
 
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**语音处理工具tinyPySPEECH诞生之音频显示实现**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**语音处理工具Jays-PySPEECH诞生之音频显示实现**。  
 
-　　音频显示是JaysPySPEECH的主要功能，JaysPySPEECH借助的是Matplotlib以及NumPy来实现的音频显示功能，今天痞子衡为大家介绍音频显示在JaysPySPEECH中是如何实现的。  
+　　音频显示是Jays-PySPEECH的主要功能，Jays-PySPEECH借助的是Matplotlib以及NumPy来实现的音频显示功能，今天痞子衡为大家介绍音频显示在Jays-PySPEECH中是如何实现的。  
 
 ### 一、SciPy工具集
-　　SciPy是一套Python科学计算相关的工具集，其本身也是一个Python库，这个工具集主要包含以下6大Python库，JaysPySPEECH所用到的Matplotlib以及NumPy均属于SciPy工具集。  
+　　SciPy是一套Python科学计算相关的工具集，其本身也是一个Python库，这个工具集主要包含以下6大Python库，Jays-PySPEECH所用到的Matplotlib以及NumPy均属于SciPy工具集。  
 
 <img src="http://henjay724.com/image/cnblogs/JaysPySPEECH_Waveform_scipy_list.PNG" style="zoom:100%" />
 
 #### 1.1 NumPy
-　　NumPy是一套最基础的Python科学计算包，它主要用于数组与矩阵运算，它是一个开源项目，被收录进 [NumFOCUS](https://numfocus.org/) 组织维护的 [Sponsored Project](https://numfocus.org/sponsored-projects) 里。JaysPySPEECH使用的是NumPy 1.15.0。  
+　　NumPy是一套最基础的Python科学计算包，它主要用于数组与矩阵运算，它是一个开源项目，被收录进 [NumFOCUS](https://numfocus.org/) 组织维护的 [Sponsored Project](https://numfocus.org/sponsored-projects) 里。Jays-PySPEECH使用的是NumPy 1.15.0。  
 　　NumPy库的官方主页如下：  
 
 > * NumPy官方主页: http://www.numpy.org/  
@@ -19,7 +19,7 @@
 　　NumPy的快速上手可参考这个网页 https://docs.scipy.org/doc/numpy/user/quickstart.html  
 
 #### 1.2 Matplotlib
-　　Matplotlib是一套Python高质量2D绘图库，它的初始设计者为John Hunter，它也是一个开源项目，被同样收录进 [NumFOCUS](https://numfocus.org/) 组织维护的 [Sponsored Project](https://numfocus.org/sponsored-projects) 里。JaysPySPEECH使用的是Matplotlib 2.2.3。  
+　　Matplotlib是一套Python高质量2D绘图库，它的初始设计者为John Hunter，它也是一个开源项目，被同样收录进 [NumFOCUS](https://numfocus.org/) 组织维护的 [Sponsored Project](https://numfocus.org/sponsored-projects) 里。Jays-PySPEECH使用的是Matplotlib 2.2.3。  
 　　Matplotlib库的官方主页如下：  
 
 > * Matplotlib官方主页: https://matplotlib.org/  
@@ -49,8 +49,8 @@ fig.savefig("test.png")
 plt.show()
 ```
 
-### 二、JaysPySPEECH音频显示实现
-　　JaysPySPEECH关于音频显示功能实现主要有四点：选择.wav文件、读取.wav文件、绘制.wav波形、添加光标功能，最终JaysPySPEECH效果如下图所示，痞子衡为逐一为大家介绍实现细节。  
+### 二、Jays-PySPEECH音频显示实现
+　　Jays-PySPEECH关于音频显示功能实现主要有四点：选择.wav文件、读取.wav文件、绘制.wav波形、添加光标功能，最终Jays-PySPEECH效果如下图所示，痞子衡为逐一为大家介绍实现细节。  
 
 <img src="http://henjay724.com/image/cnblogs/JaysPySPEECH_Waveform_final_view.PNG" style="zoom:100%" />
 
@@ -58,10 +58,10 @@ plt.show()
 　　选择wav文件主要借助的是wxPython里的genericDirCtrl控件提供的功能实现的，我们使用genericDirCtrl控件创建了一个名为m_genericDirCtrl_audioDir的对象，借助其SetFilter()方法实现了仅显示.wav文件格式的过滤，并且我们为m_genericDirCtrl_audioDir还创建了一个event，即viewAudio()，这个event的触发条件是选中m_genericDirCtrl_audioDir里列出的.wav文件，当viewAudio（）被触发时，我们通过GetFilePath()方法即可获得选中的.wav文件路径。  
 
 ```Python
-class mainWin(jayspyspeech_win.speech_win):
+class mainWin(win.speech_win):
 
     def __init__(self, parent):
-        jayspyspeech_win.speech_win.__init__(self, parent)
+        win.speech_win.__init__(self, parent)
 		# ...
         self.m_genericDirCtrl_audioDir.SetFilter("Audio files (*.wav)|*.wav")
 
@@ -197,10 +197,10 @@ class wavCanvasPanel(wx.Panel):
         # Note!!!: draw() must be called if figure has been cleared once
         self.wavCanvas.draw()
 
-class mainWin(jayspyspeech_win.speech_win):
+class mainWin(win.speech_win):
 
     def __init__(self, parent):
-        jayspyspeech_win.speech_win.__init__(self, parent)
+        win.speech_win.__init__(self, parent)
         self.wavPanel = wavCanvasPanel(self.m_panel_plot)
         # ...
 
@@ -262,7 +262,7 @@ class wavCanvasPanel(wx.Panel):
         # ...
 ```
 
-　　至此，语音处理工具tinyPySPEECH诞生之音频显示实现痞子衡便介绍完毕了，掌声在哪里~~~  
+　　至此，语音处理工具Jays-PySPEECH诞生之音频显示实现痞子衡便介绍完毕了，掌声在哪里~~~  
 
 ### 参考文档
 > 1. [Embedding a matplotlib figure inside a WxPython panel](https://stackoverflow.com/questions/10737459/embedding-a-matplotlib-figure-inside-a-wxpython-panel)

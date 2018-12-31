@@ -1,8 +1,8 @@
 ----
 
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**语音处理工具JaysPySPEECH诞生之环境搭建**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**语音处理工具Jays-PySPEECH诞生之环境搭建**。  
 
-　　在写JaysPySPEECH时需要先搭好开发环境，下表列出了开发过程中会用到的所有软件/工具包：  
+　　在写Jays-PySPEECH时需要先搭好开发环境，下表列出了开发过程中会用到的所有软件/工具包：  
 
 ### 一、涉及工具列表
 
@@ -80,7 +80,7 @@
 </table>
 
 ### 二、基础环境搭建（Python + PyAudio + Matplotlib + NumPy）
-　　JaysPySPEECH工具是一个完全基于Python语言开发的应用软件，首先安装好Python 2.7.14，痞子衡的安装目录为C:\tools_mcu\Python27，安装完成后确保系统环境变量里包括该路径（C:\tools_mcu\Python27），因为该路径下包含python.exe，后续python命令需调用这个python.exe完成的。此外pip是Python的包管理工具，我们可以借助pip来安装PyAudio和Matplotlib包（NumPy含在Matplotlib里）：  
+　　Jays-PySPEECH工具是一个完全基于Python语言开发的应用软件，首先安装好Python 2.7.14，痞子衡的安装目录为C:\tools_mcu\Python27，安装完成后确保系统环境变量里包括该路径（C:\tools_mcu\Python27），因为该路径下包含python.exe，后续python命令需调用这个python.exe完成的。此外pip是Python的包管理工具，我们可以借助pip来安装PyAudio和Matplotlib包（NumPy含在Matplotlib里）：  
 
 > PS C:\tools_mcu\Python27\Scripts><font style="font-weight:bold;" color="Blue"> .\pip.exe install pyaudio</font>
 > ```text
@@ -119,8 +119,8 @@
 > Note: 关于GUI及调试等相关工具（wxPython、wxFormBuilder、PyCharm）的安装详见痞子衡另一个作品 [tinyPyCOM的环境搭建](http://www.cnblogs.com/henjay724/p/9416049.html)。
 
 ### 二、高级环境搭建（SpeechRecognition + PocketSphinx + pyttsx3 + eSpeak）
-　　上一步主要安装了JaysPySPEECH的基础开发环境，用于Audio的录播与显示，但是JaysPySPEECH设计之初便考虑支持语音识别、文语转换功能，因为我们还需要进一步安装相关Python库。  
-　　首先安装语音识别库，SpeechRecognition是一款非常流行的支持多引擎的语音识别Python库，痞子衡为JaysPySPEECH选用的就是SpeechRecognition，其中语音识别引擎选用的是可以离线工作的PocketSphinx，具体安装如下：  
+　　上一步主要安装了Jays-PySPEECH的基础开发环境，用于Audio的录播与显示，但是Jays-PySPEECH设计之初便考虑支持语音识别、文语转换功能，因为我们还需要进一步安装相关Python库。  
+　　首先安装语音识别库，SpeechRecognition是一款非常流行的支持多引擎的语音识别Python库，痞子衡为Jays-PySPEECH选用的就是SpeechRecognition，其中语音识别引擎选用的是可以离线工作的PocketSphinx，具体安装如下：  
 
 > PS C:\tools_mcu\Python27\Scripts><font style="font-weight:bold;" color="Blue">  .\pip.exe install SpeechRecognition</font>
 > ```text
@@ -168,7 +168,7 @@
 > Successfully installed pyttsx3-2.7
 > ```
 
-　　pyttsx3仅能在线发声，无法保存到wav文件，因此我们还需要一个可以保存wav文件的TTS，痞子衡选择了eSpeak，其具体安装详见系列第六篇。到了这里，JaysPySPEECH工具开发的Python环境便全部搭好了。
+　　pyttsx3仅能在线发声，无法保存到wav文件，因此我们还需要一个可以保存wav文件的TTS，痞子衡选择了eSpeak，其具体安装详见系列第六篇。到了这里，Jays-PySPEECH工具开发的Python环境便全部搭好了。
 
-　　至此，语音处理工具JaysPySPEECH诞生之环境搭建痞子衡便介绍完毕了，掌声在哪里~~~  
+　　至此，语音处理工具Jays-PySPEECH诞生之环境搭建痞子衡便介绍完毕了，掌声在哪里~~~  
 
