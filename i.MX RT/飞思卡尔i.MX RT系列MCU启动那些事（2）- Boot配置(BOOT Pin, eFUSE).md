@@ -20,7 +20,7 @@
 
 #### 1.2 BMOD[1:0]三种模式
 　　BOOT_MODE[1:0] pin状态是在POR_B pin上沿时被自动采样存储在芯片内部的寄存器SRC->SBMR2[25:24]中的，这两个bit也叫BMOD[1:0]，BootROM其实是根据BMOD[1:0]的值来决定Boot行为的。（注意：如果改变了BOOT_MODE[1:0] pins的输入状态而使用ONOFF pin（RESET_B）去软复位，Boot行为并不会改变，因为BMOD[1:0]值并未改变）。  
-<img src="http://henjay724.com/i.MXRT_Boot_BOOT_MODE_pins_setting.PNG" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_BOOT_MODE_pins_setting.PNG" style="zoom:100%" />
 　　从上述Boot MODE pin settings表中我们可以知道，除了BMOD[1:0]=2'b11这种情况是reserved之外，其余三种情况对应三种Boot行为，痞子衡为大家逐一分析，先从最简单的行为模式（Serial Downloader）说起。  
 
 ##### 1.2.1 Serial Downloader模式

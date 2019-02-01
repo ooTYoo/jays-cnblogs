@@ -30,15 +30,15 @@
 
 　　第一种模式叫平等合作模式，这种模式下没有明确的项目负责人，每个人对项目的控制权平等。每个开发都可以对项目进行任意修改。  
 
-<img src="http://henjay724.com/image/csdn_blog/Git_Process_Freestyle_Mode.jpg" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Git_Process_Freestyle_Mode.jpg" style="zoom:100%" />
 
 　　第二种模式叫经典开发模式，这种模式下明确了一个项目负责人，由这个负责人汇总所有开发人员的提交，并负责对项目进行统一修改。  
 
-<img src="http://henjay724.com/image/csdn_blog/Git_Process_Free_Mode.jpg" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Git_Process_Free_Mode.jpg" style="zoom:100%" />
 
 　　第三种模式叫超大项目模式，这种模式下有二级经典开发模式，即将项目分成多个子模块，每个子模块均有自己的公共服务器，每个子模块的开发使用经典开发模式，而子模块的汇总也是经典开发模式。  
 
-<img src="http://henjay724.com/image/csdn_blog/Git_Process_Project_Mode.jpg" style="zoom:100%" />
+<img src="http://henjay724.com/image/cnblogs/Git_Process_Project_Mode.jpg" style="zoom:100%" />
 
 　　Git的世界还有很多好玩的东西，具体我们下篇再说。  
 

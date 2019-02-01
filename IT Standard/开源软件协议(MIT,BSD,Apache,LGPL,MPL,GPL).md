@@ -5,7 +5,7 @@
 
 ### 1.开源软件是什么？
 
-<img src="http://henjay724.com/image/csdn_blog/Open_Source_Software_Logo2.jpeg" style="zoom:110%" />
+<img src="http://henjay724.com/image/cnblogs/Open_Source_Software_Logo2.jpeg" style="zoom:110%" />
 
 　　所谓“**开源软件**”（open-source software），字面上理解就是开放源代码的软件，即在软件发行的时候，附上软件的源代码，并授权允许用户更改/自由再散布/衍生著作权。
 
@@ -36,7 +36,7 @@
 
 ### 3.一大波开源软件协议
 
-<img src="http://henjay724.com/image/csdn_blog/Open_Source_Software_License_List.jpeg" style="zoom:90%" />
+<img src="http://henjay724.com/image/cnblogs/Open_Source_Software_License_List.jpeg" style="zoom:90%" />
 
 　　前面讲到，开源软件都是有License的，猜一下，迄今为止，世界上一共有多少种开源软件License？据粗略统计有上百种（[GNU组织整理的开源协议清单](http://www.gnu.org/licenses/license-list.html)），而通过OSI（Open Source Initiative）组织批准的开源软件协议目前也有60多种（[OSI组织批准的开源协议清单](https://opensource.org/licenses/alphabetical)）
 
@@ -61,7 +61,7 @@
 
 　　按照以上5个特性，我们可以迅速将6种开源软件协议分类，详见下图：
 
-<img src="http://henjay724.com/6_free_software_licenses.png" style="zoom:80%" />
+<img src="http://henjay724.com/image/cnblogs/6_free_software_licenses.png" style="zoom:80%" />
 
 　　从开源软件的个人使用灵活角度来看：MIT是最自由最没有限制的，MIT协议的开源软件作者只想保留版权，其他方面任你自由发挥；而GPL限制是最严苛的，如果你用了GPL开源软件，那么你的软件也必须同样以GPL协议方式开源。
 
@@ -76,7 +76,7 @@
 
 　　开源软件协议从使用限制强弱上来看，可以分为三大类：放任型、弱保护型、强保护型；一般来讲强限制协议可以向下兼容弱限制协议（这意味着软件最终License取决于强限制协议），但存在限制条件完全对立的两个协议则无法兼容（这意味着软件开发不能同时引用这两个开源软件）。下图很好地说明了6种常见开源软件协议之间的兼容性情况。
 
-<img src="http://henjay724.com/image/csdn_blog/Typical_License_Relationship.png" style="zoom:90%" />
+<img src="http://henjay724.com/image/cnblogs/Typical_License_Relationship.png" style="zoom:90%" />
 
 　　箭头从A框到B框代表，A框和B框中的协议是兼容的（两种开源软件可以组合使用），且最终License取决于B框中协议；而如果两个框之间没有单向的箭头贯通，即意味着两个框中的协议不兼容（两种开源软件不可以组合使用）。
 

@@ -185,7 +185,7 @@ S31520002000705A2120914B01207B240020952E0120FF
 > Reponse Status = 2290649224 (0x88888888) Write File complete.
 > ```
 
-　　第二个问题，如何使用jump-address命令跳转到Flashloader程序中？痞子衡在前面sdphost命令列表里介绍过，jump-address只能跳转到含IVT头的image，现在image本身已经有了，但是IVT头是什么？用二进制编辑器打开\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\mfgtools-rel\Profiles\MXRT105X\OS Firmware\ivt_flashloader.bin文件，可以发现除了前2KB之外的其他数据跟我们生成的flashloader.bin是一样的，那么IVT就藏在前2KB数据里，仔细看一下，你会发现除了偏移0x400的位置处有一些数据外，其余都是0，是的IVT就在那里。  
+　　第二个问题，如何使用jump-address命令跳转到Flashloader程序中？痞子衡在前面sdphost命令列表里介绍过，jump-address只能跳转到含IVT头的image，现在image本身已经有了，但是IVT头是什么？用二进制编辑器打开\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\mfgtools-rel\Profiles\MXRT105X\OS Firmware\ivt_flashloader.bin文件，可以发现除了前2KB之外的其他数据跟我们生成的flashloader.bin是一样的，那么IVT就藏在前8KB数据里，仔细看一下，你会发现除了偏移0x400的位置处有一些数据外，其余都是0，是的IVT就在那里。  
 
 ```text
 offset(h)
@@ -205,7 +205,7 @@ offset(h)
 00015FB0: 03 80 FF 71 00 70 08 -- -- -- -- -- -- -- -- --
 ```
 
-　　你可能会疑问，真正有用的IVT数据只有几十个字节，为什么ivt_flashloader.bin文件会留出2KB的空间来放IVT？这得分析IVT本身才能知道答案，让我们来尝试解析IVT，IVT的原型是如下的hab_ivt_v0结构体，一共32个byte，对应的是偏移0x400 - 0x41F处的数据，hab_ivt_v0.self = 0x20000400，由于此处self成员指定的IVT地址是0x20000400，而Flashloader本身地址是0x20002000，bin文件本身并不含地址信息数据，所以只能用0来填充占位以保证IVT数据与Flashloader数据的相对位置关系，这就是0x430 - 0x1FFF全是0的原因。hab_ivt_v0.boot_data =0x20000420，指明了boot data数据在0x420 - 0x42b处，boot_data结构体原型如下，一共12个byte，boot_data.start = 0x20000000，指明boot data应从0x20000000处开始存放，所谓boot data即IVT和image的统称，看到这，你应该明白了0x0 - 0x3FF处为何全是0的原因了吧。  
+　　你可能会疑问，真正有用的IVT数据只有几十个字节，为什么ivt_flashloader.bin文件会留出8KB的空间来放IVT？这得分析IVT本身才能知道答案，让我们来尝试解析IVT，IVT的原型是如下的hab_ivt_v0结构体，一共32个byte，对应的是偏移0x400 - 0x41F处的数据，hab_ivt_v0.self = 0x20000400，由于此处self成员指定的IVT地址是0x20000400，而Flashloader本身地址是0x20002000，bin文件本身并不含地址信息数据，所以只能用0来填充占位以保证IVT数据与Flashloader数据的相对位置关系，这就是0x430 - 0x1FFF全是0的原因。hab_ivt_v0.boot_data =0x20000420，指明了boot data数据在0x420 - 0x42b处，boot_data结构体原型如下，一共12个byte，boot_data.start = 0x20000000，指明boot data应从0x20000000处开始存放，所谓boot data即IVT和image的统称，看到这，你应该明白了0x0 - 0x3FF处为何全是0的原因了吧。  
 
 ```C
 #define HAB_TAG_IVT0 0xd1     /**< Image Vector Table V0 */
@@ -245,12 +245,20 @@ typedef struct boot_data{
 } BOOT_DATA_T;
 ```
 
-　　既然ivt_flashloader.bin文件里的前2KB有很多冗余数据，那不妨我们只把有效数据（IVT和boot data，0x400 - 0x42d处共44个byte）提取出来放到ivt_bootdata.bin文件里，让我们将ivt_bootdata.bin下载进SRAM的0x20000400地址处：  
+　　既然ivt_flashloader.bin文件里的前8KB有很多冗余数据，那不妨我们只把有效数据（IVT和boot data，0x400 - 0x42d处共44个byte）提取出来放到ivt_bootdata.bin文件里，让我们将ivt_bootdata.bin下载进SRAM的0x20000400地址处：  
 > PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\sdphost\win> <font style="font-weight:bold;" color="Blue">.\sdphost.exe -u 0x1fc9,0x0130 -- write-file 0x20000400 ..\\..\\..\Flashloader\ivt_bootdata.bin</font>
 > ```text
 > Preparing to send 44 (0x2c) bytes to the target.
 > (1/1)100% Completed!
 > Status (HAB mode) = 1450735702 (0x56787856) HAB disabled.
+> Reponse Status = 2290649224 (0x88888888) Write File complete.
+> ```
+
+　　刚才痞子衡只是为了讲解ivt与image的关系才分步将自己创建的flashloader.bin和ivt_bootdata.bin下载进SRAM，其实你可以直接将Flashloader包里现成的ivt_flashloader.bin下载进SRAM即可：  
+> PS C:\Flashloader_i.MXRT1050_GA\Flashloader_RT1050_1.1\Tools\sdphost\win> <font style="font-weight:bold;" color="Blue">.\sdphost.exe -u 0x1fc9,0x0130 -- write-file 0x20000000 ..\\..\mfgtools-rel\Profiles\MXRT105X\OS Firmware\ivt_flashloader.bin</font>
+> ```text
+> Preparing to send 90039 (0x15fb7) bytes to the target.
+> (1/1)1%Status (HAB mode) = 1450735702 (0x56787856) HAB disabled.
 > Reponse Status = 2290649224 (0x88888888) Write File complete.
 > ```
 
