@@ -13,11 +13,13 @@
 > [飞思卡尔i.MX RT系列MCU特性介绍（3）- 命名规则](https://www.cnblogs.com/henjay724/p/9073569.html)  
 > [飞思卡尔i.MX RT系列MCU特性介绍（4）- RT105x选型](https://www.cnblogs.com/henjay724/p/9073887.html)  
 
-### 工具篇（持续更新中...4/5）
+### 工具篇（持续更新中...6/7）
 > [恩智浦MCU安全加密启动一站式工具NXP-MCUBootUtility用户指南](https://www.cnblogs.com/henjay724/p/10047071.html)  
 > [恩智浦MCU安全加密启动一站式工具NXP-MCUBootUtility常见问题](https://www.cnblogs.com/henjay724/p/10159925.html)  
 > [开启NXP-MCUBootUtility工具的HAB签名功能 - CST（中英双语）](https://www.cnblogs.com/henjay724/p/10189593.html)  
 > [开启NXP-MCUBootUtility工具的HAB加密功能 - CST（中英双语）](https://www.cnblogs.com/henjay724/p/10219459.html)  
+> [飞思卡尔i.MX RT系列MCU量产神器RT-Flash用户指南](https://www.cnblogs.com/henjay724/p/10776084.html)  
+> [飞思卡尔i.MX RT系列MCU量产神器RT-Flash常见问题](https://www.cnblogs.com/henjay724/p/10776095.html)  
 
 > [开启NXP-MCUBootUtility工具的BEE加密功能 - image_enc](https://www.cnblogs.com/henjay724/p/10189602.html)  
 
