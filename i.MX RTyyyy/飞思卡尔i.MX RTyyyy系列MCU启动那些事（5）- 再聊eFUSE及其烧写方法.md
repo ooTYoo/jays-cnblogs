@@ -1,14 +1,14 @@
 ----
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RT系列MCU的eFUSE**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RTyyyy系列MCU的eFUSE**。  
 
-　　在i.MXRT启动系列第二篇文章 [Boot配置(BOOT Pin, eFUSE)](http://www.cnblogs.com/henjay724/p/9034563.html) 里痞子衡提到了eFUSE，部分Boot配置都存储在eFUSE memory里，但是对eFUSE的介绍仅仅浅尝辄止，没有深入，今天痞子衡就为大家再进一步介绍eFUSE。  
+　　在i.MXRTyyyy启动系列第二篇文章 [Boot配置(BOOT Pin, eFUSE)](http://www.cnblogs.com/henjay724/p/9034563.html) 里痞子衡提到了eFUSE，部分Boot配置都存储在eFUSE memory里，但是对eFUSE的介绍仅仅浅尝辄止，没有深入，今天痞子衡就为大家再进一步介绍eFUSE。  
 
-　　eFUSE是i.MXRT里一块特殊的存储区域，用于存放全部芯片配置信息，其中有一部分配置信息和Boot相关。这块特殊存储区域并不在ARM的4G system address空间里，需要用特殊的方式去访问（读/写），如何访问eFUSE是本篇文章的重点。  
+　　eFUSE是i.MXRTyyyy里一块特殊的存储区域，用于存放全部芯片配置信息，其中有一部分配置信息和Boot相关。这块特殊存储区域并不在ARM的4G system address空间里，需要用特殊的方式去访问（读/写），如何访问eFUSE是本篇文章的重点。  
 
 ### 一、eFUSE基本原理
 #### 1.1 eFUSE属性（OTP, Lock）
-　　eFUSE本质上就是i.MXRT内嵌的一块OTP（One Time Programmable） memory，仅可被烧写一次，但可以被多次读取。<font color="Blue">eFUSE memory的烧写是按bit进行的，初始状态下所有eFUSE bit均为0，通过特殊的烧写时序可以将bit从0改成1，一旦某bit被烧写成1后便再也无法被修改（可理解为硬件熔丝烧断了无法恢复）</font>。  
-　　i.MXRT的eFUSE memory总地址空间有1.75KB（地址范围为0x000 - 0x6FF），但可读写操作的空间只有192bytes（位于0x400 - 0x6FF区域），分为6个BANK，每个BANK含8个word（1word = 4bytes）。下图中0x00 - 0x2F是eFUSE的bank word索引地址（也叫index地址），其与eFUSE空间地址对应关系是：  
+　　eFUSE本质上就是i.MXRTyyyy内嵌的一块OTP（One Time Programmable） memory，仅可被烧写一次，但可以被多次读取。<font color="Blue">eFUSE memory的烧写是按bit进行的，初始状态下所有eFUSE bit均为0，通过特殊的烧写时序可以将bit从0改成1，一旦某bit被烧写成1后便再也无法被修改（可理解为硬件熔丝烧断了无法恢复）</font>。  
+　　i.MXRTyyyy的eFUSE memory总地址空间有1.75KB（地址范围为0x000 - 0x6FF），但可读写操作的空间只有192bytes（位于0x400 - 0x6FF区域），分为6个BANK，每个BANK含8个word（1word = 4bytes）。下图中0x00 - 0x2F是eFUSE的bank word索引地址（也叫index地址），其与eFUSE空间地址对应关系是：  
 > fuse_address = fuse_index * 0x10 + 0x400  
 
 <img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_efuse_otp_footprint.PNG" style="zoom:100%" />
@@ -118,5 +118,5 @@ Command:
 > Status (HAB mode) = 1450735702 (0x56787856) HAB disabled.
 > ```
 
-　　至此，飞思卡尔i.MX RT系列MCU的eFUSE痞子衡便介绍完毕了，掌声在哪里~~~ 
+　　至此，飞思卡尔i.MX RTyyyy系列MCU的eFUSE痞子衡便介绍完毕了，掌声在哪里~~~ 
 

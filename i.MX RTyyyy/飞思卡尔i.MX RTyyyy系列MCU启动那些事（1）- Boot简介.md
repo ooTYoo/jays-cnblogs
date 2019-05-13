@@ -1,7 +1,7 @@
 ----
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RT系列MCU的BootROM功能简介**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RTyyyy系列MCU的BootROM功能简介**。  
 
-　　截止目前为止i.MX RT系列已公布的芯片有三款i.MXRT105x, i.MXRT102x, i.MXRT106x，所以本文的研究对象便是这三款芯片，从参考手册来看，这三款芯片的BootROM功能差别不大，所以一篇文章可以概括这三款芯片的BootROM特性。  
+　　截止目前为止i.MX RTyyyy系列已公布的芯片有三款i.MXRT105x, i.MXRT102x, i.MXRT106x，所以本文的研究对象便是这三款芯片，从参考手册来看，这三款芯片的BootROM功能差别不大，所以一篇文章可以概括这三款芯片的BootROM特性。  
 
 ### 一、Boot基本原理
 #### 1.1 从内部FLASH启动
@@ -40,7 +40,7 @@
 　　在第一部分里讲了Boot基本原理以及各种Boot方式，那么i.MXRT Boot到底属于哪一种？在回答这个问题之前我们先看一下i.MXRT102x的system memory map（i.MXRT105x也类似，区别是ITCM/DTCM/OCRAM的size是512KB）。  
 <img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_1020MemMap.PNG" style="zoom:100%" />
 　　从memory map里可以看到，i.MXRT支持存储类型一共有三种：一是96KB的ROM（即BootROM）、二是总容量3*256KB的RAM（OCRAM/DTCM/ITCM）、三是分配给外部存储器接口控制器（SEMC/QSPI）的2GB区域。看到这里你应该明白了，<font color="Blue">i.MXRT Boot方式主要是借助BootROM从外部存储器加载Application到内部SRAM/外部SDRAM/原地XIP执行</font>。  
-　　那么i.MXRT到底支持从哪些外部存储器加载启动呢？翻看i.MXRT的参考手册里的System Boot章节，可以看到i.MXRT启动支持以下6种外部存储器：  
+　　那么i.MXRTyyyy到底支持从哪些外部存储器加载启动呢？翻看i.MXRTyyyy的参考手册里的System Boot章节，可以看到i.MXRT启动支持以下6种外部存储器：  
 > * Serial NOR Flash via FlexSPI
 > * Serial NAND Flash via FlexSPI
 > * Parallel NOR Flash via SEMC
@@ -50,5 +50,5 @@
 
 　　其中Serial/Parallel NOR这两种Device可以XIP，其他4种Device无法XIP，需要拷贝到内部RAM或外接SDRAM里运行。关于具体如何从这6种Device启动，痞子衡下篇文章接着聊。  
 
-　　至此，飞思卡尔i.MX RT系列MCU的BootROM功能痞子衡便介绍完毕了，掌声在哪里~~~ 
+　　至此，飞思卡尔i.MX RTyyyy系列MCU的BootROM功能痞子衡便介绍完毕了，掌声在哪里~~~ 
 

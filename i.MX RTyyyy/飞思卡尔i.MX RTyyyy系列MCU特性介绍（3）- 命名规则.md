@@ -1,7 +1,7 @@
 ----
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RT系列MCU的命名规则**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RTyyyy系列MCU的命名规则**。  
 
-　　打开任何一款i.MX RT系列芯片的Data Sheet均可找到如下命名规则表，以i.MXRT105x芯片的Data Sheet为例：  
+　　打开任何一款i.MX RTyyyy系列芯片的Data Sheet均可找到如下命名规则表，以i.MXRT105x芯片的Data Sheet为例：  
 
 <img src="http://henjay724.com/image/cnblogs/i.MXRT_Intr_naming_rule.PNG" style="zoom:100%" />  
 
@@ -11,4 +11,4 @@
 
 　　下面一篇文章，痞子衡会教你如何查看同一子系列下各芯片具体差异。  
 
-　　至此，飞思卡尔i.MX RT系列MCU的命名规则痞子衡便介绍完毕了，掌声在哪里~~~
+　　至此，飞思卡尔i.MX RTyyyy系列MCU的命名规则痞子衡便介绍完毕了，掌声在哪里~~~

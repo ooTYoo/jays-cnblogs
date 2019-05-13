@@ -1,7 +1,7 @@
 ----
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RT系列MCU的Raw NAND启动**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RTyyyy系列MCU的Raw NAND启动**。  
 
-　　前面铺垫了七篇启动系列文章，终于该讲具体Boot Device了，我们知道i.MXRT支持的外部Boot Device共有6种（Serial NOR&NAND、Parallel NOR&NAND、SD/eMMC、SPI NOR/EEPROM），其中最常用的是Serial NOR&NAND，目前各大社区里讨论最火的也是Serial NOR/NAND启动，有不少大神(硬汉eric2013, jicheng0622)已经写过关于Serial NOR&NAND启动的文章，写得非常好，这让痞子衡非常有压力，因此痞子衡决定第一篇Boot Device写较常用但还没有人写过的Raw(Parallel) NAND启动，大家是不是很期待？（请配合说“是”），好，话不多说，开讲。  
+　　前面铺垫了七篇启动系列文章，终于该讲具体Boot Device了，我们知道i.MXRTyyyy支持的外部Boot Device共有6种（Serial NOR&NAND、Parallel NOR&NAND、SD/eMMC、SPI NOR/EEPROM），其中最常用的是Serial NOR&NAND，目前各大社区里讨论最火的也是Serial NOR/NAND启动，有不少大神(硬汉eric2013, jicheng0622)已经写过关于Serial NOR&NAND启动的文章，写得非常好，这让痞子衡非常有压力，因此痞子衡决定第一篇Boot Device写较常用但还没有人写过的Raw(Parallel) NAND启动，大家是不是很期待？（请配合说“是”），好，话不多说，开讲。  
 
 ### 一、支持的Raw NAND
 　　开门见山，<font color="Blue">i.MXRT支持加载启动的主要是兼容ONFI 1.0标准的Asynchronous SLC Raw NAND，至于数据线宽度，x8,x16都支持(一般x8应用比较多)。</font>关于Raw NAND基本知识请先看一下痞子衡的另一篇文章 [并行接口NAND标准(ONFI)及SLC Raw NAND简介](https://www.cnblogs.com/henjay724/p/9152535.html)，本文后续的很多内容均是基于充分了解Raw NAND的前提下开展的。  
@@ -198,5 +198,5 @@ blhost -u -- write-memory 0x40000 ivt_image.bin 0x100    // Program ivt_image.bi
 
 　　上述所有步骤全部完成之后，复位芯片你就应该能看到你放在Raw NAND里的Application已经正常地启动了。  
 
-　　至此，飞思卡尔i.MX RT系列MCU的Raw NAND启动痞子衡便介绍完毕了，掌声在哪里~~~ 
+　　至此，飞思卡尔i.MX RTyyyy系列MCU的Raw NAND启动痞子衡便介绍完毕了，掌声在哪里~~~ 
 

@@ -1,12 +1,12 @@
 ----
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RT系列MCU的Boot配置**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RTyyyy系列MCU的Boot配置**。  
 
-　　在上一篇文章 [Boot简介](http://www.cnblogs.com/henjay724/p/9031655.html) 里痞子衡为大家介绍了Boot基本原理以及i.MXRT Boot方式简介。今天痞子衡就来重点聊一聊i.MXRT Boot方式具体由哪些配置决定的。  
+　　在上一篇文章 [Boot简介](http://www.cnblogs.com/henjay724/p/9031655.html) 里痞子衡为大家介绍了Boot基本原理以及i.MXRTyyyy Boot方式简介。今天痞子衡就来重点聊一聊i.MXRTyyyy Boot方式具体由哪些配置决定的。  
 
 　　无论是什么芯片里的BootROM，其最核心的功能无非两个：一、从存放Application的存储器中加载执行；二、通过支持的通信接口接收来自Host的Application数据完成更新，所以Boot配置也主要围绕这两个核心功能。  
 
 ### 一、Boot行为模式选择
-　　BOOT_MODE[1:0] pin是决定i.MXRT Boot行为的最顶层配置，但是与上一篇文章里介绍的Kinetis/LPC/STM32 Boot Mode配置不同的是，i.MXRT上电永远是从ROM里开始启动，此处的BOOT_MODE[1:0]决定的仅是BootROM程序的不同行为模式（执行代码分支），而Kinetis/LPC/STM32 Boot Mode侧重的是决定CPU从ROM还是FLASH里启动。  
+　　BOOT_MODE[1:0] pin是决定i.MXRTyyyy Boot行为的最顶层配置，但是与上一篇文章里介绍的Kinetis/LPC/STM32 Boot Mode配置不同的是，i.MXRT上电永远是从ROM里开始启动，此处的BOOT_MODE[1:0]决定的仅是BootROM程序的不同行为模式（执行代码分支），而Kinetis/LPC/STM32 Boot Mode侧重的是决定CPU从ROM还是FLASH里启动。  
 #### 1.1 BOOT_MODE[1:0] Pinout
 　　下表是BOOT_MODE相关pinout信息，可在参考手册的External Signals and Pin Multiplexing章节中找到。  
 　　i.MXRT105x / i.MXRT106x pinout：  
@@ -77,10 +77,10 @@
 　　前面讲过BOOT_CFG1[7:4]是用来确定Boot Device类型的，其余bit就是用来配置当前选择的Boot Device的具体信息，因此不同的Boot Device，这些bit的意义是不一样的。具体在Fuse里统一介绍。  
 
 #### 3.2 eFUSE map
-　　前面讲过，Fuse是i.MXRT里一块特殊的存储区域，用于存放全部芯片配置信息，其中有一部分区域分配给Boot。参考手册的Fusemap章节中可见所有bit具体定义，这里痞子衡仅贴出一部分用于示例：  
+　　前面讲过，Fuse是i.MXRTyyyy里一块特殊的存储区域，用于存放全部芯片配置信息，其中有一部分区域分配给Boot。参考手册的Fusemap章节中可见所有bit具体定义，这里痞子衡仅贴出一部分用于示例：  
 <img src="http://henjay724.com/image/cnblogs/i.MXRT_Boot_Fusemap_1050.PNG" style="zoom:100%" />
 　　从上表中我们可以看到i.MXRT105x上BOOT_CFG1，BOOT_CFG2共16bit的完整定义，除了BOOT_CFG1[7:4]前面已经介绍过之外，从其余bit的定义来看，确实是与具体Boot Device属性相关的。  
 　　这些Boot相关的Fuse定义，在这里逐一解释意义不大，需要结合具体Boot Device一起来看，痞子衡后续会在介绍每个Boot Device启动的文章里再进一步分析。  
 
-　　至此，飞思卡尔i.MX RT系列MCU的Boot配置痞子衡便介绍完毕了，掌声在哪里~~~ 
+　　至此，飞思卡尔i.MX RTyyyy系列MCU的Boot配置痞子衡便介绍完毕了，掌声在哪里~~~ 
 

@@ -1,10 +1,10 @@
 ----
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RT系列MCU的Parallel NOR启动**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RTyyyy系列MCU的Parallel NOR启动**。  
 
-　　上一篇讲i.MXRT从Raw NAND启动的文章 [从Raw NAND启动](https://www.cnblogs.com/henjay724/p/9173425.html) 一经放出，深入广大网友喜爱，短时间内阅读量飙升，这让痞子衡深入鼓舞，所以趁热打铁继续把从Parallel NOR启动也顺便一起讲了，为什么说是顺便呢？因为Parallel NOR与Raw NAND都是并行接口，属于同一门派，且这两种外存设备在i.MXRT内部是通过同一IP（SEMC）实现底层接口通信的，所以了解了Raw NAND启动，再来看Parallel NOR启动会觉得简单很多。话不多说，开讲。  
+　　上一篇讲i.MXRTyyyy从Raw NAND启动的文章 [从Raw NAND启动](https://www.cnblogs.com/henjay724/p/9173425.html) 一经放出，深入广大网友喜爱，短时间内阅读量飙升，这让痞子衡深入鼓舞，所以趁热打铁继续把从Parallel NOR启动也顺便一起讲了，为什么说是顺便呢？因为Parallel NOR与Raw NAND都是并行接口，属于同一门派，且这两种外存设备在i.MXRT内部是通过同一IP（SEMC）实现底层接口通信的，所以了解了Raw NAND启动，再来看Parallel NOR启动会觉得简单很多。话不多说，开讲。  
 
 ### 一、支持的Parallel NOR
-　　依旧开门见山，<font color="Blue">i.MXRT支持加载启动的主要是兼容CFI/JESD68标准且内置EPSCD命令集（这个命令集是目前的主流，最新的NOR产品都是使用这个命令集）的ADM SLC Parallel NOR，至于数据线宽度，x8,x16都支持；关于时钟模式，i.MXRT105x/i.MXRT102x仅支持Asynchronous，i.MXRT106x既支持Asynchronous也支持Synchronous。</font>关于Parallel NOR基本知识请先看一下痞子衡的另一篇文章 [通用NOR接口标准(CFI-JESD68)及SLC Parallel NOR简介](https://www.cnblogs.com/henjay724/p/9251620.html)。    
+　　依旧开门见山，<font color="Blue">i.MXRTyyyy支持加载启动的主要是兼容CFI/JESD68标准且内置EPSCD命令集（这个命令集是目前的主流，最新的NOR产品都是使用这个命令集）的ADM SLC Parallel NOR，至于数据线宽度，x8,x16都支持；关于时钟模式，i.MXRT105x/i.MXRT102x仅支持Asynchronous，i.MXRT106x既支持Asynchronous也支持Synchronous。</font>关于Parallel NOR基本知识请先看一下痞子衡的另一篇文章 [通用NOR接口标准(CFI-JESD68)及SLC Parallel NOR简介](https://www.cnblogs.com/henjay724/p/9251620.html)。    
 　　Parallel NOR厂商非常多，对应Parallel NOR芯片型号也很多，如果你在选型时不确定到底该为i.MXRT选择哪一款Parallel NOR时，可选用下面三款芯片，痞子衡均实测过：  
 
 ```text
@@ -175,5 +175,5 @@ blhost -p COMx -- write-memory 0x90000000 ivt_image.bin
 
 　　上述所有步骤全部完成之后，复位芯片你就应该能看到你放在Parallel NOR里的Application已经正常地启动了。  
 
-　　至此，飞思卡尔i.MX RT系列MCU的Parallel NOR启动痞子衡便介绍完毕了，掌声在哪里~~~ 
+　　至此，飞思卡尔i.MX RTyyyy系列MCU的Parallel NOR启动痞子衡便介绍完毕了，掌声在哪里~~~ 
 

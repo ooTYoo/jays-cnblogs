@@ -1,7 +1,7 @@
 ----
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RT系列MCU的性能**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RTyyyy系列MCU的性能**。  
 
-　　在前面的文章 [i.MXRT微控制器概览](http://www.cnblogs.com/henjay724/p/8556171.html) 里，痞子衡给大家简介过恩智浦半导体在2017年推出的新一代跨界微控制器i.MX RT系列，该系列第一款芯片i.MXRT105x性能完爆同时期市面上所有的微控制器，官方公布的CoreMark跑分高达3020，有人可能不明白这个数字意味着什么，作为对比，我们再来看看意法半导体最流行的芯片STM32F103RB，它的CoreMark是108（此处应该有类似My God的尖叫），真是没有对比就没有伤害，那么i.MXRT105x性能到底有没有这么强？今天痞子衡为大家实测一下。  
+　　在前面的文章 [i.MXRTyyyy微控制器概览](http://www.cnblogs.com/henjay724/p/8556171.html) 里，痞子衡给大家简介过恩智浦半导体在2017年推出的新一代跨界微控制器i.MX RTyyyy系列，该系列第一款芯片i.MXRT105x性能完爆同时期市面上所有的微控制器，官方公布的CoreMark跑分高达3020，有人可能不明白这个数字意味着什么，作为对比，我们再来看看意法半导体最流行的芯片STM32F103RB，它的CoreMark是108（此处应该有类似My God的尖叫），真是没有对比就没有伤害，那么i.MXRT105x性能到底有没有这么强？今天痞子衡为大家实测一下。  
 
 　　关于CoreMark标准的基本知识，痞子衡之前专门写过一篇文章 [微控制器CPU性能测试基准(EEMBC-CoreMark)](http://www.cnblogs.com/henjay724/p/8729364.html) ，本篇就是基于了解CoreMark基本知识之后的一次实践。来，让我们开始吧。  
 
@@ -189,4 +189,4 @@ define symbol m_data_end               = 0x2001FFFF;
 
 　　想偷懒的朋友直接移步痞子衡的github [https://github.com/JayHeng/Cortex-M-Apps](https://github.com/JayHeng/Cortex-M-Apps) 去下载移植好的工程，工程在\Cortex-M-Apps\apps\coremark_imxrt1052\bsp\下面，build8202和build7804分别对应不同的IAR版本。  
 
-　　至此，飞思卡尔i.MX RT系列MCU的CoreMark性能与实测痞子衡便介绍完毕了，掌声在哪里~~~
+　　至此，飞思卡尔i.MX RTyyyy系列MCU的CoreMark性能与实测痞子衡便介绍完毕了，掌声在哪里~~~

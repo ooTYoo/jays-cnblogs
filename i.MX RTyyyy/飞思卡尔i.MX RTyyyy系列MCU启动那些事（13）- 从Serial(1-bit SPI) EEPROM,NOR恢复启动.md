@@ -1,7 +1,7 @@
 ----
-　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RT系列MCU的Serial EEPROM/NOR恢复启动**。  
+　　大家好，我是痞子衡，是正经搞技术的痞子。今天痞子衡给大家介绍的是**飞思卡尔i.MX RTyyyy系列MCU的Serial EEPROM/NOR恢复启动**。  
 
-　　在前几篇里痞子衡介绍的Boot Device都属于主动启动的Primary Boot Device（Serial NOR/NAND, Parallel NOR/NAND， SD/eMMC），试想一下如果遇到这样的情况，你选择启动的某个Primary Boot Device正常工作一段时间后某次开机突然因为某种未知原因无法启动了，此时系统无法正常工作，但如果你希望系统能够有一定的容错/鲁棒能力，即使这种场合下也能够保证基本工作，那应该怎么做？别担心，i.MXRT BootROM提供了一种解决方案，即Recovery Boot机制，BootROM支持Serial EEPROM/NOR作为Recovery Boot Device，你只需要将备份application事先放进Recovery Boot Device即可，任何主动启动的Primary Boot Device启动失败，BootROM会自动启动Recovery Boot Device中的备份application保证系统能正常工作，是不是觉得recovery boot很贴心？今天痞子衡就为大家介绍Recovery Boot：
+　　在前几篇里痞子衡介绍的Boot Device都属于主动启动的Primary Boot Device（Serial NOR/NAND, Parallel NOR/NAND， SD/eMMC），试想一下如果遇到这样的情况，你选择启动的某个Primary Boot Device正常工作一段时间后某次开机突然因为某种未知原因无法启动了，此时系统无法正常工作，但如果你希望系统能够有一定的容错/鲁棒能力，即使这种场合下也能够保证基本工作，那应该怎么做？别担心，i.MXRTyyyy BootROM提供了一种解决方案，即Recovery Boot机制，BootROM支持Serial EEPROM/NOR作为Recovery Boot Device，你只需要将备份application事先放进Recovery Boot Device即可，任何主动启动的Primary Boot Device启动失败，BootROM会自动启动Recovery Boot Device中的备份application保证系统能正常工作，是不是觉得recovery boot很贴心？今天痞子衡就为大家介绍Recovery Boot：
 
 ### 一、支持的Serial EEPROM/NOR
 　　<font color="Blue">i.MXRT支持加载恢复启动的主要是1-bit SPI接口的EEPROM，除此以外市面上有些Serial(QSPI) NOR也兼容EEPROM命令集（即1bit read/normal read模式），所以这些QSPI NOR也能被i.MXRT用作恢复启动。</font>关于Serial EEPROM基本知识请先看一下痞子衡的另一篇文章 [EEPROM接口事实标准及Serial EEPROM简介](https://www.cnblogs.com/henjay724/p/9251620.html)。    
@@ -128,5 +128,5 @@ blhost -p COMx -- write-memory 0x0 ivt_image.bin 0x110
 
 　　上述所有步骤全部完成之后，复位芯片你就应该能看到你放在Serial EEPROM/NOR里的Application已经正常地启动了。  
 
-　　至此，飞思卡尔i.MX RT系列MCU的Serial EEPROM/NOR恢复启动痞子衡便介绍完毕了，掌声在哪里~~~ 
+　　至此，飞思卡尔i.MX RTyyyy系列MCU的Serial EEPROM/NOR恢复启动痞子衡便介绍完毕了，掌声在哪里~~~ 
 
