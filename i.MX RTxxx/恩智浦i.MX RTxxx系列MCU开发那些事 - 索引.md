@@ -7,9 +7,9 @@
 
 ### 介绍篇（持续更新中...0/2）
 > [恩智浦i.MX RTxxx系列MCU特性介绍（1）- 概览]()  
-> [恩智浦i.MX RTxxx系列MCU特性介绍（2）- RT685性能实测(Dhrystone)]()  
+> [恩智浦i.MX RTxxx系列MCU特性介绍（2）- RT685EVKA性能实测(Dhrystone)]()  
 
 ### 启动篇（持续更新中...0/0）
 
-### 标准篇（持续更新中...0/1）
-> [微处理器CPU性能测试基准(Dhrystone)]()  
+### 标准篇（持续更新中...1/1）
+> [微处理器CPU性能测试基准(Dhrystone)](https://www.cnblogs.com/henjay724/p/10856831.html)  
