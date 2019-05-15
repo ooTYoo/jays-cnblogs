@@ -13,6 +13,7 @@
 ### 二、Dhrystone标准
 　　Dhrystone是由Reinhold P. Weicker在1984年提出来的一个基准测试程序，其主要目的是测试处理器的整数运算和逻辑运算的性能。Dhrystone首先用Ada语言发布，后来Rick Richardson为Unix开发了用C语言编写的Version 1.1，这个版本也成功的推动了Dhrystone的广泛应用。  
 　　Dhrystone标准的测试方法很简单，就是单位时间内跑了多少次Dhrystone程序，其指标单位为DMIPS/MHz。MIPS是Million Instructions Per Second的缩写，每秒处理的百万级的机器语言指令数。DMIPS中的D是Dhrystone的缩写，它表示了在Dhrystone标准的测试方法下的MIPS。  
+　　关于DMIPS有一个不得不注意的点，因为历史原因我们把在VAX-11/780机器上的测试结果1757 Dhrystones/s定义为1 DMIPS，因此在其他平台测试到的每秒Dhrystones数应除以1757，才是真正的DMIPS数值，故DMIPS其实表示的是一个相对值。  
 
 #### 2.1 获取程序
 　　Dhrystone程序的最新版本是2.1，其实际上于1988年便已停更。Dhrystone并没有官网，所以想下载其源程序可能会有很多来源，有各种语言版本的实现，以及各种平台下的移植程序。  
