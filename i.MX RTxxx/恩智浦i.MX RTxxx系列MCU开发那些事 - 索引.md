@@ -5,9 +5,10 @@
 
 　　本系列文章会逐一介绍i.MX RTxxx系列微控制器开发相关知识。  
 
-### 介绍篇（持续更新中...0/2）
+### 介绍篇（持续更新中...1/2）
+> [恩智浦i.MX RTxxx系列MCU特性介绍（2）- RT685EVKA性能实测(Dhrystone)](https://www.cnblogs.com/henjay724/p/10868252.html)  
+
 > [恩智浦i.MX RTxxx系列MCU特性介绍（1）- 概览]()  
-> [恩智浦i.MX RTxxx系列MCU特性介绍（2）- RT685EVKA性能实测(Dhrystone)]()  
 
 ### 启动篇（持续更新中...0/0）
 
